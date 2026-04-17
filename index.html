@@ -6,7 +6,7 @@
 <title>Повышение прикуса на практике — Sklyarov Center</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -20,7 +20,7 @@
   --heading: #000000;
   --radius: 12px;
   --max-w: 860px;
-  --font-heading: Georgia, 'Times New Roman', serif;
+  --font-heading: 'Montserrat', sans-serif;
   --font-body: 'Manrope', -apple-system, sans-serif;
 }
 
@@ -62,6 +62,37 @@ h3 { font-size: 22px; font-weight: 700; }
 
 section { padding: 80px 0; }
 section.alt { background: var(--bg-alt); }
+
+
+/* — Countdown — */
+.cd-item {
+  text-align: center;
+}
+
+.cd-item span {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 32px;
+  color: var(--heading);
+  display: block;
+  min-width: 48px;
+}
+
+.cd-item small {
+  font-size: 11px;
+  color: #999;
+  text-transform: lowercase;
+}
+
+.cd-sep {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 28px;
+  color: #ccc;
+  padding: 0 2px;
+  align-self: flex-start;
+  margin-top: 2px;
+}
 
 /* — Button — */
 .btn {
@@ -119,7 +150,7 @@ section.alt { background: var(--bg-alt); }
 
 .price-now {
   font-family: var(--font-heading);
-  font-weight: 900;
+  font-weight: 700;
   font-size: 36px;
   color: var(--heading);
 }
@@ -138,7 +169,13 @@ section.alt { background: var(--bg-alt); }
   color: #666;
 }
 
-.hero-timer-label { margin-bottom: 4px; font-weight: 500; }
+.hero-timer-label { margin-bottom: 8px; font-weight: 500; }
+
+.countdown {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
 
 .hero-bonuses {
   margin-top: 20px;
@@ -470,8 +507,15 @@ footer {
 
         <div class="hero-timer">
           <div class="hero-timer-label">До повышения цены:</div>
-          <div id="megatimer-widget" style="min-height:50px;"><!-- megatimer loads here --></div>
-          <!-- Megatimer script moved to bottom of page to prevent scroll blocking -->
+          <div id="countdown" class="countdown">
+            <div class="cd-item"><span id="cd-days">00</span><small>дней</small></div>
+            <div class="cd-sep">:</div>
+            <div class="cd-item"><span id="cd-hours">00</span><small>часов</small></div>
+            <div class="cd-sep">:</div>
+            <div class="cd-item"><span id="cd-mins">00</span><small>минут</small></div>
+            <div class="cd-sep">:</div>
+            <div class="cd-item"><span id="cd-secs">00</span><small>секунд</small></div>
+          </div>
         </div>
 
         <a href="#pricing" class="btn">Записаться на мастер-класс</a>
@@ -602,7 +646,7 @@ footer {
       </div>
       <button class="btn" onclick="openPayment()">Оплатить участие</button>
       <div class="pricing-foreign">
-        <a href="#faq" onclick="openPayment(); return false;">Оплатить зарубежной картой →</a>
+        <a href="https://max.ru/u/f9LHodD0cOIBmrJ3C9EYx1Ke-GJwAbPhwnIs0GYNxjg9msJGoaypsXkrl7I" target="_blank">Оплатить зарубежной картой →</a>
       </div>
     </div>
   </div>
@@ -612,16 +656,24 @@ footer {
   <div class="container">
     <h2>Частые вопросы</h2>
     <div class="faq-item">
+      <button class="faq-q">Когда пройдёт мастер-класс? <span class="ic">+</span></button>
+      <div class="faq-a"><p>Мастер-класс пройдёт 3 мая в 14:00 МСК.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">Сколько будет длиться мастер-класс? <span class="ic">+</span></button>
+      <div class="faq-a"><p>Мастер-класс будет длиться 2 часа, далее пройдёт сессия вопрос-ответ.</p></div>
+    </div>
+    <div class="faq-item">
       <button class="faq-q">Будет ли запись мастер-класса? <span class="ic">+</span></button>
       <div class="faq-a"><p>Да, запись будет доступна в личном кабинете на GetCourse в течение 3 месяцев после мастер-класса.</p></div>
     </div>
     <div class="faq-item">
       <button class="faq-q">Можно ли оплатить зарубежной картой? <span class="ic">+</span></button>
-      <div class="faq-a"><p>Да, оплата зарубежной картой возможна. Свяжитесь с нами в <a href="https://wa.me/79770891702?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%BE%D0%BF%D0%BB%D0%B0%D1%82%D0%B8%D1%82%D1%8C%20%D0%B7%D0%B0%D1%80%D1%83%D0%B1%D0%B5%D0%B6%D0%BD%D0%BE%D0%B9%20%D0%BA%D0%B0%D1%80%D1%82%D0%BE%D0%B9">WhatsApp</a> или <a href="https://t.me/+79770891702">Telegram</a> для получения инструкции.</p></div>
+      <div class="faq-a"><p>Да, оплата зарубежной картой возможна. Вы можете оплатить через <a href="https://max.ru/u/f9LHodD0cOIBmrJ3C9EYx1Ke-GJwAbPhwnIs0GYNxjg9msJGoaypsXkrl7I">Max</a>, или свяжитесь с нами в <a href="https://wa.me/79770891702?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%BE%D0%BF%D0%BB%D0%B0%D1%82%D0%B8%D1%82%D1%8C%20%D0%B7%D0%B0%D1%80%D1%83%D0%B1%D0%B5%D0%B6%D0%BD%D0%BE%D0%B9%20%D0%BA%D0%B0%D1%80%D1%82%D0%BE%D0%B9">WhatsApp</a> или <a href="https://t.me/+79770891702">Telegram</a> для получения инструкции.</p></div>
     </div>
     <div class="faq-item">
       <button class="faq-q">Я оплатил(-а), но не пришёл доступ <span class="ic">+</span></button>
-      <div class="faq-a"><p>Проверьте папку «Спам» в почте. Если письма нет — напишите нам в <a href="https://wa.me/79770891702?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%9D%D0%B5%20%D0%BF%D1%80%D0%B8%D1%88%D0%B5%D0%BB%20%D0%B4%D0%BE%D1%81%D1%82%D1%83%D0%BF">WhatsApp</a> или <a href="https://t.me/+79770891702">Telegram</a>, поможем разобраться.</p></div>
+      <div class="faq-a"><p>Проверьте папку «Спам» в почте. Если письма нет — напишите нам в <a href="https://max.ru/u/f9LHodD0cOIBmrJ3C9EYx1Ke-GJwAbPhwnIs0GYNxjg9msJGoaypsXkrl7I">Max</a>, <a href="https://wa.me/79770891702?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%9D%D0%B5%20%D0%BF%D1%80%D0%B8%D1%88%D0%B5%D0%BB%20%D0%B4%D0%BE%D1%81%D1%82%D1%83%D0%BF">WhatsApp</a> или <a href="https://t.me/+79770891702">Telegram</a>, поможем разобраться.</p></div>
     </div>
   </div>
 </section>
@@ -634,6 +686,7 @@ footer {
       <div class="footer-links">
         <a href="https://wa.me/79770891702?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%A3%20%D0%BC%D0%B5%D0%BD%D1%8F%20%D0%B2%D0%BE%D0%B7%D0%BD%D0%B8%D0%BA%20%D0%B2%D0%BE%D0%BF%D1%80%D0%BE%D1%81%20%D0%BF%D0%BE%20%D0%BC%D0%B0%D1%81%D1%82%D0%B5%D1%80-%D0%BA%D0%BB%D0%B0%D1%81%D1%81%D1%83" target="_blank">WhatsApp</a>
         <a href="https://t.me/+79770891702" target="_blank">Telegram</a>
+        <a href="#" onclick="openLegal(); return false;">Юридическая информация</a>
       </div>
     </div>
   </div>
@@ -645,16 +698,6 @@ document.querySelectorAll('.faq-q').forEach(function(btn) {
     btn.closest('.faq-item').classList.toggle('open');
   });
 });
-
-// Load megatimer in isolated container to prevent scroll blocking
-(function() {
-  var container = document.getElementById('megatimer-widget');
-  if (container) {
-    var s = document.createElement('script');
-    s.src = '//megatimer.ru/get/678e509aa3b33c7a58b3405c2a7f7a0d.js';
-    container.appendChild(s);
-  }
-})();
 
 // Aggressively fix scroll - watch for any changes to overflow
 var observer = new MutationObserver(function() {
@@ -692,8 +735,13 @@ function closePayment() {
 }
 
 // Close on overlay click (not modal)
-document.getElementById('pay-overlay').addEventListener('click', function(e) {
-  if (e.target === this) closePayment();
+document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById('pay-overlay').addEventListener('click', function(e) {
+    if (e.target === this) closePayment();
+  });
+  document.getElementById('legal-overlay').addEventListener('click', function(e) {
+    if (e.target === this) closeLegal();
+  });
 });
 
 // Close on Escape key
@@ -709,7 +757,64 @@ document.addEventListener('keydown', function(e) {
   <div id="pay-modal" style="background:#fff; border-radius:12px; padding:24px; width:90%; max-width:480px; max-height:90vh; overflow-y:auto; position:relative; box-shadow:0 20px 60px rgba(0,0,0,0.3);">
     <button onclick="closePayment()" style="position:absolute; top:12px; right:16px; background:none; border:none; font-size:24px; cursor:pointer; color:#999; line-height:1;">&times;</button>
     <div id="pay-widget">
-      <script id="173aa51a9c3a4f2b6d863b572040b2e73d534520" src="https://school-sklyarovcenter.ru/pl/lite/widget/script?id=1591244"></script>
+      <script id="173aa51a9c3a4f2b6d863b572040b2e73d534520" src="https://school-sklyarovcenter.ru/pl/lite/widget/script?id=1591244">
+function openLegal() {
+  var o = document.getElementById('legal-overlay');
+  o.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+function closeLegal() {
+  var o = document.getElementById('legal-overlay');
+  o.style.display = 'none';
+  document.body.style.overflow = '';
+}
+
+
+// Countdown timer to April 30, 2025 23:59:59 MSK
+(function() {
+  var deadline = new Date('2025-04-30T23:59:59+03:00').getTime();
+  function tick() {
+    var now = new Date().getTime();
+    var diff = deadline - now;
+    if (diff <= 0) {
+      document.getElementById('cd-days').textContent = '00';
+      document.getElementById('cd-hours').textContent = '00';
+      document.getElementById('cd-mins').textContent = '00';
+      document.getElementById('cd-secs').textContent = '00';
+      return;
+    }
+    var d = Math.floor(diff / 86400000);
+    var h = Math.floor((diff % 86400000) / 3600000);
+    var m = Math.floor((diff % 3600000) / 60000);
+    var s = Math.floor((diff % 60000) / 1000);
+    document.getElementById('cd-days').textContent = d < 10 ? '0' + d : d;
+    document.getElementById('cd-hours').textContent = h < 10 ? '0' + h : h;
+    document.getElementById('cd-mins').textContent = m < 10 ? '0' + m : m;
+    document.getElementById('cd-secs').textContent = s < 10 ? '0' + s : s;
+  }
+  tick();
+  setInterval(tick, 1000);
+})();
+</script>
+    </div>
+  </div>
+</div>
+
+<!-- Legal info popup -->
+<div id="legal-overlay" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.6); z-index:9999; justify-content:center; align-items:center;">
+  <div style="background:#fff; border-radius:12px; padding:32px; width:90%; max-width:520px; max-height:90vh; overflow-y:auto; position:relative; box-shadow:0 20px 60px rgba(0,0,0,0.3);">
+    <button onclick="closeLegal()" style="position:absolute; top:12px; right:16px; background:none; border:none; font-size:24px; cursor:pointer; color:#999; line-height:1;">&times;</button>
+    <h3 style="font-family:var(--font-heading); margin-bottom:20px; font-size:20px;">Юридическая информация</h3>
+    <div style="display:flex; flex-direction:column; gap:12px; font-size:15px;">
+      <p>Министерство науки и высшего образования Российской Федерации</p>
+      <p>Министерство просвещения Российской Федерации</p>
+      <p>Политика работы с персональными данными</p>
+      <p>Пользовательское соглашение</p>
+      <p>Оферта</p>
+      <p>Согласие на обработку персональных данных</p>
+      <p>Договор 1</p>
+      <p>Договор 2</p>
+      <p>Договор 3</p>
     </div>
   </div>
 </div>
