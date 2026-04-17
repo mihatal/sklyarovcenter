@@ -24,7 +24,12 @@
   --font-body: 'Manrope', -apple-system, sans-serif;
 }
 
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  overflow-y: auto !important;
+  height: auto !important;
+}
 
 body {
   font-family: var(--font-body);
@@ -33,6 +38,10 @@ body {
   color: var(--text);
   background: var(--bg);
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  overflow-y: auto !important;
+  height: auto !important;
+  min-height: 100vh;
 }
 
 h1, h2, h3 {
@@ -461,7 +470,8 @@ footer {
 
         <div class="hero-timer">
           <div class="hero-timer-label">До повышения цены:</div>
-          <script src="//megatimer.ru/get/678e509aa3b33c7a58b3405c2a7f7a0d.js"></script>
+          <div id="megatimer-widget" style="min-height:50px;"><!-- megatimer loads here --></div>
+          <!-- Megatimer script moved to bottom of page to prevent scroll blocking -->
         </div>
 
         <a href="#pricing" class="btn">Записаться на мастер-класс</a>
@@ -629,13 +639,51 @@ footer {
   </div>
 </footer>
 
-<script id="173aa51a9c3a4f2b6d863b572040b2e73d534520" src="https://school-sklyarovcenter.ru/pl/lite/widget/script?id=1591244"></script>
-
 <script>
 document.querySelectorAll('.faq-q').forEach(function(btn) {
   btn.addEventListener('click', function() {
     btn.closest('.faq-item').classList.toggle('open');
   });
+});
+
+// Load megatimer in isolated container to prevent scroll blocking
+(function() {
+  var container = document.getElementById('megatimer-widget');
+  if (container) {
+    var s = document.createElement('script');
+    s.src = '//megatimer.ru/get/678e509aa3b33c7a58b3405c2a7f7a0d.js';
+    container.appendChild(s);
+  }
+})();
+
+// Aggressively fix scroll - watch for any changes to overflow
+var observer = new MutationObserver(function() {
+  if (document.body.style.overflow === 'hidden' || document.documentElement.style.overflow === 'hidden') {
+    document.body.style.setProperty('overflow', 'visible', 'important');
+    document.documentElement.style.setProperty('overflow', 'visible', 'important');
+  }
+});
+observer.observe(document.body, { attributes: true, attributeFilter: ['style'] });
+observer.observe(document.documentElement, { attributes: true, attributeFilter: ['style'] });
+
+// Also watch for added style tags or classes
+setInterval(function() {
+  document.body.style.setProperty('overflow-y', 'auto', 'important');
+  document.body.style.setProperty('position', 'static', 'important');
+  document.body.style.setProperty('height', 'auto', 'important');
+  document.documentElement.style.setProperty('overflow-y', 'auto', 'important');
+  document.documentElement.style.setProperty('position', 'static', 'important');
+  document.documentElement.style.setProperty('height', 'auto', 'important');
+}, 500);
+
+// Load GetCourse widget after page is ready
+window.addEventListener('load', function() {
+  setTimeout(function() {
+    var gc = document.createElement('script');
+    gc.id = '173aa51a9c3a4f2b6d863b572040b2e73d534520';
+    gc.src = 'https://school-sklyarovcenter.ru/pl/lite/widget/script?id=1591244';
+    document.body.appendChild(gc);
+  }, 1000);
 });
 </script>
 
