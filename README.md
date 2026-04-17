@@ -30,7 +30,7 @@
   --max-w: 860px;
 }
 
-html { scroll-behavior: smooth; }
+
 
 body {
   font-family: 'Manrope', sans-serif;
@@ -501,6 +501,10 @@ footer {
   }
 
   .footer-links a { margin: 0 10px; }
+}
+body {
+  height: auto !important;
+  overflow: auto !important;
 }
 </style>
 </head>
