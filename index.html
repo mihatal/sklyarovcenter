@@ -600,9 +600,9 @@ footer {
         </div>
         <div class="price-usd" style="margin-top:8px;">103$ <span style="text-decoration:line-through;color:#bbb">115$</span></div>
       </div>
-      <button class="btn">Оплатить участие</button>
+      <button class="btn" onclick="openPayment()">Оплатить участие</button>
       <div class="pricing-foreign">
-        <a href="#faq">Оплатить зарубежной картой →</a>
+        <a href="#faq" onclick="openPayment(); return false;">Оплатить зарубежной картой →</a>
       </div>
     </div>
   </div>
@@ -676,16 +676,42 @@ setInterval(function() {
   document.documentElement.style.setProperty('height', 'auto', 'important');
 }, 500);
 
-// Load GetCourse widget after page is ready
-window.addEventListener('load', function() {
-  setTimeout(function() {
-    var gc = document.createElement('script');
-    gc.id = '173aa51a9c3a4f2b6d863b572040b2e73d534520';
-    gc.src = 'https://school-sklyarovcenter.ru/pl/lite/widget/script?id=1591244';
-    document.body.appendChild(gc);
-  }, 1000);
+
+
+
+function openPayment() {
+  var overlay = document.getElementById('pay-overlay');
+  overlay.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+
+function closePayment() {
+  var overlay = document.getElementById('pay-overlay');
+  overlay.style.display = 'none';
+  document.body.style.overflow = '';
+}
+
+// Close on overlay click (not modal)
+document.getElementById('pay-overlay').addEventListener('click', function(e) {
+  if (e.target === this) closePayment();
 });
+
+// Close on Escape key
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closePayment();
+});
+
 </script>
 
+
+<!-- Payment popup overlay -->
+<div id="pay-overlay" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.6); z-index:9999; justify-content:center; align-items:center;">
+  <div id="pay-modal" style="background:#fff; border-radius:12px; padding:24px; width:90%; max-width:480px; max-height:90vh; overflow-y:auto; position:relative; box-shadow:0 20px 60px rgba(0,0,0,0.3);">
+    <button onclick="closePayment()" style="position:absolute; top:12px; right:16px; background:none; border:none; font-size:24px; cursor:pointer; color:#999; line-height:1;">&times;</button>
+    <div id="pay-widget">
+      <script id="173aa51a9c3a4f2b6d863b572040b2e73d534520" src="https://school-sklyarovcenter.ru/pl/lite/widget/script?id=1591244"></script>
+    </div>
+  </div>
+</div>
 </body>
 </html>
