@@ -1,21 +1,13 @@
+<!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Повышение прикуса на практике — Sklyarov Center</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
- 
-.roboto-<uniquifier> {
-  font-family: "Roboto", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: <weight>;
-  font-style: normal;
-  font-variation-settings:
-    "wdth" 100;
-}
-  
-
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
@@ -25,15 +17,17 @@
   --bg-alt: #F7F7F9;
   --border: #E0E0E0;
   --text: #3A3A3A;
-  --text-heading: #000000;
+  --heading: #000000;
   --radius: 12px;
   --max-w: 860px;
+  --font-heading: Georgia, 'Times New Roman', serif;
+  --font-body: 'Manrope', -apple-system, sans-serif;
 }
 
-
+html { scroll-behavior: smooth; }
 
 body {
-  font-family: 'Manrope', sans-serif;
+  font-family: var(--font-body);
   font-size: 17px;
   line-height: 1.65;
   color: var(--text);
@@ -42,10 +36,9 @@ body {
 }
 
 h1, h2, h3 {
-  font-family: 'roboto', Georgia, serif;
-  color: var(--text-heading);
+  font-family: var(--font-heading);
+  color: var(--heading);
   line-height: 1.15;
-  letter-spacing: -0.01em;
 }
 
 h1 { font-size: clamp(34px, 5.5vw, 52px); font-weight: 700; }
@@ -59,28 +52,27 @@ h3 { font-size: 22px; font-weight: 700; }
 }
 
 section { padding: 80px 0; }
-section.alt-bg { background: var(--bg-alt); }
+section.alt { background: var(--bg-alt); }
 
-/* ===== CTA BUTTON ===== */
+/* — Button — */
 .btn {
   display: inline-block;
   padding: 16px 40px;
   background: var(--accent);
   color: #fff;
-  font-family: 'Manrope', sans-serif;
+  font-family: var(--font-body);
   font-size: 16px;
   font-weight: 600;
   text-decoration: none;
   border-radius: 50px;
   border: none;
   cursor: pointer;
-  transition: background 0.2s, transform 0.2s;
-  letter-spacing: 0.01em;
+  transition: background .2s, transform .2s;
 }
 .btn:hover { background: var(--accent-hover); transform: translateY(-1px); }
 
-/* ===== HERO ===== */
-.hero { padding: 60px 0 80px; background: var(--bg); }
+/* — Hero — */
+.hero { padding: 60px 0 80px; }
 
 .hero-inner {
   display: flex;
@@ -95,51 +87,41 @@ section.alt-bg { background: var(--bg-alt); }
   font-size: 13px;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
+  letter-spacing: .12em;
   color: var(--accent);
   margin-bottom: 16px;
 }
 
 .hero-title { margin-bottom: 20px; }
 
-.hero-subtitle {
+.hero-sub {
   font-size: 18px;
-  color: var(--text);
   margin-bottom: 24px;
   max-width: 480px;
-}
-
-.hero-author {
-  font-size: 15px;
-  color: #666;
-  margin-bottom: 32px;
 }
 
 .hero-pricing {
   display: flex;
   align-items: baseline;
   gap: 12px;
-  margin-bottom: 8px;
   flex-wrap: wrap;
+  margin-bottom: 8px;
 }
 
-.price-current {
-  font-family: 'roboto', Georgia, serif;
+.price-now {
+  font-family: var(--font-heading);
   font-weight: 900;
   font-size: 36px;
-  color: var(--text-heading);
+  color: var(--heading);
 }
 
-.price-old {
+.price-was {
   font-size: 20px;
   color: #999;
   text-decoration: line-through;
 }
 
-.price-usd {
-  font-size: 15px;
-  color: #888;
-}
+.price-usd { font-size: 15px; color: #888; }
 
 .hero-timer {
   margin: 16px 0 28px;
@@ -161,15 +143,9 @@ section.alt-bg { background: var(--bg-alt); }
   text-align: center;
 }
 
-.hero-photo {
+.hero-photo-wrap img {
   width: 100%;
-}
-
-.hero-photo img {
-  width: 100%;
-  height: auto;
   border-radius: var(--radius);
-  object-fit: cover;
 }
 
 .hero-photo-caption {
@@ -179,8 +155,8 @@ section.alt-bg { background: var(--bg-alt); }
   line-height: 1.5;
 }
 
-/* ===== PROBLEM ===== */
-.problem-intro {
+/* — Pain — */
+.pain-intro {
   font-size: 19px;
   margin-bottom: 40px;
   max-width: 640px;
@@ -198,18 +174,18 @@ section.alt-bg { background: var(--bg-alt); }
   background: var(--bg);
   border: 1px solid var(--border);
   border-radius: var(--radius);
+  font-size: 16px;
+  line-height: 1.6;
 }
 
-.pain-card p { font-size: 16px; line-height: 1.6; }
-
-/* ===== PROGRAM ===== */
-.program-list {
+/* — Program — */
+.prog-list {
   list-style: none;
-  counter-reset: prog;
+  counter-reset: p;
 }
 
-.program-list li {
-  counter-increment: prog;
+.prog-list li {
+  counter-increment: p;
   padding: 20px 0;
   border-bottom: 1px solid var(--border);
   font-size: 16px;
@@ -218,9 +194,9 @@ section.alt-bg { background: var(--bg-alt); }
   gap: 16px;
 }
 
-.program-list li::before {
-  content: counter(prog, decimal-leading-zero);
-  font-family: 'roboto', Georgia, serif;
+.prog-list li::before {
+  content: counter(p, decimal-leading-zero);
+  font-family: var(--font-heading);
   font-size: 14px;
   color: var(--accent);
   font-weight: 700;
@@ -228,9 +204,9 @@ section.alt-bg { background: var(--bg-alt); }
   width: 28px;
 }
 
-.program-list li:last-child { border-bottom: none; }
+.prog-list li:last-child { border-bottom: none; }
 
-.program-highlight {
+.prog-highlight {
   background: var(--accent);
   color: #fff;
   border-radius: var(--radius);
@@ -239,9 +215,9 @@ section.alt-bg { background: var(--bg-alt); }
   font-size: 16px;
 }
 
-.program-cta { margin-top: 40px; text-align: center; }
+.prog-cta { margin-top: 40px; text-align: center; }
 
-/* ===== RESULTS ===== */
+/* — Results — */
 .results-list {
   list-style: none;
   display: flex;
@@ -258,7 +234,7 @@ section.alt-bg { background: var(--bg-alt); }
   line-height: 1.6;
 }
 
-/* ===== SPEAKER ===== */
+/* — Speaker — */
 .speaker-inner {
   display: flex;
   gap: 48px;
@@ -266,38 +242,29 @@ section.alt-bg { background: var(--bg-alt); }
 }
 
 .speaker-photo { flex: 0 0 260px; }
-
-.speaker-photo img {
-  width: 100%;
-  border-radius: var(--radius);
-  object-fit: cover;
-}
-
+.speaker-photo img { width: 100%; border-radius: var(--radius); }
 .speaker-info { flex: 1; }
 
-.speaker-name {
-  font-size: 28px;
-  margin-bottom: 8px;
-}
+.speaker-name { font-size: 28px; margin-bottom: 8px; }
 
-.speaker-title {
+.speaker-role {
   color: #666;
   font-size: 16px;
   margin-bottom: 24px;
 }
 
-.speaker-credentials {
+.speaker-creds {
   list-style: none;
   margin-bottom: 28px;
 }
 
-.speaker-credentials li {
+.speaker-creds li {
   padding: 8px 0;
   font-size: 15px;
   border-bottom: 1px solid var(--border);
 }
 
-.speaker-credentials li:last-child { border-bottom: none; }
+.speaker-creds li:last-child { border-bottom: none; }
 
 .speaker-quote {
   font-style: italic;
@@ -308,7 +275,7 @@ section.alt-bg { background: var(--bg-alt); }
   margin-top: 8px;
 }
 
-/* ===== REVIEWS ===== */
+/* — Reviews — */
 .reviews-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -329,10 +296,10 @@ section.alt-bg { background: var(--bg-alt); }
   color: #444;
 }
 
-.review-text::before { content: '«'; color: var(--accent); font-size: 20px; }
-.review-text::after { content: '»'; color: var(--accent); font-size: 20px; }
+.review-text::before { content: '\00AB'; color: var(--accent); font-size: 20px; }
+.review-text::after { content: '\00BB'; color: var(--accent); font-size: 20px; }
 
-/* ===== PRICING ===== */
+/* — Pricing — */
 .pricing-card {
   max-width: 520px;
   margin: 0 auto;
@@ -343,18 +310,15 @@ section.alt-bg { background: var(--bg-alt); }
   background: var(--bg);
 }
 
-.pricing-card h3 {
-  font-size: 24px;
-  margin-bottom: 24px;
-}
+.pricing-card h3 { font-size: 24px; margin-bottom: 24px; }
 
-.pricing-includes {
+.pricing-list {
   list-style: none;
   text-align: left;
   margin-bottom: 32px;
 }
 
-.pricing-includes li {
+.pricing-list li {
   padding: 10px 0;
   font-size: 15px;
   border-bottom: 1px solid #eee;
@@ -362,43 +326,35 @@ section.alt-bg { background: var(--bg-alt); }
   position: relative;
 }
 
-.pricing-includes li::before {
-  content: '✓';
+.pricing-list li::before {
+  content: '\2713';
   position: absolute;
   left: 0;
   color: var(--accent);
   font-weight: 700;
 }
 
-.pricing-includes li:last-child { border-bottom: none; }
-
-.pricing-includes li.highlight-item {
-  font-weight: 600;
-  color: var(--text-heading);
-}
+.pricing-list li:last-child { border-bottom: none; }
+.pricing-list li.hl { font-weight: 600; color: var(--heading); }
 
 .pricing-prices { margin-bottom: 28px; }
 
-.pricing-foreign {
-  margin-top: 16px;
-  font-size: 14px;
-}
-
+.pricing-foreign { margin-top: 16px; font-size: 14px; }
 .pricing-foreign a { color: var(--accent); text-decoration: underline; }
 
-/* ===== FAQ ===== */
+/* — FAQ — */
 .faq-item { border-bottom: 1px solid var(--border); }
 
-.faq-question {
+.faq-q {
   width: 100%;
   background: none;
   border: none;
   padding: 24px 0;
   text-align: left;
-  font-family: 'Manrope', sans-serif;
+  font-family: var(--font-body);
   font-size: 16px;
   font-weight: 600;
-  color: var(--text-heading);
+  color: var(--heading);
   cursor: pointer;
   display: flex;
   justify-content: space-between;
@@ -406,35 +362,35 @@ section.alt-bg { background: var(--bg-alt); }
   gap: 16px;
 }
 
-.faq-question .faq-icon {
+.faq-q .ic {
   font-size: 22px;
   color: var(--accent);
   flex-shrink: 0;
-  transition: transform 0.2s;
+  transition: transform .2s;
 }
 
-.faq-item.open .faq-icon { transform: rotate(45deg); }
+.faq-item.open .ic { transform: rotate(45deg); }
 
-.faq-answer {
+.faq-a {
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.3s ease;
+  transition: max-height .3s ease;
 }
 
-.faq-item.open .faq-answer { max-height: 300px; }
+.faq-item.open .faq-a { max-height: 300px; }
 
-.faq-answer p {
+.faq-a p {
   padding-bottom: 24px;
   font-size: 15px;
   color: #555;
 }
 
-.faq-answer a { color: var(--accent); }
+.faq-a a { color: var(--accent); }
 
-/* ===== FOOTER ===== */
+/* — Footer — */
 footer {
   padding: 40px 0;
-  background: var(--text-heading);
+  background: var(--heading);
   color: #aaa;
   font-size: 14px;
 }
@@ -448,80 +404,58 @@ footer {
 }
 
 .footer-brand {
-  font-family: 'roboto', Georgia, serif;
+  font-family: var(--font-heading);
   font-weight: 700;
   font-size: 16px;
   color: #fff;
-  letter-spacing: 0.08em;
+  letter-spacing: .08em;
 }
 
 .footer-links a {
   color: #aaa;
   text-decoration: none;
   margin-left: 20px;
-  transition: color 0.2s;
+  transition: color .2s;
 }
 
 .footer-links a:hover { color: #fff; }
 
-/* ===== RESPONSIVE ===== */
+/* — Mobile — */
 @media (max-width: 768px) {
   section { padding: 56px 0; }
 
-  .hero-inner {
-    flex-direction: column;
-    gap: 32px;
-    text-align: center;
-  }
-
+  .hero-inner { flex-direction: column; gap: 32px; text-align: center; }
   .hero-photo-wrap { flex: none; width: 240px; margin: 0 auto; }
-  .hero-subtitle { margin: 0 auto 24px; }
+  .hero-sub { margin: 0 auto 24px; }
   .hero-pricing { justify-content: center; }
   .hero-timer { text-align: center; }
 
-  .pain-grid,
-  .reviews-grid {
-    grid-template-columns: 1fr;
-  }
+  .pain-grid, .reviews-grid { grid-template-columns: 1fr; }
 
-  .speaker-inner {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-
+  .speaker-inner { flex-direction: column; align-items: center; text-align: center; }
   .speaker-photo { flex: none; width: 200px; }
   .speaker-quote { text-align: left; }
 
   .pricing-card { padding: 36px 24px; }
 
-  .footer-inner {
-    flex-direction: column;
-    text-align: center;
-  }
-
+  .footer-inner { flex-direction: column; text-align: center; }
   .footer-links a { margin: 0 10px; }
-}
-body {
-  height: auto !important;
-  overflow: auto !important;
 }
 </style>
 </head>
 <body>
 
-<!-- ===== HERO ===== -->
 <section class="hero">
   <div class="container">
     <div class="hero-inner">
       <div class="hero-text">
         <span class="hero-label">Онлайн мастер-класс · 3 мая</span>
         <h1 class="hero-title">Повышение прикуса<br>на практике</h1>
-        <p class="hero-subtitle">Простой, пошаговый, безопасный алгоритм для предсказуемых результатов без осложнений</p>
+        <p class="hero-sub">Простой, пошаговый, безопасный алгоритм для предсказуемых результатов без осложнений</p>
 
         <div class="hero-pricing">
-          <span class="price-current">7 900 ₽</span>
-          <span class="price-old">9 900 ₽</span>
+          <span class="price-now">7 900 ₽</span>
+          <span class="price-was">9 900 ₽</span>
           <span class="price-usd">103$ <span style="text-decoration:line-through;color:#bbb">115$</span></span>
         </div>
 
@@ -537,42 +471,30 @@ body {
         </div>
       </div>
       <div class="hero-photo-wrap">
-        <div class="hero-photo">
-          <img src="https://i.imgur.com/J6FfRXk.png" alt="Илья Скляров — врач-ортопед, к.м.н.">
-        </div>
+        <img src="https://i.imgur.com/J6FfRXk.png" alt="Илья Скляров">
         <p class="hero-photo-caption">Илья Скляров — врач-ортопед, к.м.н.,<br>основатель SmileClinic</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ===== PROBLEM ===== -->
-<section id="problem" class="alt-bg">
+<section id="problem" class="alt">
   <div class="container">
     <h2>Знакомо?</h2>
-    <p class="problem-intro">Ошибка даже на 1–2 мм может кардинально повлиять на работу суставов, баланс мышц и эстетику лица.</p>
+    <p class="pain-intro">Ошибка даже на 1–2 мм может кардинально повлиять на работу суставов, баланс мышц и эстетику лица.</p>
     <div class="pain-grid">
-      <div class="pain-card">
-        <p>Боитесь получить обострение в суставе или мышечный спазм после изменения высоты прикуса</p>
-      </div>
-      <div class="pain-card">
-        <p>Не знаете, от какой точки отталкиваться, и работаете «на глаз» вместо протокола</p>
-      </div>
-      <div class="pain-card">
-        <p>Не понимаете, когда прикус нужно повышать, а когда — снижать</p>
-      </div>
-      <div class="pain-card">
-        <p>Избегаете тотальных работ из страха навредить суставу или увеличить нижнюю треть лица</p>
-      </div>
+      <div class="pain-card">Боитесь получить обострение в суставе или мышечный спазм после изменения высоты прикуса</div>
+      <div class="pain-card">Не знаете, от какой точки отталкиваться, и работаете «на глаз» вместо протокола</div>
+      <div class="pain-card">Не понимаете, когда прикус нужно повышать, а когда — снижать</div>
+      <div class="pain-card">Избегаете тотальных работ из страха навредить суставу или увеличить нижнюю треть лица</div>
     </div>
   </div>
 </section>
 
-<!-- ===== PROGRAM ===== -->
 <section id="program">
   <div class="container">
     <h2>Программа мастер-класса</h2>
-    <ol class="program-list">
+    <ol class="prog-list">
       <li>3 подхода к повышению прикуса: эстетический, функциональный, структурный</li>
       <li>Формулы расчёта повышения высоты прикуса</li>
       <li>Повышение прикуса при различных скелетных классах</li>
@@ -582,17 +504,16 @@ body {
       <li>Чек-лист по выявлению противопоказаний</li>
       <li>Разборы мифов, связанных с повышением прикуса</li>
     </ol>
-    <div class="program-highlight">
+    <div class="prog-highlight">
       Онлайн-сессия «вопрос-ответ» с Ильёй Скляровым — 45–60 минут живого общения
     </div>
-    <div class="program-cta">
+    <div class="prog-cta">
       <a href="#pricing" class="btn">Записаться на мастер-класс</a>
     </div>
   </div>
 </section>
 
-<!-- ===== RESULTS ===== -->
-<section id="results" class="alt-bg">
+<section id="results" class="alt">
   <div class="container">
     <h2>Что вы получите</h2>
     <ul class="results-list">
@@ -606,7 +527,6 @@ body {
   </div>
 </section>
 
-<!-- ===== SPEAKER ===== -->
 <section id="speaker">
   <div class="container">
     <h2>Спикер</h2>
@@ -616,8 +536,8 @@ body {
       </div>
       <div class="speaker-info">
         <h3 class="speaker-name">Илья Скляров</h3>
-        <p class="speaker-title">Врач-ортопед, к.м.н., основатель и главный идеолог SmileClinic</p>
-        <ul class="speaker-credentials">
+        <p class="speaker-role">Врач-ортопед, к.м.н., основатель и главный идеолог SmileClinic</p>
+        <ul class="speaker-creds">
           <li>Клиника в ТОП лучших клиник мира (Leading Dental Centers of The World)</li>
           <li>Лучший стоматолог-ортопед 2024 (Startsmile TOP & Forbes)</li>
           <li>Первый в России сертифицированный ментор KoisCenter (Сиэтл, США)</li>
@@ -631,8 +551,7 @@ body {
   </div>
 </section>
 
-<!-- ===== REVIEWS ===== -->
-<section id="reviews" class="alt-bg">
+<section id="reviews" class="alt">
   <div class="container">
     <h2>Отзывы участников</h2>
     <div class="reviews-grid">
@@ -652,27 +571,26 @@ body {
   </div>
 </section>
 
-<!-- ===== PRICING ===== -->
 <section id="pricing">
   <div class="container">
     <h2 style="text-align:center;">Участие в мастер-классе</h2>
     <div class="pricing-card">
       <h3>Повышение прикуса на практике</h3>
-      <ul class="pricing-includes">
+      <ul class="pricing-list">
         <li>Онлайн мастер-класс</li>
         <li>Лайф-сессия «вопрос-ответ» с Ильёй Скляровым</li>
         <li>Рабочая тетрадь и полезные материалы</li>
-        <li class="highlight-item">Именной сертификат с подписью Ильи Склярова</li>
+        <li class="hl">Именной сертификат с подписью Ильи Склярова</li>
         <li>Доступ к записи на 3 месяца</li>
       </ul>
       <div class="pricing-prices">
         <div class="hero-pricing" style="justify-content:center;">
-          <span class="price-current">7 900 ₽</span>
-          <span class="price-old">9 900 ₽</span>
+          <span class="price-now">7 900 ₽</span>
+          <span class="price-was">9 900 ₽</span>
         </div>
         <div class="price-usd" style="margin-top:8px;">103$ <span style="text-decoration:line-through;color:#bbb">115$</span></div>
       </div>
-      <button class="btn gc-buy-btn">Оплатить участие</button>
+      <button class="btn">Оплатить участие</button>
       <div class="pricing-foreign">
         <a href="#faq">Оплатить зарубежной картой →</a>
       </div>
@@ -680,32 +598,24 @@ body {
   </div>
 </section>
 
-<!-- ===== FAQ ===== -->
-<section id="faq" class="alt-bg">
+<section id="faq" class="alt">
   <div class="container">
     <h2>Частые вопросы</h2>
     <div class="faq-item">
-      <button class="faq-question">Будет ли запись мастер-класса? <span class="faq-icon">+</span></button>
-      <div class="faq-answer">
-        <p>Да, запись будет доступна в личном кабинете на GetCourse в течение 3 месяцев после мастер-класса.</p>
-      </div>
+      <button class="faq-q">Будет ли запись мастер-класса? <span class="ic">+</span></button>
+      <div class="faq-a"><p>Да, запись будет доступна в личном кабинете на GetCourse в течение 3 месяцев после мастер-класса.</p></div>
     </div>
     <div class="faq-item">
-      <button class="faq-question">Можно ли оплатить зарубежной картой? <span class="faq-icon">+</span></button>
-      <div class="faq-answer">
-        <p>Да, оплата зарубежной картой возможна. Свяжитесь с нами в <a href="https://wa.me/79770891702?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%BE%D0%BF%D0%BB%D0%B0%D1%82%D0%B8%D1%82%D1%8C%20%D0%B7%D0%B0%D1%80%D1%83%D0%B1%D0%B5%D0%B6%D0%BD%D0%BE%D0%B9%20%D0%BA%D0%B0%D1%80%D1%82%D0%BE%D0%B9">WhatsApp</a> или <a href="https://t.me/+79770891702">Telegram</a> для получения инструкции.</p>
-      </div>
+      <button class="faq-q">Можно ли оплатить зарубежной картой? <span class="ic">+</span></button>
+      <div class="faq-a"><p>Да, оплата зарубежной картой возможна. Свяжитесь с нами в <a href="https://wa.me/79770891702?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%BE%D0%BF%D0%BB%D0%B0%D1%82%D0%B8%D1%82%D1%8C%20%D0%B7%D0%B0%D1%80%D1%83%D0%B1%D0%B5%D0%B6%D0%BD%D0%BE%D0%B9%20%D0%BA%D0%B0%D1%80%D1%82%D0%BE%D0%B9">WhatsApp</a> или <a href="https://t.me/+79770891702">Telegram</a> для получения инструкции.</p></div>
     </div>
     <div class="faq-item">
-      <button class="faq-question">Я оплатил(-а), но не пришёл доступ <span class="faq-icon">+</span></button>
-      <div class="faq-answer">
-        <p>Проверьте папку «Спам» в почте. Если письма нет — напишите нам в <a href="https://wa.me/79770891702?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%9D%D0%B5%20%D0%BF%D1%80%D0%B8%D1%88%D0%B5%D0%BB%20%D0%B4%D0%BE%D1%81%D1%82%D1%83%D0%BF">WhatsApp</a> или <a href="https://t.me/+79770891702">Telegram</a>, поможем разобраться.</p>
-      </div>
+      <button class="faq-q">Я оплатил(-а), но не пришёл доступ <span class="ic">+</span></button>
+      <div class="faq-a"><p>Проверьте папку «Спам» в почте. Если письма нет — напишите нам в <a href="https://wa.me/79770891702?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%9D%D0%B5%20%D0%BF%D1%80%D0%B8%D1%88%D0%B5%D0%BB%20%D0%B4%D0%BE%D1%81%D1%82%D1%83%D0%BF">WhatsApp</a> или <a href="https://t.me/+79770891702">Telegram</a>, поможем разобраться.</p></div>
     </div>
   </div>
 </section>
 
-<!-- ===== FOOTER ===== -->
 <footer>
   <div class="container">
     <div class="footer-inner">
@@ -719,14 +629,12 @@ body {
   </div>
 </footer>
 
-<!-- GetCourse payment widget -->
 <script id="173aa51a9c3a4f2b6d863b572040b2e73d534520" src="https://school-sklyarovcenter.ru/pl/lite/widget/script?id=1591244"></script>
 
 <script>
-document.querySelectorAll('.faq-question').forEach(function(btn) {
+document.querySelectorAll('.faq-q').forEach(function(btn) {
   btn.addEventListener('click', function() {
-    var item = btn.closest('.faq-item');
-    item.classList.toggle('open');
+    btn.closest('.faq-item').classList.toggle('open');
   });
 });
 </script>
