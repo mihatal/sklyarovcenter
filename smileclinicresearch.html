@@ -157,17 +157,141 @@
   footer h4{color:var(--bronze);font-size:11px;letter-spacing:.22em;margin-bottom:12px;text-transform:uppercase}
   footer .col{max-width:340px}
 
+  /* ——— TABLE SCROLL WRAPPER ——— */
+  .table-scroll{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
+
   /* ——— RESPONSIVE ——— */
-  @media (max-width:920px){
-    .grid-2,.grid-3,.grid-4{grid-template-columns:1fr}
+
+  /* Tablet — 1080px */
+  @media (max-width:1080px){
+    .wrap{padding:0 24px}
+    section{padding:80px 0}
+    .grid-3{grid-template-columns:repeat(2,1fr)}
+    .grid-4{grid-template-columns:repeat(2,1fr)}
     .stats{grid-template-columns:repeat(2,1fr)}
     .stats div{border-right:none;border-bottom:1px solid rgba(255,255,255,.08)}
-    .bar-row{grid-template-columns:1fr;gap:6px}
-    .bar-row .val{text-align:left}
-    .spot{grid-template-columns:1fr}
+    .stats div:nth-child(odd){border-right:1px solid rgba(255,255,255,.08)}
+    .stats div:nth-last-child(-n+2){border-bottom:none}
+    .bar-row{grid-template-columns:200px 1fr 110px;gap:12px}
+    .head .num-big{font-size:60px}
+  }
+
+  /* Mobile — 760px */
+  @media (max-width:760px){
+    .wrap{padding:0 18px}
+    section{padding:56px 0}
+
+    /* Typography */
+    h1{font-size:clamp(28px,7.5vw,40px);line-height:1.1}
+    h2{font-size:clamp(22px,5.5vw,28px);line-height:1.2}
+    h3{font-size:15px;letter-spacing:.12em}
+    .lead{font-size:15px;line-height:1.6}
+    .eyebrow{font-size:10px;letter-spacing:.2em;padding:5px 10px;margin-bottom:14px}
+
+    /* Cover */
+    .cover{padding:48px 0 56px}
+    .cover .lead{font-size:15px}
+    .cover h1 br{display:none}
+    .cover .meta{gap:18px 24px;margin-top:32px;padding-top:22px}
+    .cover .meta div{min-width:0;flex:1 1 45%}
+    .cover .meta .k{font-size:10px;letter-spacing:.18em;margin-bottom:4px}
+    .cover .meta .v{font-size:13px}
+
+    /* Stats — single column on phone */
+    .stats{grid-template-columns:1fr;margin-top:36px}
+    .stats div{border-right:none!important;border-bottom:1px solid rgba(255,255,255,.08);padding:22px 20px}
+    .stats div:last-child{border-bottom:none}
+    .stats .n{font-size:28px}
+    .stats .l{font-size:11px;letter-spacing:.14em}
+    .stats .d{font-size:12px}
+
+    /* Generic grids */
+    .grid-2,.grid-3,.grid-4{grid-template-columns:1fr;gap:18px}
+
+    /* Section heads — number above heading */
+    .head{flex-direction:column;align-items:flex-start;gap:6px;margin-bottom:28px}
+    .head .num-big{order:-1;font-size:42px;line-height:.9}
+    .head .left{max-width:100%;width:100%}
+
+    /* Tier cards */
+    .tier{padding:26px 20px 24px}
+    .tier .tag{font-size:9px;padding:5px 10px;left:18px}
+    .tier .price{font-size:24px}
+
+    /* Observation cards */
+    .obs{padding:22px 20px}
+    .obs .num{font-size:34px;top:14px;right:18px}
+    .obs h4{padding-right:46px;font-size:16px}
+    .obs p{font-size:13.5px}
+
+    /* Player cards */
+    .player{padding:22px 20px;gap:12px}
+    .player .name{gap:8px}
+    .player .name h3{font-size:17px}
+    .player .name .badge{font-size:10px;letter-spacing:.12em}
+    .player .price{font-size:13px;padding:10px 0}
+    .player .row{grid-template-columns:1fr;gap:4px;font-size:13.5px}
+    .player .row .k{padding-top:0;font-size:9px;letter-spacing:.16em}
+
+    /* Price chart */
+    .chart{padding:20px 16px}
+    .bar-row{grid-template-columns:1fr;gap:6px;padding:12px 0}
+    .bar-row .label{font-size:13px}
+    .bar-row .label .sub{font-size:10px}
+    .bar-row .val{text-align:left;font-size:13px;font-weight:700;color:var(--bronze-deep)}
+    .bar-row .bar{height:10px}
+    .legend{flex-wrap:wrap;gap:12px;font-size:11px;margin-top:18px;padding-top:16px}
+    .legend span:last-child{flex-basis:100%;margin-left:0!important}
+
+    /* Tables — horizontal scroll */
+    table{font-size:13px;border-radius:6px}
+    th{padding:12px 14px;font-size:10px;letter-spacing:.12em}
+    td{padding:14px 14px}
+    .table-scroll{margin:0 -18px;padding:0 18px;width:auto}
+    .table-scroll table{min-width:600px}
+
+    /* Regulation section */
+    .reg{padding:28px 20px;border-radius:6px}
+    .reg .grid-3{grid-template-columns:1fr;margin-top:24px}
+    .reg .card{padding:20px}
+    .reg h2[style]{font-size:18px!important}
+
+    /* Pull quote */
+    .pull{padding:36px 22px}
+    .pull q{font-size:18px;line-height:1.4}
+    .pull .src{font-size:10px;letter-spacing:.18em}
+
+    /* White spots */
+    .spot{grid-template-columns:1fr;gap:8px;padding:16px 18px}
+    .spot .t{font-size:14px}
     .spot .s{text-align:left}
-    section{padding:64px 0}
-    .reg,.pull{padding:32px}
+    .spot .s .pill{font-size:10px}
+
+    /* Inline-styled blocks (final section) */
+    section [style*="padding:36px"]{padding:24px 20px!important}
+    section [style*="font-size:24px"]{font-size:20px!important}
+    section [style*="font-size:22px"]{font-size:18px!important}
+
+    /* Footer */
+    footer{padding:36px 0}
+    footer .wrap{flex-direction:column;gap:24px}
+    footer .col{max-width:none}
+  }
+
+  /* Small phones — 420px */
+  @media (max-width:420px){
+    .wrap{padding:0 14px}
+    .cover{padding:40px 0 48px}
+    .cover .meta div{flex:1 1 100%}
+    .stats div{padding:20px 16px}
+    .tier{padding:24px 18px}
+    .obs{padding:20px 18px}
+    .player{padding:20px 18px}
+    .chart{padding:18px 14px}
+    .reg{padding:24px 18px}
+    .pull{padding:32px 18px}
+    .spot{padding:14px 16px}
+    .table-scroll{margin:0 -14px;padding:0 14px}
   }
 </style>
 </head>
@@ -500,6 +624,7 @@
       <div class="num-big">05</div>
     </div>
 
+    <div class="table-scroll">
     <table>
       <thead>
         <tr>
@@ -522,6 +647,7 @@
         <tr><td class="cap">Звёздный медицинский директор как лицо продукта</td><td>Эстелаб (Чеботарёва), Atlas (Мусиенко), GMS (Краснолуцкий), отчасти Hadassah (Чурадзе)</td><td>Главный долгосрочный актив. Без него удержание клиентов и доверие проседают.</td></tr>
       </tbody>
     </table>
+    </div>
   </div>
 </section>
 
@@ -586,6 +712,7 @@
 
       <div style="margin-top:32px;padding-top:24px;border-top:1px solid rgba(255,255,255,.1)">
         <h4 style="color:var(--bronze);font-size:11px;letter-spacing:.22em;text-transform:uppercase;margin-bottom:14px">Сравнение режимов трёх рынков</h4>
+        <div class="table-scroll">
         <table style="background:transparent;border:1px solid rgba(255,255,255,.1)">
           <thead>
             <tr style="background:rgba(255,255,255,.04)">
@@ -600,6 +727,7 @@
             <tr><td style="color:#fff;background:transparent">Россия</td><td style="color:#C8C2B5;background:transparent">ФЗ-38 ст. 24, №72-ФЗ. Полный запрет на Instagram и Meta. Штрафы за рекламу рецептурных препаратов.</td><td style="color:#C8C2B5;background:transparent">Telegram-каналы с платным доступом, закрытые сообщества, спецпроекты в Forbes и РБК.</td></tr>
           </tbody>
         </table>
+        </div>
       </div>
     </div>
   </div>
