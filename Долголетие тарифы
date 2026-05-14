@@ -1,0 +1,821 @@
+
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SmileClinic Longevity — Тарифы и продуктовая сетка (v1.0)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --black:#0E0E0E;
+    --ink:#1A1A1A;
+    --bronze:#B5895C;
+    --bronze-deep:#8C6638;
+    --bronze-soft:#E8D7BD;
+    --paper:#FAF7F2;
+    --paper-2:#F2EDE4;
+    --line:#2A2A2A;
+    --mute:#6B6B6B;
+    --rule:rgba(181,137,92,.25);
+    --warn:#C8941C;
+    --warn-soft:#FAEFD0;
+    --warn-deep:#9F7314;
+    --ok:#3F8C5C;
+    --ok-soft:#E5F2EB;
+    --ok-deep:#286038;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--paper);color:var(--ink);font-family:"Montserrat","Helvetica Neue",Arial,sans-serif;font-weight:400;line-height:1.55;-webkit-font-smoothing:antialiased}
+  ::selection{background:var(--bronze);color:#fff}
+
+  h1,h2,h3,h4{font-weight:700;letter-spacing:-.01em;color:var(--black);margin:0}
+  h1{font-size:clamp(34px,5vw,64px);font-weight:800;line-height:1.05;letter-spacing:-.02em}
+  h2{font-size:clamp(24px,3vw,38px);line-height:1.15}
+  h3{font-size:18px;text-transform:uppercase;letter-spacing:.14em;font-weight:600}
+  h4{font-size:16px;font-weight:600}
+  p{margin:0 0 14px}
+  a{color:var(--bronze-deep);text-decoration:none;border-bottom:1px solid var(--rule);transition:color .15s,border-color .15s}
+  a:hover{color:var(--bronze);border-bottom-color:var(--bronze)}
+  table.price a,table.svc a{color:inherit;border-bottom:1px solid var(--rule)}
+  table.price a:hover,table.svc a:hover{color:var(--bronze-deep);border-bottom-color:var(--bronze)}
+  .ref-row a{color:inherit;border-bottom:1px solid var(--bronze)}
+  .ref-row a:hover{color:var(--bronze-deep)}
+  .tier a{color:inherit;border-bottom:1px dashed var(--bronze)}
+  .tier a:hover{color:var(--bronze-deep)}
+  small{color:var(--mute);font-size:12px}
+  .num{font-variant-numeric:tabular-nums}
+
+  .wrap{max-width:1180px;margin:0 auto;padding:0 32px}
+  section{padding:96px 0;border-top:1px solid var(--rule)}
+  section:first-of-type{border-top:none}
+  .lead{font-size:18px;color:#333;max-width:780px;line-height:1.65}
+  .eyebrow{display:inline-block;font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--bronze-deep);font-weight:600;margin-bottom:18px;padding:6px 12px;border:1px solid var(--rule);border-radius:999px;background:#fff}
+
+  .cover{background:var(--black);color:var(--paper);padding:84px 0 96px;border-top:none;position:relative;overflow:hidden}
+  .cover::before{content:"";position:absolute;inset:0;background:
+    radial-gradient(900px 420px at 85% 10%, rgba(181,137,92,.18), transparent 60%),
+    radial-gradient(700px 380px at 10% 90%, rgba(181,137,92,.10), transparent 60%);
+    pointer-events:none}
+  .cover .wrap{position:relative}
+  .cover h1{color:#fff}
+  .cover .eyebrow{background:transparent;color:var(--bronze);border-color:rgba(181,137,92,.45)}
+  .cover .lead{color:#D9D5CD;max-width:820px;font-size:19px}
+  .cover .meta{display:flex;flex-wrap:wrap;gap:36px;margin-top:48px;padding-top:28px;border-top:1px solid rgba(255,255,255,.12)}
+  .cover .meta div{min-width:160px}
+  .cover .meta .k{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--bronze);margin-bottom:6px}
+  .cover .meta .v{font-size:15px;color:#EFEAE0}
+
+  .legend-bar{display:flex;gap:16px;margin-top:40px;padding:18px 22px;background:rgba(63,140,92,.10);border:1px solid rgba(63,140,92,.30);border-radius:6px;color:#D6EBDD;font-size:14px;line-height:1.55;align-items:flex-start}
+  .legend-bar .dot{flex:0 0 28px;height:28px;border-radius:999px;background:var(--ok);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px}
+  .legend-bar b{color:#fff}
+  .legend-bar.warn{background:rgba(200,148,28,.10);border-color:rgba(200,148,28,.35);color:#F0E2C0}
+  .legend-bar.warn .dot{background:var(--warn)}
+
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:32px}
+  .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .head{display:flex;align-items:flex-end;justify-content:space-between;gap:32px;margin-bottom:48px;flex-wrap:wrap}
+  .head .left{max-width:740px}
+  .head .num-big{font-size:74px;font-weight:800;color:var(--bronze);line-height:1;letter-spacing:-.04em;font-variant-numeric:tabular-nums}
+
+  /* DECISIONS LIST (green) */
+  .decisions{background:#fff;border:1px solid var(--rule);border-radius:6px;padding:32px}
+  .decisions h3{font-size:11px;letter-spacing:.22em;color:var(--ok-deep);margin-bottom:18px}
+  .decisions ol{margin:0;padding:0 0 0 28px;list-style:none;counter-reset:dec}
+  .decisions li{counter-increment:dec;position:relative;padding:14px 0 14px 36px;border-top:1px dashed var(--rule);font-size:15px;line-height:1.55;color:#222}
+  .decisions li:first-child{border-top:none}
+  .decisions li::before{content:counter(dec,decimal-leading-zero);position:absolute;left:-4px;top:14px;font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--ok);font-variant-numeric:tabular-nums;background:var(--ok-soft);padding:3px 8px;border-radius:999px}
+  .decisions li b{color:var(--ok-deep)}
+
+  /* FUNNEL */
+  .funnel{background:#fff;border:1px solid var(--rule);border-radius:6px;padding:36px;margin-top:32px}
+  .funnel .layer{padding:24px 28px;border:1px solid var(--rule);border-radius:6px;background:var(--paper);margin-bottom:14px;position:relative}
+  .funnel .layer:last-child{margin-bottom:0}
+  .funnel .layer.l1{margin:0 12% 14px}
+  .funnel .layer.l2{margin:0 6% 14px}
+  .funnel .layer.l3{margin:0}
+  .funnel .layer h4{color:var(--bronze-deep);font-size:11px;letter-spacing:.22em;text-transform:uppercase;margin-bottom:10px}
+  .funnel .layer .title{font-size:18px;font-weight:700;color:var(--black);margin-bottom:8px}
+  .funnel .layer .items{font-size:14px;color:#333;line-height:1.6}
+  .funnel .arrow{text-align:center;color:var(--bronze);font-size:18px;margin:-4px 0 -4px;letter-spacing:.4em}
+
+  /* TIER CARDS */
+  .tier{background:#fff;border:1px solid var(--rule);border-radius:6px;padding:32px;display:flex;flex-direction:column;gap:14px;position:relative}
+  .tier.featured{border:2px solid var(--bronze);box-shadow:0 8px 32px rgba(181,137,92,.18)}
+  .tier .tag{position:absolute;top:-12px;left:24px;background:var(--black);color:var(--bronze);font-size:10px;letter-spacing:.22em;text-transform:uppercase;padding:6px 12px;border-radius:999px;font-weight:600}
+  .tier.featured .tag{background:var(--bronze);color:#fff}
+  .tier h3{font-size:14px;color:var(--bronze-deep)}
+  .tier .price{font-size:30px;font-weight:700;letter-spacing:-.01em;color:var(--black);line-height:1.1}
+  .tier .price-sub{font-size:13px;color:var(--mute);margin-top:-4px;line-height:1.5}
+  .tier .peptides-note{font-size:12px;color:var(--warn-deep);background:var(--warn-soft);padding:8px 12px;border-radius:4px;line-height:1.5}
+  .tier .who{font-size:13px;color:var(--mute);text-transform:uppercase;letter-spacing:.1em}
+  .tier ul{margin:8px 0 0;padding:0;list-style:none}
+  .tier li{padding:10px 0;border-top:1px dashed var(--rule);font-size:14px;color:#333;line-height:1.5}
+  .tier li:first-child{border-top:none}
+  .tier li b{font-weight:600;color:var(--black)}
+  .tier .not-included{margin-top:14px;padding-top:14px;border-top:1px solid var(--rule);font-size:12px;color:var(--mute);line-height:1.55}
+  .tier .not-included b{color:var(--ink);font-size:11px;text-transform:uppercase;letter-spacing:.14em;display:block;margin-bottom:6px}
+
+  /* DISCUSS CALLOUT */
+  .discuss{background:var(--warn-soft);border-left:3px solid var(--warn);padding:14px 18px;border-radius:0 4px 4px 0;font-size:13px;color:#5b441e;margin:14px 0;line-height:1.55}
+  .discuss b{color:var(--warn-deep)}
+  .discuss .marker{display:inline-block;background:var(--warn);color:#fff;font-size:10px;font-weight:700;letter-spacing:.18em;padding:3px 8px;border-radius:999px;margin-right:8px;vertical-align:middle;text-transform:uppercase}
+
+  /* SERVICE TABLE */
+  table.svc{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--rule);border-radius:6px;overflow:hidden;font-size:14px}
+  table.svc th{background:var(--black);color:var(--bronze);text-align:left;padding:18px 20px;font-weight:600;font-size:11px;letter-spacing:.16em;text-transform:uppercase}
+  table.svc th.col{text-align:center;border-left:1px solid rgba(255,255,255,.08)}
+  table.svc th.col.gold{background:linear-gradient(180deg,var(--bronze-deep) 0%,var(--bronze) 100%);color:#fff}
+  table.svc td{padding:16px 20px;border-top:1px solid var(--rule);vertical-align:top;line-height:1.5}
+  table.svc tr:nth-child(even) td{background:var(--paper-2)}
+  table.svc td.cat{font-weight:600;color:var(--black);width:32%}
+  table.svc td.col{text-align:center;border-left:1px solid var(--rule);width:34%}
+  table.svc td.col.gold{background:rgba(181,137,92,.08)!important}
+  table.svc td.dash{color:#bbb;font-size:18px}
+  table.svc td.yes{font-weight:600;color:var(--bronze-deep)}
+
+  /* PRICE TABLE */
+  table.price{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--rule);border-radius:6px;overflow:hidden;font-size:14px}
+  table.price th{background:var(--black);color:var(--bronze);text-align:left;padding:16px 20px;font-weight:600;font-size:11px;letter-spacing:.16em;text-transform:uppercase}
+  table.price th.r{text-align:right}
+  table.price td{padding:14px 20px;border-top:1px solid var(--rule);vertical-align:top}
+  table.price tr:nth-child(even) td{background:var(--paper-2)}
+  table.price td.cap{font-weight:600;color:var(--black)}
+  table.price td.r{text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
+  table.price td.note{color:var(--mute);font-size:13px}
+
+  table.price tr.peptide td{background:var(--warn-soft)!important}
+  table.price tr.peptide td.cap{color:var(--warn-deep)}
+
+  /* TRANSFER */
+  .transfer{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px;margin-top:32px}
+  .transfer-card{background:#fff;border:1px solid var(--rule);border-radius:6px;padding:24px}
+  .transfer-card .badge{display:inline-block;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--bronze-deep);padding:4px 10px;border:1px solid var(--rule);border-radius:999px;margin-bottom:14px}
+  .transfer-card h4{margin-bottom:14px;font-size:16px;color:var(--black)}
+  .transfer-card .meta{font-size:13px;color:#333;line-height:1.7}
+  .transfer-card .meta b{color:var(--bronze-deep);font-size:10px;letter-spacing:.16em;text-transform:uppercase;display:block;margin-top:10px}
+  .transfer-card .meta b:first-child{margin-top:0}
+
+  /* REFERENCES */
+  .ref-block{background:#fff;border:1px solid var(--rule);border-radius:6px;overflow:hidden}
+  .ref-row{display:grid;grid-template-columns:200px 220px 1fr;gap:20px;padding:18px 24px;border-top:1px solid var(--rule);align-items:start}
+  .ref-row:first-child{border-top:none;background:var(--black);color:var(--bronze);font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:600;padding:14px 24px}
+  .ref-row .name{font-weight:600;color:var(--black)}
+  .ref-row .v{font-size:14px;color:#333}
+  .ref-row .v.note{color:var(--mute);font-style:italic;font-size:13px}
+  .ref-row.skip{opacity:.65}
+  .ref-row.skip .name{text-decoration:line-through;color:var(--mute)}
+
+  .pull{background:var(--black);color:var(--paper);padding:54px 48px;border-radius:6px}
+  .pull h3{color:var(--bronze);font-size:11px;letter-spacing:.22em;margin-bottom:18px}
+  .pull p{font-size:18px;color:#EFEAE0;line-height:1.6;max-width:880px;margin:0 0 10px}
+
+  footer{background:var(--black);color:#9c958a;padding:48px 0;font-size:12px;line-height:1.7}
+  footer .wrap{display:flex;justify-content:space-between;gap:32px;flex-wrap:wrap}
+  footer h4{color:var(--bronze);font-size:11px;letter-spacing:.22em;margin-bottom:12px;text-transform:uppercase}
+  footer .col{max-width:340px}
+
+  .table-scroll{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
+
+  @media (max-width:1080px){
+    .wrap{padding:0 24px}
+    section{padding:80px 0}
+    .grid-3{grid-template-columns:repeat(2,1fr)}
+    .grid-2{grid-template-columns:1fr;gap:24px}
+    .transfer{grid-template-columns:1fr}
+    .ref-row{grid-template-columns:1fr 1fr;gap:12px;padding:16px 20px}
+    .ref-row:first-child{display:none}
+    .funnel .layer.l1,.funnel .layer.l2{margin:0 0 14px}
+    .head .num-big{font-size:60px}
+  }
+  @media (max-width:760px){
+    .wrap{padding:0 18px}
+    section{padding:56px 0}
+    h1{font-size:clamp(28px,7.5vw,40px);line-height:1.1}
+    h2{font-size:clamp(22px,5.5vw,28px);line-height:1.2}
+    .lead{font-size:15px;line-height:1.6}
+    .cover{padding:48px 0 56px}
+    .cover .lead{font-size:15px}
+    .cover .meta{gap:18px 24px;margin-top:32px;padding-top:22px}
+    .cover .meta div{min-width:0;flex:1 1 45%}
+    .grid-2,.grid-3{grid-template-columns:1fr;gap:18px}
+    .head{flex-direction:column;align-items:flex-start;gap:6px;margin-bottom:28px}
+    .head .num-big{order:-1;font-size:42px;line-height:.9}
+    .head .left{max-width:100%;width:100%}
+    .tier{padding:26px 20px 24px}
+    .tier .tag{font-size:9px;padding:5px 10px;left:18px}
+    .tier .price{font-size:24px}
+    .funnel{padding:22px 18px}
+    .funnel .layer{padding:18px 16px}
+    .funnel .layer .title{font-size:16px}
+    .ref-row{grid-template-columns:1fr;gap:6px;padding:16px 18px}
+    .decisions{padding:22px 18px}
+    .decisions li{padding:12px 0 12px 32px;font-size:14px}
+    table.svc,table.price{font-size:13px}
+    table.svc th,table.price th{padding:12px 14px;font-size:10px;letter-spacing:.12em}
+    table.svc td,table.price td{padding:12px 14px}
+    .table-scroll{margin:0 -18px;padding:0 18px;width:auto}
+    .table-scroll table.svc{min-width:640px}
+    .pull{padding:32px 22px}
+    .pull p{font-size:16px}
+    footer{padding:36px 0}
+    footer .wrap{flex-direction:column;gap:24px}
+    footer .col{max-width:none}
+    .legend-bar{flex-direction:column;gap:10px}
+  }
+  @media (max-width:420px){
+    .wrap{padding:0 14px}
+    .cover{padding:40px 0 48px}
+    .cover .meta div{flex:1 1 100%}
+    .tier{padding:24px 18px}
+    .table-scroll{margin:0 -14px;padding:0 14px}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============= COVER ============= -->
+<section class="cover">
+  <div class="wrap">
+    <span class="eyebrow">Внутренний документ · Версия 1.0 · после встречи 13 мая 2026</span>
+    <h1>SmileClinic Longevity<br>Тарифы и продуктовая сетка</h1>
+    <p class="lead">Продуктовая архитектура нового направления. Версия 1.0 отражает решения, принятые на встрече 13 мая: 2 тарифа вместо 3, один чекап вместо двух, цены привязаны к Refresh как главному конкуренту, пептиды отдельно.</p>
+
+    <div class="meta">
+      <div><div class="k">Версия</div><div class="v">1.0 · после встречи</div></div>
+      <div><div class="k">Дата</div><div class="v">13 мая 2026</div></div>
+      <div><div class="k">Фокус</div><div class="v">Программа похудения</div></div>
+      <div><div class="k">Позиционирование</div><div class="v">Премиум — чуть выше Refresh</div></div>
+    </div>
+
+    <div class="legend-bar warn">
+      <div class="dot">!</div>
+      <div><b>Жёлтый маркер</b> — пункты на обсуждение на следующей встрече. Где не зафиксировано окончательное решение или нужен расчёт.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============= DECISIONS ============= -->
+<section>
+  <div class="wrap">
+    <div class="head">
+      <div class="left">
+        <span class="eyebrow">Раздел 01 · Решения встречи 13 мая</span>
+        <h2>Что приняли — что изменилось</h2>
+        <p class="lead" style="margin-top:18px">Ключевые решения по результатам встречи. v1.0 кардинально отличается от черновика v0.3 — упростили продуктовую сетку и пересмотрели цены.</p>
+      </div>
+      <div class="num-big">01</div>
+    </div>
+
+    <div class="decisions">
+      <h3>Принято на встрече</h3>
+      <ol>
+        <li><b>2 тарифа вместо 3.</b> Старт + CORE. BLACK GOLD убираем — лучшие фичи переносим в CORE.</li>
+        <li><b>Один чекап вместо LIGHT/PRO.</b> Маркеров всего 40, нет смысла плодить продуктовый альманах.</li>
+        <li><b>Цены резко вниз и привязаны к Refresh</b> как главному конкуренту по похудению. Старт ~90K за 3 мес, CORE ~500K в год.</li>
+        <li><b>Пептиды НЕ входят в стоимость программы.</b> Оплачиваются отдельно (~12 000 ₽/мес для 15 мг саджаро). Мы продаём сопровождение, не препарат.</li>
+        <li><b>EMC Ultima и Hadassah убираем из прицела.</b> Другая бизнес-модель (страховка / лечение, не превентивное сопровождение).</li>
+        <li><b>Координатор 24/7 на связи — нереалистично.</b> В CORE — координатор-куратор в рабочее время + ИИ-агент для меню по фото.</li>
+        <li><b>Спорт онлайн-формат</b> + 3 базовых плана (новички / обычные / сильные) + индивидуальное сопровождение в CORE.</li>
+        <li><b>Групповая терапия — обязательный элемент.</b> Чат худеющих (10–15 человек), модерация командой. Доказанная методика, работает по аналогии с алкоголиками.</li>
+        <li><b>Эмоциональное здоровье</b> добавляем отдельным блоком в анкету чекапа.</li>
+        <li><b>Датчик постоянного мониторинга глюкозы</b> в Старте вместо повторной сдачи крови.</li>
+        <li><b>Ретейнер-логика.</b> Программа не заканчивается. После активной фазы — поддерживающая дозировка. Маркетинг это коммуницирует с самого начала.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ============= ARCHITECTURE ============= -->
+<section>
+  <div class="wrap">
+    <div class="head">
+      <div class="left">
+        <span class="eyebrow">Раздел 02 · Архитектура</span>
+        <h2>Три слоя продуктовой сетки</h2>
+        <p class="lead" style="margin-top:18px">Сетка построена так, чтобы один раз спроектированный сервис-каркас работал для любого направления. Внутри программы меняется только «начинка» — протокол, маркеры, специфика контроля. Воронка, тарифные уровни и сервисная карта остаются неизменными.</p>
+      </div>
+      <div class="num-big">02</div>
+    </div>
+
+    <div class="funnel">
+      <div class="layer l1">
+        <h4>Слой 1 · Воронка</h4>
+        <div class="title">Входные продукты</div>
+        <div class="items">Анализ крови · Чекап — низкий барьер, обкатка сервиса, апселл в программу</div>
+      </div>
+      <div class="arrow">↓</div>
+      <div class="layer l2">
+        <h4>Слой 2 · Ядро бизнеса</h4>
+        <div class="title">Программа направления — 2 тарифа</div>
+        <div class="items">Старт · CORE — главная разница в глубине сопровождения и сервиса</div>
+      </div>
+      <div class="arrow">↓</div>
+      <div class="layer l3">
+        <h4>Слой 3 · Дифференциатор</h4>
+        <div class="title">Сервисная обёртка</div>
+        <div class="items">Главное отличие тарифов — уровень сервиса. Сервис-карта инвариантна к направлению.</div>
+      </div>
+    </div>
+
+    <div style="margin-top:48px">
+      <h3 style="font-size:14px;color:var(--bronze-deep);margin-bottom:18px">Что меняется при смене направления</h3>
+      <div class="table-scroll">
+        <table class="price">
+          <tr>
+            <th style="width:24%">Блок тарифа</th>
+            <th>Что меняется по направлению</th>
+            <th>Что НЕ меняется</th>
+          </tr>
+          <tr><td class="cap">Диагностика</td><td>Список маркеров крови, инструментальные тесты</td><td>Базовая антропометрия + анкеты</td></tr>
+          <tr><td class="cap">Протокол</td><td>Действующие вещества, режим, цель</td><td>Формат куратор + контрольные точки</td></tr>
+          <tr><td class="cap">Контроль</td><td>Специфика повторных замеров</td><td>Ритм коммуникации с клиентом</td></tr>
+          <tr><td class="cap">Сервис</td><td>—</td><td><b>Полностью инвариантен</b></td></tr>
+          <tr><td class="cap">Welcome-pack</td><td>Специфичные гаджеты/добавки</td><td>Формат подачи (мерч, доставка)</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div style="margin-top:32px">
+      <div class="discuss" style="background:rgba(63,140,92,.08);border-left-color:var(--ok);color:#22532e">
+        <span class="marker" style="background:var(--ok)">принято</span><b>Пептиды отдельно.</b> Стоимость программы — за сопровождение и инфраструктуру жизни, не за препарат. Пептиды оплачиваются отдельно (~12 000 ₽/мес для 15 мг). Принципиальная позиция: мы НЕ ещё одна клиника, которая колит пептиды. Мы помогаем перестроить стиль жизни, используя пептиды как инструмент.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============= LAYER 1 ============= -->
+<section>
+  <div class="wrap">
+    <div class="head">
+      <div class="left">
+        <span class="eyebrow">Раздел 03 · Слой 1</span>
+        <h2>Входные продукты — воронка</h2>
+        <p class="lead" style="margin-top:18px">Назначение слоя: привести в воронку, обкатать сервис, дать первый wow-эффект и продать апселл в программу. На встрече решили объединить LIGHT и PRO в один Чекап — нет смысла плодить разделение по объёму маркеров.</p>
+      </div>
+      <div class="num-big">03</div>
+    </div>
+
+    <div class="grid-2" style="margin-top:36px">
+
+      <div class="tier">
+        <span class="tag">Базовый</span>
+        <h3>Анализ крови</h3>
+        <div class="price">14 900 ₽</div>
+        <div class="price-sub">Подтверждена на встрече — НЕ повышаем до 20K</div>
+        <div class="who">Разовая услуга · standalone</div>
+        <ul>
+          <li><b>Что входит</b> — панель крови (объём согласуем — Никита считает себестоимость по 40 маркерам) + <b>автоматизированный отчёт с базовыми рекомендациями</b> (визуально как у UPI: сниженный/оптимальный, какие консультации могут потребоваться) + ПДФ</li>
+          <li><b>Не входит</b> — индивидуальная встреча с врачом, расшифровка устно, повторные тесты, план лечения</li>
+          <li><b>Рекомендации в отчёте</b> — при отклонениях направление к специалисту (уролог при тестостероне, эндокринолог при щитовидке/сахаре). <b>БЕЗ препаратов и пептидов в рекомендациях.</b></li>
+          <li><b>Канал привлечения</b> — поиск «анализ крови», Яндекс.Карты, реактивация базы стоматологии</li>
+          <li><b>Цель в воронке</b> — низкий барьер → апселл в Чекап</li>
+        </ul>
+      </div>
+
+      <div class="tier featured">
+        <span class="tag">Универсальный вход</span>
+        <h3>Чекап</h3>
+        <div class="price" style="color:var(--warn-deep)">🟡 &lt; 100 000 ₽</div>
+        <div class="price-sub">Точная цифра — на следующей встрече («приземлим где-нибудь посередине, точно меньше 100 тысяч»)</div>
+        <div class="who">Главный вход в любую программу</div>
+        <ul>
+          <li><b>Анализы</b> — основная панель крови + специфика под запрос <i>(похудение / ГЗТ / антиэйдж)</i></li>
+          <li><b>Состав тела</b> — TechnoGym (импеданс) + сила хвата (встроена, отдельно не выделяем)</li>
+          <li><b>Когнитив</b> — <b>Cognifit</b> (более глубокий чем встроенный TechnoGym, заменяет его)</li>
+          <li><b>VO2 Max</b> — функциональный тест выносливости</li>
+          <li><b>Антропометрия</b> — полная</li>
+          <li><b>Анкета</b> — одна полная (медицинский анамнез + цели + образ жизни + история семьи). По запросу дополнительные опросники (sleep stop-bang при проблемах со сном)</li>
+          <li><b>Эмоциональное здоровье</b> — <b>отдельный блок в анкете</b> (добавлен по результатам встречи)</li>
+          <li><b>Презентация плана</b> — <b>одна встреча с врачом</b>: расшифровка результатов + персональные рекомендации + раскрытие плана + время на продажу программы</li>
+          <li><b>Зачёт при покупке программы</b> — стоимость зачитывается в цену программы Старт или CORE при покупке в 30 дней</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============= LAYER 2 ============= -->
+<section>
+  <div class="wrap">
+    <div class="head">
+      <div class="left">
+        <span class="eyebrow">Раздел 04 · Слой 2 · Похудение</span>
+        <h2>Программа Похудения — 2 тарифа</h2>
+        <p class="lead" style="margin-top:18px">Главная разница тарифов — глубина сопровождения и сервиса. Старт без личного куратора (на связи админ клиники). CORE с личным координатором-куратором и суперсервисом. Пептиды в обоих тарифах — отдельной строкой.</p>
+      </div>
+      <div class="num-big">04</div>
+    </div>
+
+    <div class="grid-2" style="margin-top:36px">
+
+      <!-- СТАРТ -->
+      <div class="tier">
+        <span class="tag">Уровень 1</span>
+        <h3>Похудение СТАРТ</h3>
+        <div class="price">90 000 ₽</div>
+        <div class="price-sub">3 месяца · или 30 000 ₽/мес × 3 (рассрочка без наценки)</div>
+        <div class="peptides-note">+ пептиды ~12 000 ₽/мес отдельно (не включены в цену программы)</div>
+        <div class="who">Скептик, проверить инструмент</div>
+        <ul>
+          <li><b>Цель</b> — старт похудения, обкатка инструментов за 3 месяца</li>
+          <li><b>Диагностика</b> — Чекап включён (стоимость зачитывается в программу)</li>
+          <li><b>Протокол</b> — базовая пептидная схема под профиль (препарат оплачивается отдельно)</li>
+          <li><b>Питание</b> — 3 стандартных сценария рациона (веганский / мясоедский / сбалансированный), без личной адаптации</li>
+          <li><b>Спорт</b> — 3 готовых плана (новички / обычные / сильные) + 1 обучающая тренировка с тренером-партнёром (формат, техника)</li>
+          <li><b>Связь с клиникой</b> — корпоративный аккаунт клиники / админ (запись на приёмы, логистика)</li>
+          <li><b>Врач</b> — 3 встречи (старт, середина, финал)</li>
+          <li><b>Контроль</b> — <b>датчик постоянного мониторинга глюкозы</b> (2 недели в середине, заменяет повторную кровь) + контроль веса самостоятельно</li>
+          <li><b>Замеры</b> — TechnoGym на старте, в середине и в конце</li>
+          <li><b>Добавки</b> — подбираем + присылаем ссылки, продаём из клиники по запросу</li>
+          <li><b>Групповая терапия</b> — доступ к общему чату «худеющих» (10–15 человек), модерация командой</li>
+          <li><b>Финал</b> — разбор результата + апселл в CORE</li>
+        </ul>
+        <div class="not-included"><b>Не входит</b>Личный координатор · кастомизация рациона · личный тренер · меню по фото · установка приложений · лекции Склярова · мероприятия · партнёрские скидки · welcome-pack</div>
+      </div>
+
+      <!-- CORE -->
+      <div class="tier featured">
+        <span class="tag">Флагман</span>
+        <h3>Похудение CORE</h3>
+        <div class="price">500 000 ₽ <small style="font-size:14px;color:var(--mute);font-weight:400">/ 12 мес</small></div>
+        <div class="price-sub">~40 000 ₽/мес при годовой · 300 000 ₽ за 6 мес · 60 000 ₽/мес помесячно</div>
+        <div class="peptides-note">+ пептиды ~12 000 ₽/мес отдельно (не включены в цену программы)</div>
+        <div class="who">Основной премиум-пациент SmileClinic</div>
+        <ul>
+          <li><b>Цель</b> — устойчивое снижение веса с сопровождением «под ключ»</li>
+          <li><b>Диагностика</b> — Чекап включён (стоимость зачитывается)</li>
+          <li><b>Протокол</b> — пептидная схема индивидуально подобранная, регулярная коррекция. При плохой переносимости — гибкий режим (15 мг / 10 мг по неделям). Препарат отдельно.</li>
+          <li><b>Питание</b> — <b>кастомный план под привычки</b>, сверки по фото блюд в чате с нутрициологом</li>
+          <li><b>Спорт</b> — индивидуальная программа + <b>онлайн-сопровождение тренером</b> (видео-разбор техники, регулярные проверки) + 1 тренировка/мес офлайн с тренером для контроля формы</li>
+          <li><b>Личный координатор-куратор</b> — основной контакт, <b>не врач</b>, всегда напрямую на связи с врачом. Записывает на приёмы, организует доставку, отвечает на бытовые вопросы. <span style="color:var(--warn-deep)">🟡 Часы работы — на обсуждение со командой</span></li>
+          <li><b>ИИ-агент для меню по фото</b> — бот в стилистике клиники: фото меню → рекомендации по выбору блюд под калории/макро. <i>Решено: 24/7 живой человек нереалистично, ИИ закрывает основную часть запросов.</i></li>
+          <li><b>Врач</b> — встречи каждые 2–4 недели (8–10 за программу)</li>
+          <li><b>Контрольные точки</b> — повторные сдачи крови по плану + ежемесячный TechnoGym</li>
+          <li><b>Добавки</b> — команда подбирает, <b>заказывает за клиента</b>, организует доставку</li>
+          <li><b>Зарубежные приложения</b> — устанавливаем (<span style="color:var(--warn-deep)">🟡 оплата — на обсуждение</span>)</li>
+          <li><b>Лекции Склярова</b> — библиотека записей (долголетие, питание, спорт). Долгосрочно, на старте может не быть.</li>
+          <li><b>Мероприятия</b> — доступ к открытым + закрытые для членов любого направления</li>
+          <li><b>Групповая терапия</b> — <b>закрытый чат участников CORE</b> (10–15 человек), модерация куратором. Совместные спорт-мероприятия, мастер-классы.</li>
+          <li><b>Партнёрские скидки</b> — карта (кардиоклиника, лаборатории, фитнес, бьюти, рестораны)</li>
+          <li><b>Семейный апгрейд</b> — члены семьи −15% + общий координатор для семьи</li>
+          <li><b>Корпоративный апгрейд</b> — топов сколько угодно, −20%</li>
+          <li><b>Welcome-pack</b> — <b>мерч-набор</b> (браслет с пульсометром / таблетница / бутылка)</li>
+          <li><b>Итоговая встреча</b> — большой разбор + план перехода в поддерживающую программу. <b>Ретейнер-логика:</b> после активной фазы — поддерживающая дозировка + чекин.</li>
+        </ul>
+        <div class="not-included"><b>Не входит</b>Концерж 24/7 (закрывает ИИ + куратор в рабочее время) · эпигенетика · генетика · МРТ · ГЗТ как параллельный протокол</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============= LAYER 3: SERVICE ============= -->
+<section>
+  <div class="wrap">
+    <div class="head">
+      <div class="left">
+        <span class="eyebrow">Раздел 05 · Слой 3</span>
+        <h2>Сервисная карта — главный дифференциатор</h2>
+        <p class="lead" style="margin-top:18px">Статус: предварительная. На следующей встрече командой проходим карту и принимаем решения по каждому пункту — что готовы делать вживую, что делегируем ИИ, для чего нужен живой человек.</p>
+      </div>
+      <div class="num-big">05</div>
+    </div>
+
+    <div class="table-scroll">
+      <table class="svc">
+        <thead>
+          <tr>
+            <th>Категория сервиса</th>
+            <th class="col">СТАРТ</th>
+            <th class="col gold">CORE</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="cat">Связь с клиникой</td><td class="col">корпоративный аккаунт / админ</td><td class="col gold yes">личный координатор-куратор</td></tr>
+          <tr><td class="cat">Часы доступа</td><td class="col">в рабочее время клиники</td><td class="col gold">🟡 7/7 в рабочее время<br><small style="color:var(--mute)">реалистичность обсуждаем</small></td></tr>
+          <tr><td class="cat">Роли в команде</td><td class="col">админ + врач направления</td><td class="col gold">координатор-куратор <small style="color:var(--mute)">(не врач, на связи с врачом)</small> + врач направления</td></tr>
+          <tr><td class="cat">Питание</td><td class="col">3 стандартных сценария</td><td class="col gold yes">кастомный план под привычки + сверки по фото с нутрициологом</td></tr>
+          <tr><td class="cat">Спорт</td><td class="col">3 базовых плана + 1 обучающая тренировка</td><td class="col gold yes">онлайн-сопровождение тренером + 1/мес офлайн</td></tr>
+          <tr><td class="cat">Меню в ресторане</td><td class="col dash">—</td><td class="col gold yes"><b>ИИ-агент:</b> фото меню → рекомендации</td></tr>
+          <tr><td class="cat">Установка приложений</td><td class="col dash">—</td><td class="col gold yes">да, устанавливаем</td></tr>
+          <tr><td class="cat">Оплата подписок приложений</td><td class="col dash">—</td><td class="col gold">🟡 на обсуждение</td></tr>
+          <tr><td class="cat">Добавки / БАДы</td><td class="col yes">подбираем + ссылки<br><small style="color:var(--mute)">продаём из клиники по запросу</small></td><td class="col gold yes">заказываем за клиента, доставляем</td></tr>
+          <tr><td class="cat">Контроль глюкозы</td><td class="col yes">датчик 2 недели в середине</td><td class="col gold yes">по показаниям + регулярные замеры</td></tr>
+          <tr><td class="cat">Лекции Склярова</td><td class="col dash">—</td><td class="col gold yes">библиотека записей <small style="color:var(--mute)">(долгосрочно)</small></td></tr>
+          <tr><td class="cat">Мероприятия</td><td class="col dash">—</td><td class="col gold yes">открытые + закрытые для членов</td></tr>
+          <tr><td class="cat">Групповая терапия</td><td class="col yes">общий чат худеющих<br><small style="color:var(--mute)">модерация командой</small></td><td class="col gold yes">закрытый чат программы<br><small style="color:var(--mute)">модерация куратором</small></td></tr>
+          <tr><td class="cat">Партнёрская сеть (скидки)</td><td class="col dash">—</td><td class="col gold yes">карта скидок (кардио, лаборатории, фитнес, бьюти, рестораны)</td></tr>
+          <tr><td class="cat">Семейный апгрейд</td><td class="col dash">—</td><td class="col gold yes">−15% + общий координатор для семьи</td></tr>
+          <tr><td class="cat">Корпоративный апгрейд</td><td class="col dash">—</td><td class="col gold yes">топов <b>сколько угодно</b>, −20%</td></tr>
+          <tr><td class="cat">Welcome-pack</td><td class="col dash">—</td><td class="col gold yes">мерч-набор на старте</td></tr>
+          <tr><td class="cat">Возможность апселла</td><td class="col">в CORE</td><td class="col gold">в поддерживающую программу <small style="color:var(--mute)">(ретейнер-логика)</small></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div style="margin-top:48px">
+      <h3 style="font-size:14px;color:var(--bronze-deep);margin-bottom:18px">Принципы сервиса (общие для всех тарифов)</h3>
+      <div class="grid-3">
+        <div class="tier" style="padding:24px"><h4>Один контакт</h4><p style="font-size:14px;color:#333;margin:0">Клиент общается с одним координатором, не «бегает по чатам».</p></div>
+        <div class="tier" style="padding:24px"><h4>Никакого «не наша зона»</h4><p style="font-size:14px;color:#333;margin:0">Смежный запрос (стоматология, косметология) — координатор организует.</p></div>
+        <div class="tier" style="padding:24px"><h4>Wow на входе</h4><p style="font-size:14px;color:#333;margin:0">Первое посещение должно «продать» весь оставшийся опыт.</p></div>
+        <div class="tier" style="padding:24px"><h4>Закрытие петли результата</h4><p style="font-size:14px;color:#333;margin:0">Каждая повторная диагностика — повод сказать «вот что изменилось».</p></div>
+        <div class="tier" style="padding:24px"><h4>Снижение порога усилий</h4><p style="font-size:14px;color:#333;margin:0">«Не нужно об этом думать». Адаптируем уровень детализации под готовность клиента — от «считать калории» до «есть всё зелёное». Аналог iPhone — бесшовно.</p></div>
+        <div class="tier" style="padding:24px"><h4>Ретейнер-логика</h4><p style="font-size:14px;color:#333;margin:0">Программа не заканчивается. После активной фазы — поддерживающая дозировка и регулярный чекин. Маркетинг коммуницирует с самого начала.</p></div>
+      </div>
+    </div>
+
+    <div style="margin-top:48px">
+      <h3 style="font-size:14px;color:var(--bronze-deep);margin-bottom:18px">🟡 Сюрприз-моменты — на обсуждение</h3>
+      <div class="discuss" style="font-size:14px;line-height:1.65;padding:22px 26px">
+        <p style="margin:0 0 14px"><b>Идея.</b> Минимум 2 «вау-момента» за программу в CORE. Это незапланированные жесты заботы — эмоциональная привязанность, которая не покупается ценой.</p>
+        <p style="margin:0 0 14px"><b>Контекст из стоматологии.</b> В SmileClinic после большого лечения дарим клиенту фирменный подарок. Работает — клиент возвращается. Нужно перенести опыт в Longevity, но программа длинная (3–12 мес), результаты постепенные, эмоциональные пики другие.</p>
+        <p style="margin:0 0 8px"><b>Карта опыта пациента — что прорабатываем отдельной сессией:</b></p>
+        <ul style="margin:0 0 14px 18px;padding:0">
+          <li>Все точки контакта от «увидел сайт» до «завершил год программы»</li>
+          <li>Эмоциональное состояние в каждой точке (восторг / неопределённость / усталость / триумф)</li>
+          <li>Где «провалы» — точки оттока (например, 2–3 месяц, когда результат ещё не очевиден)</li>
+          <li>Где добавить сюрприз-момент чтобы вытащить эмоцию</li>
+          <li>Какие моменты сделать брендированными (фирменные подарки, фразы, ритуалы — как в стоматологии)</li>
+        </ul>
+        <p style="margin:0"><b>Вопросы:</b> Сколько сюрпризов реалистично в CORE? Кто отвечает за исполнение — координатор или отдельный «менеджер опыта»? Эстетика — общая для бренда или специфика Longevity? Делаем ли «карту опыта» отдельным следующим документом?</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============= PRICE TABLE ============= -->
+<section>
+  <div class="wrap">
+    <div class="head">
+      <div class="left">
+        <span class="eyebrow">Раздел 06 · Прайс</span>
+        <h2>Сводный прайс — все продукты</h2>
+        <p class="lead" style="margin-top:18px">Полный список цен в одном месте. Пептиды выделены отдельно — обязательная часть программы, но НЕ включена в её цену. Чекап зачитывается в стоимость программы при покупке в 30 дней.</p>
+      </div>
+      <div class="num-big">06</div>
+    </div>
+
+    <div class="table-scroll">
+      <table class="price">
+        <thead>
+          <tr>
+            <th>Продукт</th>
+            <th class="r">Цена</th>
+            <th>Зачёт / комментарий</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="cap">Анализ крови (standalone)</td><td class="r">14 900 ₽</td><td class="note">подтверждена на встрече</td></tr>
+          <tr><td class="cap">Чекап</td><td class="r" style="color:var(--warn-deep)">🟡 &lt; 100 000 ₽</td><td class="note">точная цифра — следующая встреча · зачитывается в Старт / CORE</td></tr>
+          <tr><td class="cap">Программа СТАРТ (3 мес, без пептидов)</td><td class="r">90 000 ₽</td><td class="note">—</td></tr>
+          <tr><td class="cap">Программа СТАРТ помесячно</td><td class="r">30 000 ₽/мес × 3</td><td class="note">рассрочка без наценки</td></tr>
+          <tr><td class="cap">Программа CORE (12 мес, без пептидов)</td><td class="r">500 000 ₽</td><td class="note">~40K/мес</td></tr>
+          <tr><td class="cap">Программа CORE (6 мес, без пептидов)</td><td class="r">300 000 ₽</td><td class="note">—</td></tr>
+          <tr><td class="cap">Программа CORE помесячно</td><td class="r">60 000 ₽/мес</td><td class="note">дороже на 44% за год — стимул брать год upfront</td></tr>
+          <tr class="peptide"><td class="cap">Пептиды <small>(15 мг саджаро)</small></td><td class="r">~12 000 ₽/мес</td><td class="note"><b>оплачиваются отдельно</b> — обязательная часть программы, НЕ включена в её цену</td></tr>
+          <tr><td class="cap">Датчик мониторинга глюкозы</td><td class="r">по себестоимости</td><td class="note">включён в СТАРТ, по запросу в CORE</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div style="margin-top:48px">
+      <h3 style="font-size:14px;color:var(--bronze-deep);margin-bottom:18px">Насколько мы дороже Refresh — главного конкурента</h3>
+      <p class="lead" style="font-size:15px;margin-bottom:24px;max-width:880px"><a href="https://refresh.doctor" target="_blank" rel="noopener">Refresh</a> — главный прямой конкурент по программам похудения в РФ (150–400K ₽/год в зависимости от уровня погружения). На него и ориентируем.</p>
+
+      <div class="table-scroll" style="margin-bottom:32px">
+        <table class="price">
+          <thead>
+            <tr>
+              <th>Продукт</th>
+              <th class="r">Наша цена</th>
+              <th><a href="https://refresh.doctor" target="_blank" rel="noopener">Refresh</a></th>
+              <th class="r">Разница</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="cap">Программа CORE (год)</td><td class="r">500 000 ₽</td><td>150–400K ₽/год</td><td class="r" style="color:var(--bronze-deep)">+25…+230%</td></tr>
+            <tr><td class="cap">Программа СТАРТ (3 мес)</td><td class="r">90 000 ₽</td><td>40–100K за 3 мес</td><td class="r" style="color:var(--bronze-deep)">сопоставимо ±10%</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="pull" style="padding:40px 44px">
+        <h3>Что обосновывает разрыв</h3>
+        <p><b style="color:#fff">Refresh — это «качественный пептидный приём» с базовым сопровождением.</b> Мы — <b style="color:var(--bronze)">сопровождение инфраструктуры жизни</b>: личный координатор-куратор, ИИ-агент для меню, кастомный план питания, онлайн-сопровождение тренером, групповая терапия, лекции Склярова, партнёрская сеть, мероприятия.</p>
+        <p><b style="color:#fff">Цель позиционирования.</b> Чуть дороже Refresh, но не значительно. В прямом сравнении проигрываем по цене, выигрываем по продукту и сервису. Главное отстройка — мы не «ещё один притон, который колит пептиды», мы <b style="color:var(--bronze)">под ключ перестраиваем стиль жизни</b>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============= TRANSFER ============= -->
+<section>
+  <div class="wrap">
+    <div class="head">
+      <div class="left">
+        <span class="eyebrow">Раздел 07 · Переносимость</span>
+        <h2>Та же сетка — другие направления</h2>
+        <p class="lead" style="margin-top:18px">Когда v1.0 «Похудение» утверждена, такая же тарифная сетка ложится на следующие направления. Меняется только медицинский протокол и специфика диагностики; воронка, тиры, сервис-карта и формат сопровождения остаются.</p>
+      </div>
+      <div class="num-big">07</div>
+    </div>
+
+    <div class="transfer">
+      <div class="transfer-card">
+        <span class="badge">Направление 2</span>
+        <h4>Программа Долголетия</h4>
+        <div class="meta">
+          <b>Что меняется</b>
+          Протокол — персонализированный по биомаркерам, без пептидов похудения. Ядро: коррекция гормонов, нутриенты, митохондриальные интервенции, сон, стресс.
+          <b>Что добавляется</b>
+          В чекап: эпигенетический возраст, расширенные маркеры воспаления, генетика.
+          <b>Что НЕ меняется</b>
+          Структура Старт/CORE, длительность, сервис-карта, формат сопровождения.
+        </div>
+      </div>
+
+      <div class="transfer-card">
+        <span class="badge">Направление 3 · потенциально сильнее</span>
+        <h4>Мышечная масса + ГЗТ</h4>
+        <div class="meta">
+          <b>Аудитория</b>
+          Мужчины 50+, тестостероновый дефицит, профилактика возрастных изменений.
+          <b>Из обсуждения</b>
+          «На тестостерон даже больше шансов, что они будут приходить, потому что это рецептовый препарат» — направление потенциально сильнее похудения.
+          <b>Что меняется</b>
+          Протокол: ГЗТ-схема + питание под набор + силовой тренинг.
+          <b>Что НЕ меняется</b>
+          Та же 2-тиерная сетка, та же сервис-карта, та же воронка через Чекап.
+        </div>
+      </div>
+
+      <div class="transfer-card">
+        <span class="badge">Модуль</span>
+        <h4>Программа Сна <small style="color:var(--mute);font-weight:400">· при наличии лицензии</small></h4>
+        <div class="meta">
+          <b>Формат</b>
+          Самостоятельный небольший продукт до того, как станет полноценной программой.
+          <b>Включение в существующие тарифы</b>
+          Подключается как модуль в CORE любого направления когда лаборатория сна запустится.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============= REFERENCES ============= -->
+<section>
+  <div class="wrap">
+    <div class="head">
+      <div class="left">
+        <span class="eyebrow">Раздел 08 · Референсы</span>
+        <h2>На чьи цены я ориентировался</h2>
+        <p class="lead" style="margin-top:18px">Полный список игроков, с которыми сверялась тарифная сетка. Источник — внутренний research-документ «Долголетие — исследование и маркетинг» (версия 3.0, май 2026). Главный референс — Refresh. EMC Ultima и Hadassah на встрече убрали — другая бизнес-модель.</p>
+      </div>
+      <div class="num-big">08</div>
+    </div>
+
+    <h3 style="font-size:14px;color:var(--bronze-deep);margin-bottom:18px;margin-top:24px">Российский рынок — прямые конкуренты по похудению</h3>
+    <div class="ref-block">
+      <div class="ref-row"><div>Игрок</div><div>Программа</div><div>Что мы взяли</div></div>
+      <div class="ref-row">
+        <div class="name"><a href="https://refresh.doctor" target="_blank" rel="noopener">Refresh</a></div>
+        <div class="v">150–400K ₽/год программы похудения с пептидами</div>
+        <div class="v note"><b>Главный прямой конкурент.</b> CORE метим чуть выше Refresh — 500K/год</div>
+      </div>
+      <div class="ref-row">
+        <div class="name"><a href="https://estelab.ru" target="_blank" rel="noopener">Эстелаб</a></div>
+        <div class="v">200–400K ₽ (коррекция веса с тирзепатидом)</div>
+        <div class="v note">Прямой конкурент по похудению. Сопоставимы по цене с CORE 6 мес</div>
+      </div>
+      <div class="ref-row">
+        <div class="name"><a href="https://atlasclinic.ru" target="_blank" rel="noopener">Atlas Premium</a></div>
+        <div class="v">200–400K ₽/год (подписка на анализы)</div>
+        <div class="v note">Не прямой конкурент — нет полноценного сопровождения. Реф для логики</div>
+      </div>
+      <div class="ref-row">
+        <div class="name"><a href="https://gmsclinic.ru" target="_blank" rel="noopener">GMS Clinic</a></div>
+        <div class="v">70–120K ₽ чекап</div>
+        <div class="v note">Конкурент по чекапам, не по программам</div>
+      </div>
+      <div class="ref-row">
+        <div class="name"><a href="https://www.bioniq.com" target="_blank" rel="noopener">Bioniq Society</a> <small style="color:var(--mute);font-weight:400">до продажи Herbalife</small></div>
+        <div class="v">150–300K ₽/год (закрытый клуб)</div>
+        <div class="v note">Взяли механику «членство», но не цену</div>
+      </div>
+    </div>
+
+    <h3 style="font-size:14px;color:var(--bronze-deep);margin-bottom:18px;margin-top:48px">Не наш формат — сознательно НЕ ориентируемся</h3>
+    <div class="ref-block">
+      <div class="ref-row"><div>Игрок</div><div>Что предлагает</div><div>Почему не наш</div></div>
+      <div class="ref-row skip">
+        <div class="name"><a href="https://emcmos.ru" target="_blank" rel="noopener">EMC Ultima</a></div>
+        <div class="v">~$16K (~1,3M ₽/год)</div>
+        <div class="v note">Медицинская страховка с аванс-счётом. Услуги списываются с депозита, превысил — доплачиваешь. Не подписочное сопровождение.</div>
+      </div>
+      <div class="ref-row skip">
+        <div class="name"><a href="https://hadassah.moscow" target="_blank" rel="noopener">Hadassah</a></div>
+        <div class="v">5–15M ₽/год</div>
+        <div class="v note">Лечение диагностированных заболеваний по израильским протоколам. Превентивная медицина — не их направление.</div>
+      </div>
+    </div>
+
+    <h3 style="font-size:14px;color:var(--bronze-deep);margin-bottom:18px;margin-top:48px">Зарубежные эталоны — для логики и масштаба</h3>
+    <div class="ref-block">
+      <div class="ref-row"><div>Эталон</div><div>Цена в год</div><div>Где мы относительно него</div></div>
+      <div class="ref-row">
+        <div class="name"><a href="https://www.functionhealth.com" target="_blank" rel="noopener">Function Health</a> <small style="color:var(--mute);font-weight:400">Mark Hyman</small></div>
+        <div class="v">$365 (~30K ₽)</div>
+        <div class="v note">Масс-премиум подписка. Не наш сегмент.</div>
+      </div>
+      <div class="ref-row">
+        <div class="name"><a href="https://www.mylifeforce.com" target="_blank" rel="noopener">Lifeforce</a> <small style="color:var(--mute);font-weight:400">Tony Robbins</small></div>
+        <div class="v">$5K (~400K ₽)</div>
+        <div class="v note">Соответствует CORE (500K). Логика премиум-entry.</div>
+      </div>
+      <div class="ref-row">
+        <div class="name"><a href="https://marekhealth.com" target="_blank" rel="noopener">Marek Health</a> <small style="color:var(--mute);font-weight:400">Derek MPMD</small></div>
+        <div class="v">$1,5–5K (~120–400K ₽)</div>
+        <div class="v note">D2C-модель. Взяли логику «контент основателя → клиника», не цену.</div>
+      </div>
+      <div class="ref-row">
+        <div class="name"><a href="https://www.biograph.com/memberships" target="_blank" rel="noopener">Biograph</a></div>
+        <div class="v">$15K (~1,2M ₽)</div>
+        <div class="v note">Раньше эталон CORE, после пересмотра цен — выше нашего ценника.</div>
+      </div>
+      <div class="ref-row skip">
+        <div class="name"><a href="https://www.fountainlife.com" target="_blank" rel="noopener">Fountain Life APEX</a></div>
+        <div class="v">$21,5K (~1,7M ₽)</div>
+        <div class="v note">Премиум/люкс-стык. Не идём в этот сегмент после пересмотра.</div>
+      </div>
+      <div class="ref-row skip">
+        <div class="name"><a href="https://peterattiamd.com" target="_blank" rel="noopener">Peter Attia Early Medical</a></div>
+        <div class="v">~$100K (~8M ₽)</div>
+        <div class="v note">UHNWI. Не идём.</div>
+      </div>
+    </div>
+
+    <div style="margin-top:48px">
+      <div class="pull">
+        <h3>Логика выбора якорей</h3>
+        <p><b style="color:#fff">К РФ-конкурентам.</b> CORE — чуть выше Refresh (главный по похудению). СТАРТ — сопоставимо с базовыми программами рынка. Сознательно НЕ заходим в зону EMC Ultima / Hadassah — другой формат бизнеса (страховка/лечение, не подписочное сопровождение).</p>
+        <p><b style="color:#fff">К зарубежным.</b> CORE ≈ Lifeforce (премиум-entry по американским меркам с поправкой на покупательскую способность РФ). Не пытаемся достичь Biograph / Fountain Life — нет рынка.</p>
+        <p><b style="color:#fff">Куда сознательно НЕ идём.</b> Hadassah, Peter Attia Early Medical, частные семейные офисы. Это люкс/UHNWI — не наша экономика клиента и не наш канал привлечения.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============= OPEN QUESTIONS ============= -->
+<section>
+  <div class="wrap">
+    <div class="head">
+      <div class="left">
+        <span class="eyebrow">Раздел 09 · Открытые вопросы</span>
+        <h2>🟡 На следующую встречу</h2>
+        <p class="lead" style="margin-top:18px">Вопросы, которые остались без окончательного решения после встречи 13 мая. Берём в работу на следующую сессию.</p>
+      </div>
+      <div class="num-big">09</div>
+    </div>
+
+    <div class="grid-2">
+      <div class="tier" style="padding:24px"><h4>Точная цена чекапа</h4><p style="font-size:14px;color:#333;margin:0">Конкретное число (≤ 100K) после расчёта себестоимости панели Никитой.</p></div>
+      <div class="tier" style="padding:24px"><h4>Точная панель крови</h4><p style="font-size:14px;color:#333;margin:0">Никита считает себестоимость, оптимизируем перечень маркеров под прибыльность.</p></div>
+      <div class="tier" style="padding:24px"><h4>Часы работы координатора</h4><p style="font-size:14px;color:#333;margin:0">CORE: 7/7 или 5/7, реалистичная нагрузка (сколько пациентов один координатор может вести).</p></div>
+      <div class="tier" style="padding:24px"><h4>Оплата подписок приложений</h4><p style="font-size:14px;color:#333;margin:0">В CORE — клиент или мы? Влияет на маржу.</p></div>
+      <div class="tier" style="padding:24px"><h4>Сервисная карта детально</h4><p style="font-size:14px;color:#333;margin:0">Пройти всю карту командой: что делаем вживую, что делегируем ИИ, для чего нужен живой человек.</p></div>
+      <div class="tier" style="padding:24px"><h4>Welcome-pack CORE</h4><p style="font-size:14px;color:#333;margin:0">Состав мерч-набора: браслет с пульсометром? таблетница? бутылка? что-то другое?</p></div>
+      <div class="tier" style="padding:24px"><h4>Сюрприз-моменты</h4><p style="font-size:14px;color:#333;margin:0">Карта опыта пациента, формат жестов заботы — отдельный документ.</p></div>
+      <div class="tier" style="padding:24px"><h4>Личное участие Склярова</h4><p style="font-size:14px;color:#333;margin:0">В каких тарифах и как (вступительная встреча, итоговая, точечные созвоны).</p></div>
+      <div class="tier" style="padding:24px"><h4>Пептиды — канал продажи</h4><p style="font-size:14px;color:#333;margin:0">Продаём напрямую из клиники или через партнёра-аптеку?</p></div>
+      <div class="tier" style="padding:24px"><h4>Тренеры-партнёры</h4><p style="font-size:14px;color:#333;margin:0">Кто конкретно, какие залы. Нужно тестировать качество, отправлять на разведку раз в квартал.</p></div>
+      <div class="tier" style="padding:24px"><h4>Поддерживающая программа</h4><p style="font-size:14px;color:#333;margin:0">Формат и цена после завершения активной фазы CORE (ретейнер-аналог).</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============= FOOTER ============= -->
+<footer>
+  <div class="wrap">
+    <div class="col">
+      <h4>Документ</h4>
+      <p>SmileClinic Longevity · Тарифы и продуктовая сетка<br>Версия 1.0 · 13 мая 2026 · после встречи команды</p>
+    </div>
+    <div class="col">
+      <h4>Назначение</h4>
+      <p>Внутренний материал для собственников. Не для распространения. Все цены — драфт для итерации.</p>
+    </div>
+    <div class="col">
+      <h4>Источники</h4>
+      <p>Конкурентное исследование Q2 2026 · «Долголетие — исследование и маркетинг» v3.0 · протокол встречи 13 мая</p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
