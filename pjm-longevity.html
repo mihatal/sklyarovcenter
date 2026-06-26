@@ -1220,8 +1220,8 @@ function b64enc(s){ return btoa(unescape(encodeURIComponent(s))); }
 function b64dec(s){ return decodeURIComponent(escape(atob((s||"").replace(/\s/g,"")))); }
 function ghStatus(txt,cls){ const e=document.getElementById("ghStatus"); if(!e)return; e.textContent=txt; e.className="gh-status"+(cls?" "+cls:""); }
 function refreshGhUI(){
-  const conn=document.getElementById("ghConn");
   if(ghToken()) ghStatus(STATE._savedAt?("сохр.: "+STATE._savedAt):"подключено к GitHub","ok");
+  else if(STATE._savedAt) ghStatus("версия с GitHub: "+STATE._savedAt,"ok");
   else ghStatus("локально (не на GitHub)");
 }
 function connectGitHub(){
