@@ -336,6 +336,9 @@ html{scroll-behavior:smooth}
 .secnav a{font-size:12px;font-weight:600;color:var(--mute);text-decoration:none;padding:4px 9px;border-radius:7px;cursor:pointer;transition:all .12s}
 .secnav a:hover{background:var(--paper-2);color:var(--bronze-deep)}
 .secnav a.active{background:var(--ink);color:#fff}
+.io-links{display:inline-flex;gap:4px;align-items:center}
+.io-links a{font-size:11.5px;font-weight:600;color:var(--bronze-deep);text-decoration:none;padding:4px 9px;border-radius:7px;cursor:pointer;border:1px solid var(--rule);transition:all .12s}
+.io-links a:hover{background:var(--bronze);color:#fff;border-color:var(--bronze)}
 /* статус GitHub */
 .gh-status{font-size:11.5px;font-weight:700;color:var(--mute);display:inline-flex;align-items:center;gap:5px;padding:0 2px}
 .gh-status::before{content:"○";font-size:12px}
@@ -417,12 +420,14 @@ html{scroll-behavior:smooth}
     <span class="gh-status" id="ghStatus" title="состояние синхронизации с GitHub">локально</span>
     <button class="btn" id="ghSave" onclick="saveToGitHub()" title="закоммитить правки в GitHub — увидят все">↑ Сохранить на GitHub</button>
     <button class="btn ghost" id="ghPull" onclick="loadFromGitHub(true)" title="подтянуть последнюю версию с GitHub">↓ Обновить</button>
+    <button class="btn" onclick="downloadSnapshot()" title="скачать HTML со ВСЕМИ правками — открывается офлайн, ничего не теряется">⤓ Скачать копию</button>
     <button class="btn ghost" onclick="openTeam()">Команда</button>
     <button class="btn ghost" onclick="resetAll()">Сбросить</button>
     <button class="btn ghost" onclick="copySummary()">Копировать итог</button>
     <button class="btn ghost" onclick="window.print()">Печать</button>
     <div class="tb-row2">
       <span class="stagejump" id="stagejump"></span>
+      <span class="io-links"><a onclick="exportJSON()" title="скачать правки отдельным файлом-бэкапом">⤓ бэкап JSON</a><a onclick="importJSON()" title="загрузить правки из ранее сохранённого JSON">⤒ восстановить</a></span>
       <span class="spacer"></span>
       <nav class="secnav" id="secnav"></nav>
     </div>
@@ -730,7 +735,8 @@ const DEFAULT_ROSTER = [
   {id:"m4",name:"Никита",color:"#9F7314"},
   {id:"m5",name:"Варя",color:"#8A332A"},
 ];
-let STATE = JSON.parse(localStorage.getItem(LSK) || "{}");
+const IS_SNAPSHOT = !!window.__PJM_SEED;
+let STATE = IS_SNAPSHOT ? window.__PJM_SEED : JSON.parse(localStorage.getItem(LSK) || "{}");
 STATE.status ??= {}; STATE.text ??= {}; STATE.notes ??= {}; STATE.parking ??= {}; STATE.backlog ??= {}; STATE.dir ??= "base";
 STATE.added ??= {}; STATE.hidden ??= {}; STATE.owner ??= {}; STATE.due ??= {}; STATE.crm ??= "";
 STATE.labels ??= {}; STATE.custom ??= {};
@@ -1264,11 +1270,36 @@ async function loadFromGitHub(manual){
   }catch(err){ if(manual){ ghStatus("ошибка загрузки","warn"); alert("Не удалось загрузить с GitHub: "+err.message); } else refreshGhUI(); return false; }
 }
 
+/* ===================== ВЫГРУЗКА / ВОССТАНОВЛЕНИЕ ===================== */
+function dl(name,text,mime){ const b=new Blob([text],{type:mime||"text/plain;charset=utf-8"}); const u=URL.createObjectURL(b); const a=document.createElement("a"); a.href=u; a.download=name; document.body.appendChild(a); a.click(); setTimeout(()=>{URL.revokeObjectURL(u);a.remove();},120); }
+function stampName(){ return new Date().toLocaleString("ru-RU").replace(/[:\s,\.]+/g,"-").replace(/-+$/,""); }
+function exportJSON(){ dl("pjm-правки-"+stampName()+".json", JSON.stringify(STATE,null,2), "application/json"); toast("JSON-бэкап скачан"); }
+function importJSON(){
+  const inp=document.createElement("input"); inp.type="file"; inp.accept=".json,application/json";
+  inp.onchange=()=>{ const f=inp.files[0]; if(!f)return; const r=new FileReader();
+    r.onload=()=>{ try{ const data=JSON.parse(r.result);
+      if(!confirm("Восстановить правки из файла? Текущее состояние в этом браузере будет заменено."))return;
+      const roster=(data.roster&&data.roster.length)?data.roster:STATE.roster;
+      STATE=Object.assign({status:{},text:{},notes:{},parking:{},backlog:{},added:{},hidden:{},owner:{},due:{},labels:{},custom:{},dir:"base",crm:""},data,{roster,seq:data.seq||STATE.seq||1});
+      localStorage.setItem(LSK,JSON.stringify(STATE));
+      renderDirs(); renderBanner(); renderAudit(); renderMatrix(); renderRoles(); renderBacklog(); renderParking(); renderScenario(); initCRM(); renderTeam(); rerender(); applyStaticEditables(); refreshGhUI(); toast("Правки восстановлены");
+    }catch(e){ alert("Не удалось прочитать JSON: "+e.message); } };
+    r.readAsText(f); };
+  inp.click();
+}
+function downloadSnapshot(){
+  const seed="<scr"+"ipt>window.__PJM_SEED="+JSON.stringify(STATE).replace(/<\//g,"<\\/")+";</scr"+"ipt>";
+  let html="<!DOCTYPE html>\n"+document.documentElement.outerHTML;
+  html=html.replace("</head>", seed+"\n</head>");
+  dl("PJM — карта пути (снимок "+stampName()+").html", html, "text/html;charset=utf-8");
+  toast("Копия со всеми правками скачана ✓");
+}
+
 document.getElementById("footer").innerHTML="(C) Сгенерировано Claude · тарифы — лендинг Лонживити v1.0 (13 мая) + транскрипты встреч. CRM — НЕ CoreApp (моя прежняя ошибка): впиши реальную в «Контексте». <b>Любая карточка редактируется</b> (двойной клик по тексту или ✎). «↑ Сохранить на GitHub» коммитит правки в репозиторий — их увидят все, кто откроет страницу. Без токена правки живут только в этом браузере (localStorage).";
 
 /* init */
 renderDirs(); renderBanner(); renderAudit(); renderMatrix(); renderRoles(); renderBacklog(); renderParking(); renderScenario(); initCRM(); renderTeam(); renderGrid(); renderOwners(); buildNav(); applyStaticEditables();
-if(localStorage.getItem(LSK)===null){ loadFromGitHub(false); } refreshGhUI();
+if(IS_SNAPSHOT){ ghStatus("локальная копия-снимок","busy"); } else { if(localStorage.getItem(LSK)===null){ loadFromGitHub(false); } refreshGhUI(); }
 </script>
 </body>
 </html>
