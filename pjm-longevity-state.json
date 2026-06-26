@@ -1,0 +1,48 @@
+{
+ "status": {},
+ "text": {},
+ "notes": {},
+ "parking": {},
+ "backlog": {},
+ "dir": "base",
+ "added": {},
+ "hidden": {},
+ "owner": {},
+ "due": {},
+ "crm": "",
+ "labels": {},
+ "custom": {
+  "audit": [],
+  "roles": [],
+  "backlog": []
+ },
+ "roster": [
+  {
+   "id": "m1",
+   "name": "Миша",
+   "color": "#3F8C5C"
+  },
+  {
+   "id": "m2",
+   "name": "Илья",
+   "color": "#B5895C"
+  },
+  {
+   "id": "m3",
+   "name": "Рита",
+   "color": "#2F6E8F"
+  },
+  {
+   "id": "m4",
+   "name": "Никита",
+   "color": "#9F7314"
+  },
+  {
+   "id": "m5",
+   "name": "Варя",
+   "color": "#8A332A"
+  }
+ ],
+ "seq": 1,
+ "_savedAt": "26.06.2026, 12:38:44"
+}
