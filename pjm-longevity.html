@@ -1,0 +1,1274 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PJM · Карта пути клиента — SmileClinic Longevity</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FAF7F2; --paper-2:#F2EDE4; --card:#FFFFFF;
+  --ink:#1A1A1A; --line:#2A2A2A; --mute:#6B6B6B; --faint:#9c958a;
+  --bronze:#B5895C; --bronze-soft:#E8D7BD; --bronze-deep:#8C6638;
+  --rule:rgba(181,137,92,.28);
+  --ok:#3F8C5C; --ok-soft:#E5F2EB; --ok-deep:#286038;
+  --warn:#C8941C; --warn-soft:#FAEFD0; --warn-deep:#9F7314;
+  --bad:#B5453A; --bad-soft:#F6E3DF; --bad-deep:#8A332A;
+  --done:#2F6E8F; --done-soft:#E2EEF4; --done-deep:#21506A;
+  --col-w:332px; --lane-w:208px;
+  --shadow:0 1px 2px rgba(40,30,20,.05),0 8px 24px rgba(40,30,20,.06);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--paper);color:var(--ink);font-family:"Montserrat","Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased;font-weight:400}
+body{padding:0 0 120px}
+.mono{font-family:"JetBrains Mono",monospace}
+.wrap{max-width:1640px;margin:0 auto;padding:0 30px}
+
+/* ---------- HEADER ---------- */
+header.top{padding:38px 0 22px;border-bottom:1px solid var(--rule);background:linear-gradient(180deg,#fff,var(--paper))}
+.eyebrow{font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:var(--bronze-deep);font-weight:600}
+h1{font-weight:200;font-size:40px;letter-spacing:-.5px;line-height:1.05;margin:10px 0 6px}
+h1 b{font-weight:600}
+.sub{color:var(--mute);font-weight:300;font-size:16px;max-width:1100px;line-height:1.5}
+.sub .accent{color:var(--bronze-deep);font-weight:500}
+
+/* ---------- PANELS (legend / howto / context) ---------- */
+.panels{display:grid;grid-template-columns:1.05fr 1.35fr 1.1fr;gap:18px;margin-top:24px}
+.panel{background:var(--card);border:1px solid var(--rule);border-radius:12px;padding:18px 20px;box-shadow:var(--shadow)}
+.panel h3{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--bronze-deep);font-weight:700;margin-bottom:12px}
+.legend-row{display:flex;align-items:flex-start;gap:11px;margin-bottom:10px}
+.legend-row:last-child{margin-bottom:0}
+.swatch{flex:none;width:30px;height:30px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;border:1.5px solid}
+.sw-know{background:var(--ok-soft);border-color:var(--ok);color:var(--ok-deep)}
+.sw-discuss{background:var(--warn-soft);border-color:var(--warn);color:var(--warn-deep)}
+.sw-decide{background:var(--bad-soft);border-color:var(--bad);color:var(--bad-deep)}
+.sw-done{background:var(--done-soft);border-color:var(--done);color:var(--done-deep)}
+.legend-row .lt{font-weight:600;font-size:13px}
+.legend-row .ld{font-size:12px;color:var(--mute);font-weight:300;line-height:1.4}
+.howto ol{margin:0;padding-left:18px}
+.howto li{font-size:12.5px;line-height:1.55;margin-bottom:7px;color:var(--ink);font-weight:300}
+.howto li b{font-weight:600}
+.ctx p{font-size:12.5px;line-height:1.5;color:var(--ink);font-weight:300;margin-bottom:8px;padding-left:14px;position:relative}
+.ctx p::before{content:"→";position:absolute;left:0;color:var(--bronze);font-weight:600}
+.ctx p b{font-weight:600}
+
+/* ---------- TOOLBAR ---------- */
+.toolbar{position:sticky;top:0;z-index:60;background:rgba(250,247,242,.93);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule);padding:12px 0;margin-top:26px}
+.toolbar .wrap{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.tb-label{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--bronze-deep);font-weight:700}
+.dirs{display:flex;gap:7px;flex-wrap:wrap}
+.dir-btn{border:1px solid var(--rule);background:#fff;color:var(--mute);padding:7px 14px;border-radius:30px;font-family:inherit;font-size:12.5px;font-weight:500;cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:7px}
+.dir-btn:hover{border-color:var(--bronze);color:var(--ink)}
+.dir-btn.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+.dir-dot{width:9px;height:9px;border-radius:50%}
+.spacer{flex:1}
+.btn{border:1px solid var(--bronze);background:#fff;color:var(--bronze-deep);padding:7px 14px;border-radius:8px;font-family:inherit;font-size:12.5px;font-weight:600;cursor:pointer;transition:all .15s}
+.btn:hover{background:var(--bronze);color:#fff}
+.btn.ghost{border-color:var(--rule);color:var(--mute)}
+.btn.ghost:hover{background:var(--paper-2);color:var(--ink);border-color:var(--mute)}
+
+/* ---------- BRANCH BANNER ---------- */
+.branch-banner{margin-top:18px;border-radius:12px;padding:14px 20px;display:none;align-items:flex-start;gap:14px;border:1px solid}
+.branch-banner.show{display:flex}
+.branch-banner .bb-ic{flex:none;width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:16px;color:#fff}
+.branch-banner .bb-t{font-weight:700;font-size:15px;margin-bottom:3px}
+.branch-banner .bb-d{font-size:13px;font-weight:300;line-height:1.5}
+
+/* ---------- GRID / BLUEPRINT ---------- */
+.board-scroll{margin-top:20px;overflow-x:auto;overflow-y:visible;border:1px solid var(--rule);border-radius:14px;background:var(--card);box-shadow:var(--shadow)}
+.grid{display:grid;grid-auto-rows:min-content;min-width:max-content}
+.cell{border-right:1px solid #efe8dc;border-bottom:1px solid #efe8dc;padding:9px;position:relative}
+.lane-head{width:var(--lane-w);position:sticky;left:0;z-index:30;background:var(--paper-2);border-right:1px solid var(--rule)}
+.stage-col{width:var(--col-w)}
+
+/* corner */
+.corner{position:sticky;left:0;top:0;z-index:50;background:var(--ink);color:#fff;border-right:1px solid var(--rule);padding:14px 12px;display:flex;flex-direction:column;justify-content:center}
+.corner .c1{font-size:13px;font-weight:700;letter-spacing:.04em}
+.corner .c2{font-size:10.5px;font-weight:300;color:#d8cfc2;margin-top:3px;line-height:1.35}
+
+/* stage header */
+.st-head{position:sticky;top:0;z-index:25;background:var(--ink);color:#fff;padding:13px 13px 12px}
+.st-head .num{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;background:var(--bronze);color:#fff;font-weight:700;font-size:13px;margin-bottom:8px}
+.st-head .nm{font-weight:600;font-size:14px;line-height:1.2;letter-spacing:.01em}
+.st-head .gl{font-size:11px;font-weight:300;color:#e6ddd0;margin-top:6px;line-height:1.4}
+.st-head.warnstage .num{background:var(--warn)}
+.st-head.starstage .num{background:var(--bad)}
+.st-flag{position:absolute;top:11px;right:11px;font-size:9px;font-weight:700;letter-spacing:.08em;padding:3px 7px;border-radius:5px}
+.flag-warn{background:var(--warn);color:#fff}
+.flag-star{background:var(--bad);color:#fff}
+.flag-branch{background:var(--bronze-soft);color:var(--bronze-deep);border:1px solid var(--bronze)}
+
+/* group band labels (left) */
+.group-band{position:sticky;left:0;z-index:28;padding:7px 12px;font-size:10px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:#fff}
+.gb-client{background:linear-gradient(90deg,var(--done-deep),var(--done))}
+.gb-line{background:repeating-linear-gradient(45deg,var(--bronze-deep),var(--bronze-deep) 8px,var(--bronze) 8px,var(--bronze) 16px);color:#fff}
+.gb-back{background:linear-gradient(90deg,#3a342c,#5a4f40)}
+.gb-biz{background:linear-gradient(90deg,var(--bronze-deep),var(--bronze))}
+.gb-live{background:linear-gradient(90deg,#444,#666)}
+.group-fill{background:transparent;border-bottom:none !important;border-right:1px solid #efe8dc}
+.gf-line{height:14px;background:repeating-linear-gradient(45deg,rgba(181,137,92,.10),rgba(181,137,92,.10) 8px,rgba(181,137,92,.02) 8px,rgba(181,137,92,.02) 16px)}
+
+/* lane label */
+.lane-label .ll-t{font-size:12px;font-weight:700;line-height:1.25;color:var(--ink)}
+.lane-label .ll-d{font-size:10.5px;font-weight:300;color:var(--faint);margin-top:3px;line-height:1.35}
+.lane-label.accent .ll-t{color:var(--bronze-deep)}
+.lane-decide{background:var(--bad-soft) !important}
+.lane-decide .ll-t{color:var(--bad-deep)}
+
+/* cards */
+.card{border-radius:8px;padding:8px 10px;font-size:12px;line-height:1.4;font-weight:400;margin-bottom:7px;border:1px solid;position:relative;cursor:default}
+.card:last-child{margin-bottom:0}
+.card .chip{display:inline-block;width:15px;height:15px;border-radius:4px;font-size:10px;font-weight:800;text-align:center;line-height:15px;margin-right:6px;cursor:pointer;vertical-align:1px;user-select:none;flex:none}
+.card .ct{display:inline}
+.c-know{background:var(--ok-soft);border-color:rgba(63,140,92,.45);color:var(--ink)}
+.c-know .chip{background:var(--ok);color:#fff}
+.c-discuss{background:var(--warn-soft);border-color:rgba(200,148,28,.5);color:var(--ink)}
+.c-discuss .chip{background:var(--warn);color:#fff}
+.c-decide{background:var(--bad-soft);border-color:rgba(181,69,58,.5);color:var(--ink)}
+.c-decide .chip{background:var(--bad);color:#fff}
+.c-done{background:var(--done-soft);border-color:rgba(47,110,143,.5);color:var(--ink)}
+.c-done .chip{background:var(--done);color:#fff}
+.card.branchcard{border-style:dashed;border-width:1.5px}
+.card[contenteditable="true"]{outline:2px solid var(--bronze);outline-offset:1px}
+.card .ct:focus{outline:none}
+
+/* role pill */
+.rolepill{display:inline-block;font-size:10.5px;font-weight:600;padding:2px 8px;border-radius:20px;background:#3a342c;color:#fff;margin:0 4px 4px 0}
+.rolepill.branch{background:var(--bronze)}
+
+/* emotion row */
+.emo-cell{padding:10px 12px}
+.emo-pill{border-radius:8px;padding:7px 10px;font-size:11.5px;font-weight:500;display:flex;align-items:center;gap:8px;line-height:1.3}
+.emo-hi{background:var(--ok-soft);color:var(--ok-deep)}
+.emo-mid{background:var(--warn-soft);color:var(--warn-deep)}
+.emo-lo{background:var(--bad-soft);color:var(--bad-deep)}
+.emo-bar{flex:none;display:flex;align-items:flex-end;gap:2px;height:20px}
+.emo-bar i{width:4px;background:currentColor;border-radius:1px;opacity:.85}
+.emo-trend{font-size:13px;font-weight:700;margin-left:auto}
+
+/* live notes */
+.note-area{min-height:74px;background:repeating-linear-gradient(transparent,transparent 23px,rgba(181,137,92,.14) 24px);border:1px dashed var(--rule);border-radius:8px;padding:5px 9px;font-size:12px;line-height:24px;color:var(--ink);font-weight:400;outline:none}
+.note-area:empty::before{content:"клик — записать вживую…";color:var(--faint);font-style:italic;font-weight:300}
+.note-area:focus{border-color:var(--bronze);background-color:#fffdfa}
+
+/* ---------- SECTIONS below ---------- */
+section.blk{margin-top:46px}
+.blk-h{display:flex;align-items:baseline;gap:14px;border-bottom:2px solid var(--ink);padding-bottom:8px;margin-bottom:20px}
+.blk-h .bn{font-family:"JetBrains Mono",monospace;font-size:13px;color:var(--bronze-deep);font-weight:500}
+.blk-h h2{font-weight:300;font-size:25px;letter-spacing:-.3px}
+.blk-h h2 b{font-weight:600}
+.blk-h .bd{color:var(--mute);font-size:13px;font-weight:300;margin-left:auto}
+
+/* branch matrix */
+.matrix-scroll{overflow-x:auto;border:1px solid var(--rule);border-radius:12px;box-shadow:var(--shadow)}
+table.matrix{border-collapse:collapse;width:100%;min-width:1100px;background:#fff}
+table.matrix th,table.matrix td{border:1px solid #ede5d8;padding:11px 13px;font-size:12.5px;vertical-align:top;text-align:left;line-height:1.45}
+table.matrix thead th{background:var(--ink);color:#fff;font-weight:600;font-size:12px;position:sticky;top:0}
+table.matrix tbody th{background:var(--paper-2);font-weight:700;width:180px;color:var(--ink)}
+table.matrix .dir-cell{font-weight:600}
+table.matrix tr:nth-child(even) td{background:#fcfaf6}
+table.matrix .inv{background:var(--ok-soft) !important;color:var(--ok-deep);font-weight:500}
+
+/* roles cards */
+.roles-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:16px}
+.role-card{background:#fff;border:1px solid var(--rule);border-radius:12px;padding:16px 18px;box-shadow:var(--shadow);border-top:3px solid var(--bronze)}
+.role-card h4{font-size:15px;font-weight:700;margin-bottom:3px}
+.role-card .rwho{font-size:11px;color:var(--bronze-deep);font-weight:600;letter-spacing:.04em;text-transform:uppercase;margin-bottom:11px}
+.role-card .rsec{font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);margin:11px 0 5px}
+.role-card ul{list-style:none;padding:0;margin:0}
+.role-card li{font-size:12.5px;line-height:1.5;font-weight:300;padding-left:15px;position:relative;margin-bottom:4px}
+.role-card li::before{content:"·";position:absolute;left:3px;color:var(--bronze);font-weight:700}
+.role-card li.proc::before{content:"⚙";font-size:10px;left:0}
+
+/* audit */
+.audit-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(370px,1fr));gap:14px}
+.audit-card{background:#fff;border:1px solid var(--rule);border-radius:12px;padding:16px 18px;box-shadow:var(--shadow);border-left:4px solid var(--bronze)}
+.audit-card .ah{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.audit-card .ai{flex:none;width:26px;height:26px;border-radius:7px;background:var(--bronze-soft);color:var(--bronze-deep);font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center}
+.audit-card .at{font-size:14px;font-weight:700;line-height:1.25}
+.audit-card .stg{font-size:10px;font-weight:700;letter-spacing:.05em;color:var(--bronze-deep);text-transform:uppercase;margin-left:auto;background:var(--paper-2);padding:3px 8px;border-radius:5px}
+.audit-card .ad{font-size:12.5px;line-height:1.5;font-weight:300;color:var(--ink)}
+.audit-card .ad b{font-weight:600}
+.audit-card.hot{border-left-color:var(--bad)}
+.audit-card.hot .ai{background:var(--bad-soft);color:var(--bad-deep)}
+
+/* backlog */
+.backlog{display:grid;grid-template-columns:repeat(auto-fill,minmax(390px,1fr));gap:11px}
+.bl-item{display:flex;align-items:flex-start;gap:11px;background:#fff;border:1px solid var(--rule);border-left:4px solid var(--mute);border-radius:9px;padding:11px 14px;box-shadow:var(--shadow)}
+.bl-item.s-decide{border-left-color:var(--bad)}
+.bl-item.s-discuss{border-left-color:var(--warn)}
+.bl-item.s-know{border-left-color:var(--ok)}
+.bl-check{flex:none;width:20px;height:20px;border:1.5px solid var(--rule);border-radius:5px;cursor:pointer;margin-top:1px;display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--ok-deep);font-weight:800}
+.bl-check.checked{background:var(--ok-soft);border-color:var(--ok)}
+.bl-body .blt{font-size:13px;font-weight:600;line-height:1.35}
+.bl-body .bld{font-size:11.5px;color:var(--mute);font-weight:300;margin-top:3px;line-height:1.4}
+.bl-item.checked .blt{text-decoration:line-through;color:var(--faint)}
+
+/* parking */
+.parking{background:linear-gradient(180deg,#fff,var(--bad-soft));border:1px solid var(--bad);border-radius:14px;padding:22px 24px;box-shadow:var(--shadow)}
+.parking h3{color:var(--bad-deep);font-size:18px;font-weight:700;margin-bottom:5px}
+.parking p.psub{color:var(--mute);font-size:13px;font-weight:300;margin-bottom:16px}
+.park-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+.park-card{background:#fff;border:1px solid var(--bad);border-radius:10px;padding:14px}
+.park-card .pn{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.park-card .pn .pi{width:24px;height:24px;border-radius:50%;background:var(--bad);color:#fff;font-weight:700;font-size:12px;display:flex;align-items:center;justify-content:center;flex:none}
+.park-card .pt{font-size:13px;font-weight:700;color:var(--bad-deep);line-height:1.25}
+.park-card .pd{font-size:11.5px;color:var(--mute);font-weight:300;line-height:1.45;margin-bottom:10px}
+.park-card .pfill{min-height:54px;border-top:1px dashed var(--rule);padding-top:7px;font-size:12px;line-height:22px;background:repeating-linear-gradient(transparent,transparent 21px,rgba(181,69,58,.14) 22px);outline:none}
+.park-card .pfill:empty::before{content:"решили: …";color:var(--faint);font-style:italic}
+.park-card .pfill:focus{background-color:#fffdfa}
+
+footer{margin-top:50px;padding-top:20px;border-top:1px solid var(--rule);color:var(--faint);font-size:11.5px;font-weight:300;line-height:1.6}
+
+/* save toast */
+.toast{position:fixed;bottom:24px;right:24px;background:var(--ink);color:#fff;padding:11px 18px;border-radius:9px;font-size:12.5px;font-weight:500;opacity:0;transform:translateY(8px);transition:all .25s;z-index:200;pointer-events:none}
+.toast.show{opacity:1;transform:translateY(0)}
+
+/* CRM inline edit */
+.crm-edit{border-bottom:1.5px dashed var(--bronze);cursor:text;padding:0 2px;color:var(--bronze-deep)}
+.crm-edit:focus{outline:none;background:var(--warn-soft)}
+
+/* ---- card actions: owner + due + delete ---- */
+.card-foot{display:flex;align-items:center;gap:6px;margin-top:8px;flex-wrap:wrap;min-height:22px}
+.owner-chip{display:inline-flex;align-items:center;gap:5px;font-size:10.5px;font-weight:600;padding:2px 9px 2px 3px;border-radius:20px;cursor:pointer;border:1px solid transparent;line-height:1}
+.owner-chip .av{width:17px;height:17px;border-radius:50%;color:#fff;font-size:9px;font-weight:800;display:flex;align-items:center;justify-content:center;flex:none}
+.owner-add{font-size:10.5px;font-weight:600;color:var(--mute);background:#fff;border:1px dashed var(--rule);border-radius:20px;padding:3px 10px;cursor:pointer;transition:all .12s;line-height:1}
+.owner-add:hover{border-color:var(--bronze);color:var(--bronze-deep);background:var(--paper-2)}
+.due-chip{font-size:10px;font-weight:600;color:var(--done);background:var(--done-soft);border-radius:5px;padding:3px 8px;cursor:pointer}
+.card-del{margin-left:auto;width:22px;height:22px;border-radius:6px;color:var(--faint);font-size:16px;line-height:20px;text-align:center;cursor:pointer;opacity:0;transition:opacity .12s;flex:none}
+.card:hover .card-del{opacity:1}
+.card-del:hover{background:var(--bad-soft);color:var(--bad)}
+
+/* add-card ghost button */
+.add-card{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;border:1px dashed var(--rule);background:rgba(255,255,255,.45);border-radius:8px;padding:8px;font-family:inherit;font-size:11.5px;font-weight:600;color:var(--mute);cursor:pointer;transition:all .12s;margin-top:3px}
+.add-card:hover{border-color:var(--bronze);color:var(--bronze-deep);background:#fff}
+.add-card .plus{font-size:15px;line-height:1}
+
+/* popover (owner / due) */
+.pop{position:absolute;z-index:120;background:#fff;border:1px solid var(--rule);border-radius:11px;box-shadow:0 10px 34px rgba(40,30,20,.20);padding:8px;min-width:216px}
+.pop h5{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--bronze-deep);font-weight:700;padding:4px 8px 6px}
+.pop-row{display:flex;align-items:center;gap:9px;padding:7px 8px;border-radius:7px;cursor:pointer;font-size:13px;font-weight:500}
+.pop-row:hover{background:var(--paper-2)}
+.pop-row .av{width:22px;height:22px;border-radius:50%;color:#fff;font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center;flex:none}
+.pop-row.clear{color:var(--mute);font-size:12px;border-top:1px solid var(--rule);margin-top:4px;border-radius:0}
+.pop-row.manage{color:var(--bronze-deep);font-size:12px;font-weight:600}
+.pop-due{display:flex;gap:6px;padding:8px;border-top:1px solid var(--rule);margin-top:4px}
+.pop-due input{flex:1;border:1px solid var(--rule);border-radius:7px;padding:7px 9px;font-family:inherit;font-size:13px;outline:none}
+.pop-due input:focus{border-color:var(--bronze)}
+.pop-due button{border:none;background:var(--bronze);color:#fff;border-radius:7px;padding:0 12px;font-family:inherit;font-weight:600;cursor:pointer}
+
+/* team modal */
+.modal-bg{position:fixed;inset:0;background:rgba(26,22,18,.5);z-index:300;display:none;align-items:center;justify-content:center}
+.modal-bg.show{display:flex}
+.modal{background:#fff;border-radius:16px;width:min(520px,92vw);max-height:86vh;overflow:auto;box-shadow:0 30px 80px rgba(0,0,0,.3)}
+.modal-h{padding:20px 24px 14px;border-bottom:1px solid var(--rule);display:flex;align-items:center}
+.modal-h h3{font-size:20px;font-weight:600}
+.modal-h .x{margin-left:auto;cursor:pointer;font-size:24px;color:var(--mute);line-height:1}
+.modal-b{padding:18px 24px 24px}
+.team-row{display:flex;align-items:center;gap:12px;padding:9px 0;border-bottom:1px solid #f0eadf}
+.team-row .av{width:30px;height:30px;border-radius:50%;color:#fff;font-weight:800;font-size:12px;display:flex;align-items:center;justify-content:center;flex:none}
+.team-row input{flex:1;border:none;border-bottom:1px solid transparent;font-family:inherit;font-size:14px;padding:4px;outline:none;background:transparent}
+.team-row input:focus{border-bottom-color:var(--bronze)}
+.team-row .role{font-size:11px;color:var(--mute)}
+.team-row .del{cursor:pointer;color:var(--faint);font-size:18px;padding:0 6px}
+.team-row .del:hover{color:var(--bad)}
+.team-add{display:flex;gap:9px;margin-top:16px}
+.team-add input{flex:1;border:1px solid var(--rule);border-radius:8px;padding:9px 11px;font-family:inherit;font-size:14px;outline:none}
+.team-add input:focus{border-color:var(--bronze)}
+
+/* owners summary "кто что забрал" */
+.owners-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+.owner-card{background:#fff;border:1px solid var(--rule);border-radius:12px;padding:0;box-shadow:var(--shadow);overflow:hidden}
+.owner-card .oh{display:flex;align-items:center;gap:10px;padding:13px 16px;color:#fff}
+.owner-card .oh .av{width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.25);font-weight:800;font-size:12px;display:flex;align-items:center;justify-content:center}
+.owner-card .oh .nm{font-weight:700;font-size:15px}
+.owner-card .oh .cnt{margin-left:auto;font-size:12px;font-weight:600;background:rgba(255,255,255,.2);padding:2px 9px;border-radius:20px}
+.owner-card ul{list-style:none;margin:0;padding:8px 16px 14px}
+.owner-card li{font-size:12.5px;line-height:1.4;padding:7px 0 7px 14px;position:relative;border-bottom:1px solid #f4efe6}
+.owner-card li:last-child{border-bottom:none}
+.owner-card li::before{content:"";position:absolute;left:0;top:13px;width:5px;height:5px;border-radius:50%;background:var(--bronze)}
+.owner-card li .meta{font-size:10.5px;color:var(--mute);margin-top:2px}
+.owner-card li .due{color:var(--done);font-weight:600}
+.owners-empty{color:var(--mute);font-size:13px;font-weight:300;font-style:italic;padding:14px 2px}
+
+/* scenario panel */
+.scenario{background:linear-gradient(180deg,#fff,var(--paper-2));border:1px solid var(--bronze);border-radius:14px;margin-top:20px;overflow:hidden}
+.scenario summary{cursor:pointer;list-style:none;padding:16px 22px;display:flex;align-items:center;gap:12px;font-weight:600;font-size:16px;color:var(--bronze-deep)}
+.scenario summary::-webkit-details-marker{display:none}
+.scenario summary .chev{margin-left:auto;transition:transform .2s;font-size:13px;color:var(--mute)}
+.scenario[open] summary .chev{transform:rotate(90deg)}
+.scenario summary .pill{font-size:10px;background:var(--bronze);color:#fff;padding:3px 9px;border-radius:20px;font-weight:700;letter-spacing:.04em}
+.scenario-b{padding:4px 26px 24px}
+.sc-cols{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.sc-phase{margin-bottom:16px;padding-left:16px;border-left:2px solid var(--bronze-soft)}
+.sc-phase .sp-h{display:flex;align-items:baseline;gap:10px;margin-bottom:5px}
+.sc-phase .sp-t{font-weight:700;font-size:14px}
+.sc-phase .sp-time{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--bronze-deep);background:var(--bronze-soft);padding:1px 7px;border-radius:5px}
+.sc-phase ul{margin:0;padding-left:17px}
+.sc-phase li{font-size:12.5px;line-height:1.5;font-weight:300;margin-bottom:3px}
+.sc-phase li b{font-weight:600}
+.sc-say{background:var(--ok-soft);border-radius:8px;padding:8px 12px;font-size:12px;font-style:italic;color:var(--ok-deep);margin:6px 0}
+
+/* ---- НАВИГАЦИЯ ---- */
+html{scroll-behavior:smooth}
+/* правый рельс-оглавление */
+.rail{position:fixed;right:14px;top:50%;transform:translateY(-50%);z-index:90;display:flex;flex-direction:column;gap:9px}
+.rail a{display:flex;align-items:center;gap:8px;justify-content:flex-end;text-decoration:none;color:var(--mute);cursor:pointer}
+.rail a .lbl{opacity:0;transform:translateX(6px);transition:all .15s;background:var(--ink);color:#fff;padding:3px 9px;border-radius:6px;white-space:nowrap;pointer-events:none;font-size:11.5px;font-weight:600}
+.rail a .dot{width:11px;height:11px;border-radius:50%;border:2px solid var(--rule);background:#fff;transition:all .15s;flex:none}
+.rail a:hover .lbl{opacity:1;transform:translateX(0)}
+.rail a:hover .dot{border-color:var(--bronze)}
+.rail a.active .dot{background:var(--bronze);border-color:var(--bronze);transform:scale(1.3)}
+@media(max-width:1180px){.rail{display:none}}
+/* наверх */
+.totop{position:fixed;left:22px;bottom:22px;z-index:90;width:42px;height:42px;border-radius:50%;background:var(--ink);color:#fff;border:none;cursor:pointer;font-size:19px;box-shadow:0 6px 20px rgba(0,0,0,.25);opacity:0;pointer-events:none;transition:opacity .2s}
+.totop.show{opacity:1;pointer-events:auto}
+/* джамп по этапам */
+.stagejump{display:flex;align-items:center;gap:4px;flex-wrap:wrap}
+.stagejump .sj-l{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--bronze-deep);font-weight:700;margin-right:3px}
+.stagejump button{min-width:26px;height:26px;padding:0 4px;border-radius:7px;border:1px solid var(--rule);background:#fff;color:var(--mute);font-family:inherit;font-weight:700;font-size:12px;cursor:pointer;transition:all .12s}
+.stagejump button:hover{border-color:var(--bronze);color:var(--bronze-deep);background:var(--paper-2)}
+.tb-row2{width:100%;flex-basis:100%;display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:9px;padding-top:9px;border-top:1px solid var(--rule)}
+.secnav{display:flex;align-items:center;gap:3px;flex-wrap:wrap}
+.secnav .sj-l{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--bronze-deep);font-weight:700;margin-right:3px}
+.secnav a{font-size:12px;font-weight:600;color:var(--mute);text-decoration:none;padding:4px 9px;border-radius:7px;cursor:pointer;transition:all .12s}
+.secnav a:hover{background:var(--paper-2);color:var(--bronze-deep)}
+.secnav a.active{background:var(--ink);color:#fff}
+/* статус GitHub */
+.gh-status{font-size:11.5px;font-weight:700;color:var(--mute);display:inline-flex;align-items:center;gap:5px;padding:0 2px}
+.gh-status::before{content:"○";font-size:12px}
+.gh-status.ok{color:var(--ok-deep)} .gh-status.ok::before{content:"●";color:var(--ok)}
+.gh-status.warn{color:var(--warn-deep)} .gh-status.warn::before{content:"●";color:var(--warn)}
+.gh-status.busy{color:var(--done)} .gh-status.busy::before{content:"◐";color:var(--done)}
+/* редактирование карточки */
+.card-edit{width:20px;height:20px;border-radius:5px;color:var(--faint);font-size:12px;line-height:20px;text-align:center;cursor:pointer;opacity:0;transition:opacity .12s;flex:none}
+.card:hover .card-edit{opacity:.85}
+.card-edit:hover{background:var(--bronze-soft);color:var(--bronze-deep)}
+.ct[contenteditable="true"]{outline:2px solid var(--bronze);outline-offset:2px;border-radius:3px;background:#fffdf8;cursor:text}
+.ct{cursor:text}
+/* редактируемые подписи (блоки/колонки/строки/ячейки) */
+.editlbl{cursor:text;transition:box-shadow .12s}
+.editlbl:hover{box-shadow:inset 0 -2px 0 var(--bronze)}
+.editlbl[contenteditable="true"]{background:#fff!important;color:#1a1a1a!important;outline:2px solid var(--bronze);outline-offset:2px;border-radius:3px;box-shadow:none!important}
+/* кастомные добавленные карточки в доп-разделах */
+.custom-card{display:flex;align-items:flex-start;gap:8px;background:#fff;border:1px dashed var(--bronze);border-radius:9px;padding:10px 12px;margin-top:8px;box-shadow:var(--shadow)}
+.custom-card .cc-t{flex:1;font-size:13px;line-height:1.45;font-weight:400}
+.custom-card .cc-del{cursor:pointer;color:var(--faint);font-size:16px;line-height:1;flex:none}
+.custom-card .cc-del:hover{color:var(--bad)}
+.add-sec{display:inline-flex;align-items:center;gap:6px;margin-top:12px;border:1px dashed var(--rule);background:rgba(255,255,255,.5);border-radius:8px;padding:8px 14px;font-family:inherit;font-size:12px;font-weight:600;color:var(--mute);cursor:pointer;transition:all .12s}
+.add-sec:hover{border-color:var(--bronze);color:var(--bronze-deep);background:#fff}
+.add-sec .plus{font-size:15px}
+
+@media print{
+  .toolbar,.btn,.toast,.add-card,.card-del,.pop,.modal-bg,.rail,.totop,.tb-row2{display:none!important}
+  body{padding:0}
+  .board-scroll,.matrix-scroll{overflow:visible}
+  .card .chip{cursor:default}
+  header.top{break-after:avoid}
+  section.blk{break-inside:avoid}
+  .scenario[open] .scenario-b{break-inside:avoid}
+}
+</style>
+</head>
+<body>
+
+<header class="top" id="sec-top">
+  <div class="wrap">
+    <div class="eyebrow">SmileClinic Longevity · рабочий инструмент сессии</div>
+    <h1>PJM — <b>карта пути клиента</b> продуктового ведения</h1>
+    <p class="sub">Универсальный путь клиента <span class="accent">для любого направления</span> (похудение · мышцы+ТРТ · сон · антиэйдж · когнитивка). Базовый путь — один; «начинка» меняется по направлению. Цель сессии — <span class="accent">пройти путь и осознать процессы, которые надо создать внутри бизнеса</span>, чтобы клиент шёл гладко. Тарифы и сетка — по зафиксированному лендингу (v1.0, 13 мая).</p>
+
+    <div class="panels">
+      <div class="panel">
+        <h3>Легенда — статус карточки <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--mute)">(клик по значку — сменить)</span></h3>
+        <div class="legend-row"><div class="swatch sw-know">✓</div><div><div class="lt">Знаем твёрдо</div><div class="ld">зафиксировано на встречах / в лендинге — не переобсуждаем</div></div></div>
+        <div class="legend-row"><div class="swatch sw-discuss">?</div><div><div class="lt">Обсудить</div><div class="ld">гипотеза / спорный момент / риск — проговорить и договориться</div></div></div>
+        <div class="legend-row"><div class="swatch sw-decide">◆</div><div><div class="lt">Решить</div><div class="ld">открытое решение — принять на сессии</div></div></div>
+        <div class="legend-row"><div class="swatch sw-done">●</div><div><div class="lt">Решено</div><div class="ld">приняли вживую — клик доводит до этого статуса</div></div></div>
+      </div>
+      <div class="panel howto">
+        <h3>Как работать на сессии</h3>
+        <ol>
+          <li><b>Слева направо</b> по этапам 0→8. Сверху вниз: мир клиента → линия видимости → что готовит бизнес → бизнес.</li>
+          <li><b>Значок</b> = статус (знаем→обсудить→решить→решено). <b>Двойной клик по тексту</b> = правка.</li>
+          <li><b>«+отв»</b> на карточке = назначить ответственного и срок. <b>«+ карточка»</b> внизу ячейки = добавить пункт вживую. Навёл на карточку → <b>×</b> = удалить.</li>
+          <li><b>Живые заметки</b> в каждом этапе + <b>Парковка решений</b>. Внизу — сводка <b>«кто что забрал»</b>.</li>
+          <li>Сначала открой <b>«Сценарий сессии»</b> ниже. Всё сохраняется автоматически. «Команда» — настроить участников.</li>
+        </ol>
+      </div>
+      <div class="panel ctx">
+        <h3>Контекст</h3>
+        <p><b>Клиент:</b> 35–50, состоятельный. Приходит с болью (вес/энергия/гормоны/сон), слова «долголетие» в запросе нет.</p>
+        <p><b>Модель:</b> членство/сопровождение. Продаём не препарат, а инфраструктуру жизни под ключ.</p>
+        <p><b>Воронка:</b> вход (анализ крови/чекап) → презентация плана → программа (2 тарифа) → ретейнер.</p>
+        <p><b>CRM = <span id="crmName" contenteditable="true" class="crm-edit" title="клик — вписать вашу CRM">[впиши CRM клиники]</span></b> — единое место, клиент закреплён за сотрудником. Старт: своя база (MVP).</p>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="toolbar">
+  <div class="wrap">
+    <span class="tb-label">Направление:</span>
+    <div class="dirs" id="dirs"></div>
+    <span class="spacer"></span>
+    <span class="gh-status" id="ghStatus" title="состояние синхронизации с GitHub">локально</span>
+    <button class="btn" id="ghSave" onclick="saveToGitHub()" title="закоммитить правки в GitHub — увидят все">↑ Сохранить на GitHub</button>
+    <button class="btn ghost" id="ghPull" onclick="loadFromGitHub(true)" title="подтянуть последнюю версию с GitHub">↓ Обновить</button>
+    <button class="btn ghost" onclick="openTeam()">Команда</button>
+    <button class="btn ghost" onclick="resetAll()">Сбросить</button>
+    <button class="btn ghost" onclick="copySummary()">Копировать итог</button>
+    <button class="btn ghost" onclick="window.print()">Печать</button>
+    <div class="tb-row2">
+      <span class="stagejump" id="stagejump"></span>
+      <span class="spacer"></span>
+      <nav class="secnav" id="secnav"></nav>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <details class="scenario" id="scenario">
+    <summary><span class="pill">СНАЧАЛА ПРОЧТИ</span> Сценарий сессии — как вести по карте, чтобы получить результат <span class="chev">▶</span></summary>
+    <div class="scenario-b" id="scenarioBody"></div>
+  </details>
+  <div class="branch-banner" id="branchBanner"></div>
+  <div class="board-scroll" id="sec-board">
+    <div class="grid" id="grid"></div>
+  </div>
+</div>
+
+<div class="wrap">
+  <section class="blk" id="sec-audit">
+    <div class="blk-h"><span class="bn">A</span><h2>Аудит: где <b>премиум-путь рвётся</b></h2><span class="bd">маркетинг + премиум-лупа · что это значит для бизнеса</span></div>
+    <div class="audit-grid" id="audit"></div>
+  </section>
+
+  <section class="blk" id="sec-branch">
+    <div class="blk-h"><span class="bn">B</span><h2>Ответвления по <b>направлениям</b></h2><span class="bd">базовый путь один — меняется только «начинка»</span></div>
+    <div class="matrix-scroll"><table class="matrix" id="matrix"></table></div>
+  </section>
+
+  <section class="blk" id="sec-roles">
+    <div class="blk-h"><span class="bn">C</span><h2>Операционный слой — <b>роль × что подготовить</b></h2><span class="bd">кто ведёт, что нужно под рукой, какой процесс создать</span></div>
+    <div class="roles-grid" id="roles"></div>
+  </section>
+
+  <section class="blk" id="sec-backlog">
+    <div class="blk-h"><span class="bn">D</span><h2>Что надо <b>создать до запуска</b></h2><span class="bd">бэклог процессов и регламентов · клик = готово</span></div>
+    <div class="backlog" id="backlog"></div>
+  </section>
+
+  <section class="blk" id="sec-parking">
+    <div class="parking">
+      <h3>◆ Парковка решений — что выносим из сессии</h3>
+      <p class="psub">Узловые развязки, без которых карту нельзя закрыть. По каждой — принять и записать решение (сохраняется автоматически).</p>
+      <div class="park-grid" id="parking"></div>
+    </div>
+  </section>
+
+  <section class="blk" id="sec-owners">
+    <div class="blk-h"><span class="bn">E</span><h2>Кто что <b>забрал</b></h2><span class="bd">итог сессии · все задачи с назначенным ответственным · обновляется автоматически</span></div>
+    <div class="owners-grid" id="owners"></div>
+  </section>
+
+  <footer id="footer"></footer>
+</div>
+
+<nav class="rail" id="rail"></nav>
+<button class="totop" id="totop" title="Наверх" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<!-- popover для назначения -->
+<div class="pop" id="pop" style="display:none"></div>
+
+<!-- модалка команды -->
+<div class="modal-bg" id="teamModal" onclick="if(event.target===this)closeTeam()">
+  <div class="modal">
+    <div class="modal-h"><h3>Команда сессии</h3><span class="x" onclick="closeTeam()">×</span></div>
+    <div class="modal-b">
+      <div id="teamList"></div>
+      <div class="team-add">
+        <input id="teamNewName" placeholder="Имя нового участника" onkeydown="if(event.key==='Enter')addMember()">
+        <button class="btn" onclick="addMember()">Добавить</button>
+      </div>
+      <p style="font-size:12px;color:var(--mute);margin-top:14px;font-weight:300">Участники доступны в «+отв» на каждой карточке. Цвет назначается автоматически.</p>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast">Сохранено</div>
+
+<script>
+/* ===================== ДАННЫЕ ===================== */
+const ST = {know:"know",discuss:"discuss",decide:"decide"};
+
+const STAGES = [
+{ n:"0", nm:"Триггер · осознание", goal:"Решить конкретную боль: вес / энергия / гормоны / сон. Слова «долголетие» нет.", flag:null, emo:{lvl:"lo",v:1,w:"дискомфорт · стыд · «надо менять»"},
+  actions:[["Ловит триггер: фото, не сходятся штаны, самочувствие","know"],["Видит контент Ильи или реактивационную рассылку базы","know"]],
+  barriers:[["Нет запроса на «longevity» — не ищет это слово","know"],["«Препараты есть в аптеке — зачем клиника»","discuss"]],
+  role:[["Маркетинг + Илья (контент)","know"],["При реактивации — менеджер базы / админ","discuss"]],
+  needs:[["Сегменты базы для обзвона + инфоповод запуска","decide"],["УТП направления в одной фразе","discuss"]],
+  data:[["Источник лида (UTM/откуда) фиксируется с 1-го касания → CRM","know"]],
+  process:[["Регламент реактивации базы: кто звонит, скрипт, сегмент","decide"],["Контент-план прогрева Ильи (build-in-public)","know"]],
+  product:[["Бесплатно: контент / лид-магнит / комплиментарный чекап для базы","discuss"]],
+  metric:[["Охват прогрева · отклик базы · заявки · источник","know"]],
+  decision:[["С какого сегмента базы стартуем MVP?","decide"],["Лид-магнит на входе и кто реактивирует базу?","decide"]] },
+
+{ n:"1", nm:"Прогрев · доверие", goal:"Понять, можно ли доверять; снять страх ненатуральности и побочек.", flag:null, emo:{lvl:"mid",v:2,w:"интерес + осторожность"},
+  actions:[["Легит-чек: соцсети, агрегаторы, отзывы, сайт","know"],["Смотрит лекции Ильи (сон / питание / долголетие)","know"],["Изучает кейсы до/после группы здоровья","know"]],
+  barriers:[["Нет соц-доказательства longevity на старте → кейсы своей группы","know"],["Страх ненатуральности / побочек","know"],["«Дорого ли это» — ещё до цифр","discuss"]],
+  role:[["Маркетинг / контент","know"],["Илья — лекции, личный бренд","know"]],
+  needs:[["Банк кейсов до/после (с согласиями)","decide"],["Библиотека лекций + отзывы под рукой","discuss"]],
+  data:[["Вовлечённость лида, что смотрел → CRM","discuss"]],
+  process:[["Сбор и оформление кейсов: согласия, единый банк доказательств","decide"],["Контент-план прогрева","know"]],
+  product:[["Бесплатно (контент) → оффер на анализ крови / чекап","know"]],
+  metric:[["Вовлечённость · запись на чекап (conv в чекап)","know"]],
+  decision:[["Чем именно греем (контент-план)?","decide"],["Брать ли предзапись / waitlist?","decide"]] },
+
+{ n:"2", nm:"Заявка · запись", goal:"Быстро записаться и не передумать.", flag:"warn", emo:{lvl:"mid",v:1.6,w:"решился · лёгкая тревога"},
+  actions:[["Оставляет заявку / звонит → запись → подтверждение","know"]],
+  barriers:[["РАЗРЫВ заявка→визит: ответ >18ч = уход к конкуренту (~28% не доходят)","discuss"],["Цена входа как фильтр vs барьер (14.9 ↔ 20K)","discuss"],["Путаница бренда: «вы вообще кто»","discuss"]],
+  role:[["АДМИНИСТРАТОР — первый контакт, запись, маршрутизация","know"]],
+  needs:[["Прайс и состав входных продуктов под рукой","know"],["Скрипт ответа + маршрутизация (хочу к сомнологу → записать)","decide"],["Карточка пациента в CRM — закрепить за собой","know"],["Апсейл при записи (расширенный чекап / 2-й спец)","discuss"]],
+  data:[["Заводится карточка в CRM + источник лида + запрос/боль","know"]],
+  process:[["SLA ответа на заявку: кто / за сколько / по какому скрипту","decide"],["Регламент маршрутизации входящего запроса","decide"]],
+  product:[["Анализ крови 14 900 ₽ / Чекап <100K (зачёт в программу 30 дн)","know"]],
+  metric:[["Conv заявка→визит · SLA ответа · доходимость · чек входа","know"]],
+  decision:[["SLA + кто отвечает на заявку?","decide"],["Цена анализа 14.9 или 20K? Один чекап или вилка?","decide"],["Как представляемся: бренд направления?","decide"]] },
+
+{ n:"3", nm:"Чекап · диагностика", goal:"Узнать своё состояние, получить понятную картину.", flag:"branch", emo:{lvl:"mid",v:1.8,w:"любопытство + тревога перед результатами"},
+  actions:[["Сдаёт кровь; замеры (TechnoGym/InBody, Cognifit, VO2max, антропометрия)","know"],["Заполняет одну полную анкету","know"],["Получает авто-отчёт в стиле UPI","know"]],
+  barriers:[["Перегруз тестами; сухие референсы пугают → отчёт через позитив","discuss"],["Анкеты тяжело — не плодить (одна полная)","know"]],
+  role:[["Админ (организует) + врач направления (консультация) + диагност (замеры)","know"]],
+  needs:[["Чек-лист диагностики по направлению","decide"],["Шаблон авто-отчёта (UPI-референс)","decide"],["Анкета: мед-анамнез из стоматологии + цели + семейная история + эмоц.здоровье + STOP-BANG по сну","discuss"]],
+  data:[["Кровь, замеры, анкета, эмоц.здоровье, цели → ВСЁ в карточку CRM","know"],["Авто-отчёт генерится из шаблона (не вручную)","know"]],
+  process:[["Генератор авто-отчёта (шаблоны → подстановка)","decide"],["Финал набора маркеров (себестоимость, не в минус)","decide"],["Единая анкета + блок эмоц.здоровья — добавить","decide"]],
+  product:[["Чекап (в зачёт) · анализ крови standalone с авто-отчётом БЕЗ препаратов","know"]],
+  metric:[["Доходимость до чекапа · NPS чекапа · conv чекап→консультация","know"]],
+  decision:[["Финальный набор маркеров и точная цена чекапа (≤100K)?","decide"],["Анкета — финальный состав? Кто делает замеры?","decide"]] },
+
+{ n:"4", nm:"План · продажа", goal:"Получить понятный план и поверить, что он сработает.", flag:"star", emo:{lvl:"lo",v:1.4,w:"надежда ↔ тревога · крупное решение"},
+  actions:[["Личный разбор результатов с врачом (не просто PDF — отстройка)","know"],["Получает дорожную карту проектов (что лечим первым)","know"],["Выбирает тариф / берёт паузу на решение","know"]],
+  barriers:[["Цена (Рита: дорого → пересмотр вниз до ~500K/год)","know"],["Как сообщать плохие результаты — скрипт НЕ написан","decide"],["Longevity продаётся иначе, чем стоматология","decide"]],
+  role:[["ВРАЧ направления — разбор + план + продажа","know"],["Модель «один врач-дирижёр» собирает всё, спецы точечно","discuss"]],
+  needs:[["Полная карточка: анализы + замеры + анкета","know"],["Скрипт презентации плана","decide"],["Скрипт подачи плохих результатов через позитив («−холестерин = −35% риск инфаркта»)","decide"],["Прайс тарифов + что входит; логика дорожной карты («сначала быстрый результат»)","know"]],
+  data:[["Персональный план + дорожная карта проектов + выбранный тариф/возражения → CRM","know"]],
+  process:[["Скрипт продаж longevity","decide"],["Скрипт подачи плохих результатов","decide"],["Политика founding-members / money-back","decide"],["Кто продаёт: врач или менеджер","decide"]],
+  product:[["ВЕТВЛЕНИЕ ТАРИФА → Старт ~90K/3мес (связь=админ) · CORE 300K/6мес или 500K/12мес (координатор)","know"],["Пептиды / препараты отдельно ~12K/мес","know"]],
+  metric:[["Conv чекап→программа (КЛЮЧЕВАЯ) · средний чек · % CORE vs Старт","know"]],
+  decision:[["Скрипт продаж + подача плохих результатов?","decide"],["Кто продаёт? Founding / money-back?","decide"],["Личное участие Ильи — в каких тарифах?","decide"]] },
+
+{ n:"5", nm:"Онбординг", goal:"Стартовать легко, не утонуть в новых требованиях.", flag:null, emo:{lvl:"hi",v:3.5,w:"воодушевление · «начинаю»"},
+  actions:[["Оплата → заводят в CRM / чат → ставят приложения","know"],["Получает Welcome Pack","know"],["Первая постановка целей + дорожная карта","know"]],
+  barriers:[["Отвал ДО старта даже после оплаты (~28%)","discuss"],["ПЕРЕГРУЗ: спорт+питание+уколы+фото+приложения сразу → «сойдёт с ума»","decide"],["«Слабая аудитория не будет фоткать еду» (Рита)","discuss"]],
+  role:[["Координатор (CORE) / админ (Старт)","know"],["Админ ставит приложения; врач ставит протокол","know"]],
+  needs:[["Чек-лист онбординга по неделям","decide"],["Состав Welcome Pack","decide"],["Список приложений по направлению (FatSecret / Cognifit / …)","discuss"],["Инструкция установки приложений (Apple ID → giftcard → возврат)","discuss"]],
+  data:[["Цели, дорожная карта, стартовые замеры, выданные доступы → CRM активен","know"]],
+  process:[["РЕГЛАМЕНТ ПОЭТАПНОГО ОНБОРДИНГА по неделям — НАДО СОЗДАТЬ","decide"],["Чек-лист установки приложений; сбор Welcome Pack","decide"],["Wow-момент №1 на входе","discuss"]],
+  product:[["Старт протокола (пептид-титрация / ГЗТ / …) · CGM-датчик (Старт) · базовый план","know"]],
+  metric:[["% дошедших до старта (активация) · NPS онбординга · удержание 1-й недели","know"]],
+  decision:[["Сценарий онбординга по неделям?","decide"],["Состав Welcome Pack? Что человеку / что ИИ?","decide"]] },
+
+{ n:"6", nm:"Активное ведение", goal:"Дойти до результата, не бросить на плато.", flag:"branch", emo:{lvl:"mid",v:2.5,w:"качели: мотивация ↔ плато / срывы"},
+  actions:[["Следует протоколу; шлёт фото еды; замеры","know"],["Встречи с врачом (Старт 1/мес · CORE каждые 2–4 нед)","know"],["Живёт в чат-группе; тренируется по плану","know"]],
+  barriers:[["Плато / срывы / побочки → падение вовлечённости → churn","discuss"],["Удержание >3–6 мес критично (вовлечённость → результат)","know"],["Реалистичность сервиса: нагрузка координатора","decide"]],
+  role:[["ВЕТВЛЕНИЕ БАЛАНСА РОЛЕЙ ↓","know"],["Координатор (CORE, 7д раб.время) / админ (Старт)","know"],["Нутрициолог (CORE, фото-чат) · тренер-партнёр (контроль по результату) · ИИ-агент (меню 24/7) · врач (эскалация)","know"]],
+  needs:[["Координатору: план/протокол пациента + прямой канал к врачу (буфер!) + остаток БАДов + доступ к чату питания","know"],["Тренеру: программа пациента; ИИ: калории/макро клиента","discuss"]],
+  data:[["Динамика (вес, биоимпеданс, CGM, WHOOP), касания, остаток БАДов → CRM","know"]],
+  process:[["НОРМА нагрузки координатора (сколько пациентов) — НЕ ПОСЧИТАНО","decide"],["Регламент касаний (ритм, кто инициирует)","decide"],["Модерация групп-терапии (кто/как) — НЕ ПРОГОВОРЕНО","decide"],["Доставка БАДов / заказ препаратов; ИИ-агент меню (обёртка GPT); тесты тренеров (раз в квартал)","decide"]],
+  product:[["Активная фаза 3/6/12 мес · пептиды/препараты ~12K/мес отдельно · БАДы отдельным прайсом","know"]],
+  metric:[["Удержание 3/6 мес · вовлечённость · промеж. цели · частота касаний","know"]],
+  decision:[["Норма пациентов на координатора? Часы 7/7 или 5/7?","decide"],["Регламент касаний? Модерация чата? Что ИИ / что человек?","decide"]] },
+
+{ n:"7", nm:"Результат · milestone", goal:"Увидеть и закрепить результат, получить признание.", flag:null, emo:{lvl:"hi",v:4,w:"гордость · лояльность"},
+  actions:[["Видит цифры: −кг, −холестерин, +мышцы","know"],["Повторный чекап = фиксация результата","know"],["Оставляет отзыв / до-после (с согласия)","discuss"]],
+  barriers:[["«Программа кончилась — что дальше» → риск ухода","know"],["Если результата нет — удар по репутации","discuss"]],
+  role:[["Координатор (празднование, запрос отзыва) + врач (разбор динамики)","know"]],
+  needs:[["Карта milestones по показателям + награды","decide"],["Формулировки выгод («−35% риск инфаркта»)","discuss"],["Шаблон запроса отзыва / реферала","decide"]],
+  data:[["Повторный чекап + достигнутые milestones + согласие на кейс → CRM","know"]],
+  process:[["КАРТА MILESTONES + награды/жесты заботы (как подарки в стоматологии)","decide"],["Ритуал празднования (брендированный); сбор отзыва/реферала; проверка money-back","decide"]],
+  product:[["Апсейл в поддерживающую фазу / следующий проект","know"]],
+  metric:[["% достигших цели (напр. −7% за 12 нед) · доля отзывов · NPS · реферралы","know"]],
+  decision:[["Карта milestones + награды?","decide"],["Money-back на X% результата? Когда просим отзыв-реферал? Кто «менеджер опыта»?","decide"]] },
+
+{ n:"8", nm:"Ретейнер · расширение", goal:"Поддерживать результат и улучшать другие зоны здоровья.", flag:"branch", emo:{lvl:"hi",v:3.5,w:"принадлежность · «своя клиника / клуб»"},
+  actions:[["Переходит на поддерживающую дозу (пожизненно — ретейнер-логика)","know"],["Добавляет новый проект: сон / мышцы+ТРТ / когнитивка","know"],["Приводит семью / коллег; ходит на закрытые события","know"]],
+  barriers:[["Усталость от подписки · конкуренты (Refresh, Скандинавия СПб)","discuss"],["Этичность «пожизненной подписки» (принято как доказательная модель)","know"]],
+  role:[["Координатор (клуб, кросс-продажи) + врач (новый проект) + Илья (события)","know"]],
+  needs:[["Структура поддерживающей фазы + каталог направлений для кросс-продажи","decide"],["Карта дорожной карты клиента (что прошёл / что дальше)","discuss"],["Реферальная / семейная / корпоративная механика","decide"]],
+  data:[["История проектов клиента · LTV · реферралы → CRM","know"]],
+  process:[["Формат + цена поддерживающей фазы (ретейнер)","decide"],["Прайс добавления проекта; реферальная программа","decide"],["Семейный (−15%, общий координатор) / корпоративный (−20%) запуск; партнёрская сеть (кардио обязательна при ГЗТ)","discuss"]],
+  product:[["Поддерживающая подписка · кросс-продукты (новые направления) · семья −15% / корп −20%","know"]],
+  metric:[["LTV · re-enrollment (цель ~67% год2) · % на поддержке · кросс-продажи · churn","know"]],
+  decision:[["Структура и цена поддерживающей фазы?","decide"],["Прайс доп.проектов? Семья/корпоратив — когда? Реферальная программа?","decide"]] },
+];
+
+/* направления — ответвления */
+const DIRS = [
+  { id:"base", label:"База (универсал)", color:"#1A1A1A", desc:"Базовый путь — одинаков для всех направлений. Переключи направление, чтобы увидеть, что меняется." },
+  { id:"slim", label:"Похудение", color:"#3F8C5C", desc:"Флагман запуска. Пептиды GLP-1 (тирзепатид / Седжаро). Сильная роль нутрициолога и групп-терапии.",
+    s3:["Маркеры: метаболизм, липиды, глюкоза, инсулин","CGM-датчик постоянного мониторинга глюкозы"],
+    s4:["Протокол: пептидная схема (титрация 15/10 мг), препарат отдельно"],
+    s6:["Баланс: нутрициолог++ · тренер+ · групп-терапия (доказана, как у анонимных алкоголиков)"] },
+  { id:"trt",  label:"Мышцы + ТРТ / ГЗТ", color:"#8C6638", desc:"Мужчины 50+. Рецептурный препарат → врач обязателен, удержание сильнее похудения.",
+    s3:["Маркеры: тестостерон, эстрадиол, ПСА, гормональная панель"],
+    s4:["Протокол: ГЗТ-схема (рецептурная) + питание под набор + силовой тренинг"],
+    s6:["Баланс: тренер++ · нутрициолог+ · ОБЯЗАТЕЛЬНА кардио-партнёрка (контроль сердца)"] },
+  { id:"sleep",label:"Сон", color:"#2F6E8F", desc:"Подключается позже как модуль в CORE любого направления. Нужна лицензия + оборудование (~700K).",
+    s3:["Анкета STOP-BANG (апноэ) · оборудование сна (лаборатория)"],
+    s4:["Протокол: режим сна, CPAP/гаджеты, коррекция (сомнолог)"],
+    s6:["Баланс: сомнолог во главе · модуль в CORE; на старте направления нет"] },
+  { id:"anti", label:"Антиэйдж / гормоны", color:"#B5453A", desc:"Долголетие как зонтик. Персонализация по биомаркерам, без пептидов похудения.",
+    s3:["Эпигенетический возраст, маркеры воспаления, генетика (расширенный чекап)"],
+    s4:["Протокол: коррекция гормонов / нутриенты / митохондрии / сон / стресс"],
+    s6:["Баланс: врач-дирижёр собирает всё; библиотека лекций Ильи"] },
+  { id:"cogn", label:"Когнитивка / нейро", color:"#6B6B6B", desc:"Тренд, не в MVP. Подключается как продвинутый модуль.",
+    s3:["Cognifit углублённый + нейротесты"],
+    s4:["Протокол: Семакс / Селанк, транскраниальная магнитная стимуляция (TMS)"],
+    s6:["Баланс: невролог · спец-оборудование TMS"] },
+];
+
+/* инвариант — что одинаково */
+const INVARIANT = "Одинаково для всех направлений: анкеты · базовая кровь · формат сопровождения · сервис-карта · воронка через чекап · CRM · дорожная карта проектов · ретейнер-логика · 2 тарифа (Старт/CORE).";
+
+/* матрица направлений */
+const MATRIX_ROWS = [
+  ["Чекап — спец-маркеры","Метаболизм, липиды, глюкоза, инсулин + CGM","Тестостерон, эстрадиол, ПСА","STOP-BANG, оборудование сна","Эпигенетика, воспаление, генетика","Cognifit углублённый, нейротесты"],
+  ["Протокол","Пептиды GLP-1 (тирзепатид/Седжаро)","ГЗТ-схема (рецептурная)","Режим сна, CPAP","Гормоны/нутриенты/митохондрии","Семакс/Селанк, TMS"],
+  ["Доминирующая роль","Нутрициолог","Тренер","Сомнолог","Врач-дирижёр","Невролог"],
+  ["Спец-партнёр / оборудование","CGM-датчик","Кардиоклиника (обязательно)","Лаборатория сна (лицензия)","Расширенная лаборатория","TMS-оборудование"],
+  ["Welcome / приложения","FatSecret","Силовые трекеры","Трекеры сна","Полный longevity-набор","Cognifit"],
+  ["Особенность удержания","Ретейнер-метафора, групп-терапия","Сильнее (рецепт дольше держит)","Модуль внутри других","Зонтик долголетия, лекции","Не в MVP"],
+];
+
+/* роли — операционный слой */
+const ROLES = [
+  { name:"Администратор", who:"первый контакт · запись · вход", have:["Прайс и состав входных продуктов","Скрипт ответа на заявку + маршрутизация","Карточка пациента в CRM (закрепляется за собой)","Понимание бренда направления (как представляемся)"], proc:["SLA скорости ответа на заявку","Чек-лист установки приложений (Apple ID → giftcard → возврат)","Апсейл-скрипт при записи"] },
+  { name:"Координатор-куратор", who:"CORE · ежедневный контакт · консьерж", have:["План/протокол пациента + график визитов","Прямой канал к врачу (буфер: мед-вопрос → врачу → вернулся с ответом)","Остаток БАДов + авто-согласование доставки","Доступ к чату питания и динамике в CRM"], proc:["Норма пациентов на 1 координатора (НЕ ПОСЧИТАНО)","Часы работы 7/7 или 5/7 (реалистичность)","Регламент касаний: ритм, кто инициирует","Модерация групп-терапии (НЕ ПРОГОВОРЕНО)"] },
+  { name:"Врач направления", who:"консультация · план · продажа · протокол", have:["Полная карточка: анализы + замеры + анкета","Скрипт презентации плана + дорожной карты проектов","Скрипт подачи плохих результатов через позитив","Логика «сначала быстрый результат»"], proc:["Методология продажи longevity (обкатать на базе)","Регламент эскалаций от координатора"] },
+  { name:"Нутрициолог", who:"CORE · питание", have:["Цели + привычки + ограничения клиента","Чат с фото еды","Базовые шаблоны рациона (веган/мясоед/сбаланс)"], proc:["Где кончается нутрициолог и начинается ИИ-агент"] },
+  { name:"Тренер-партнёр", who:"внешний · техника + регулярность", have:["Программа пациента (чтобы знать её)","Доступ к результатам для контроля"], proc:["Контроль ПО РЕЗУЛЬТАТУ, не постоянный","Тесты качества тренеров раз в квартал","Кто конкретно / какие залы"] },
+  { name:"ИИ-агент (меню)", who:"24/7 · обёртка GPT в стиле клиники", have:["Калории/макро клиента","Уровень вовлечения (приложение / фото / «ешь зелёное»)"], proc:["Сборка обёртки GPT","Дисклеймер «рекомендация агента, не врача»"] },
+  { name:"CRM клиники (система)", who:"единое хранилище · карточка клиента", have:["Карточка клиента: анкета, чекап, цели, эмоц.здоровье","Динамика, замеры, история проектов, касания, источник лида"], proc:["Уточнить, какая CRM (НЕ CoreApp — это было ошибкой)","Шаблон авто-отчёта по анализам (UPI-референс)","Единая анкета (не плодить) + блок эмоц.здоровья"] },
+];
+
+/* бэклог процессов */
+const BACKLOG = [
+  ["SLA и обработка заявки","скорость ответа = половина бюджета","decide"],
+  ["Скрипт продаж longevity","продаётся иначе, чем стоматология","decide"],
+  ["Скрипт подачи плохих результатов","через позитив, ни одного неверного слова","decide"],
+  ["Генератор авто-отчёта по анализам","UPI-референс, шаблоны → подстановка","decide"],
+  ["Финальный набор маркеров + цена чекапа","себестоимость, не в минус","decide"],
+  ["Единая анкета + блок эмоц.здоровья","не плодить анкеты","decide"],
+  ["Регламент поэтапного онбординга","по неделям, чтобы не перегрузить","decide"],
+  ["Норма нагрузки координатора","сколько пациентов на одного","decide"],
+  ["Регламент касаний в активной фазе","ритм, кто инициирует","decide"],
+  ["Модерация групп-терапии","кто и как","decide"],
+  ["Доставка БАДов / заказ препаратов","отслеживание остатка, авто-согласование","discuss"],
+  ["ИИ-агент меню по фото","обёртка GPT + дисклеймер","discuss"],
+  ["Тесты качества тренеров","раз в квартал проверочный клиент","discuss"],
+  ["Карта milestones + награды","под каждый показатель — веха и жест","decide"],
+  ["Ритуал празднования результата","брендированный, как подарки в стоматологии","discuss"],
+  ["Сбор отзывов / рефералов","шаблон + момент запроса","decide"],
+  ["Поддерживающая фаза (ретейнер)","формат + цена после активной","decide"],
+  ["Семейный / корпоративный формат","−15% / −20%, общий координатор","discuss"],
+  ["Реферальная программа","бонусы на счёт","discuss"],
+  ["Партнёрская сеть","кардиоклиника (обяз. при ГЗТ), лаборатории, залы","discuss"],
+  ["Банк кейсов до/после","с согласиями, единое место","decide"],
+  ["Состав Welcome Pack","браслет/таблетница/шейкер","decide"],
+];
+
+/* маркетинг/премиум аудит */
+const AUDIT = [
+  ["Этап 2","Разрыв заявка→визит — дыра №1",true,"Премиум теряет деньги именно здесь: лид ждёт ответа и уходит. Нужен <b>SLA в минутах</b>, а не часах, и закреплённый админ в CRM. Без этого реклама льётся в пустоту."],
+  ["Этап 4","Момент истины — продажа плана",true,"Conv чекап→программа = главная метрика бизнеса. Премиум здесь = <b>личный разбор врачом</b> (не PDF) + скрипт подачи плохих результатов через позитив. Скрипта нет — теряем и продажу, и доверие."],
+  ["Этап 6","Сервис — это и есть продукт",true,"Премиум-дифференциатор — не процедуры, а <b>сервис-обёртка и «один контакт»</b>. Значит координатор = ядро. Но норма нагрузки НЕ посчитана: если 1 куратор не тянет 50 пациентов — юнит-экономика CORE рушится."],
+  ["Этап 5","Онбординг — скрытый отток",false,"~28% не стартуют даже после оплаты. Премиум = <b>wow-онбординг + поэтапность</b> (не вали всё сразу). Регламента нет — приоритетный процесс к запуску."],
+  ["Этап 8","Ретейнер — где премиум окупается",false,"Модель зарабатывает на удержании (re-enrollment ~67% год2). <b>Универсальность карты тут ключевая</b>: расширение = новое направление тому же клиенту (кросс-продажа сон/ТРТ). Это и есть смысл «универсального ведения»."],
+  ["Сквозное","CRM — единый источник правды",false,"Каждая роль работает из одной карточки клиента. Принцип <b>«никакого не наша зона»</b> держится только если данные (анкета, чекап, цели, динамика) живут в одном месте. Размажешь — сервис ломается."],
+];
+
+/* парковка решений */
+const PARKING = [
+  ["Экономика входа","Финальный набор маркеров + цена чекапа и анализа. Чтобы вход не уходил в минус и фильтровал ЦА."],
+  ["Разрыв заявка→визит","SLA ответа: кто, за сколько, по какому скрипту. Здесь молча течёт половина бюджета."],
+  ["Продажа плана","Скрипт продажи longevity + подача плохих результатов. Кто продаёт. Founding / money-back."],
+  ["Операционка сервиса","Норма пациентов на координатора + регламент касаний. Что человеку, что ИИ. Тесты тренеров."],
+  ["Онбординг без перегруза","Поэтапный сценарий по неделям + Welcome Pack + список приложений по направлению."],
+  ["Ретейнер и рост LTV","Структура и цена поддерживающей фазы. Прайс доп.проектов. Семья/корпоратив. Рефералы."],
+];
+
+/* дорожки */
+const LANES = [
+  {grp:"client", band:"Мир клиента — то, что переживает клиент", bandClass:"gb-client"},
+  {key:"emo",     t:"Эмоция · состояние",       d:"эмоциональная кривая пути", kind:"emo"},
+  {key:"actions", t:"Действия + точки касания", d:"front stage — что делает клиент"},
+  {key:"barriers",t:"Барьеры · риск оттока",    d:"что тормозит и где теряем"},
+  {grp:"line", band:"——— ЛИНИЯ ВИДИМОСТИ ———  ниже клиент не видит", bandClass:"gb-line", fillClass:"gf-line"},
+  {grp:"back", band:"Что готовит бизнес — backstage", bandClass:"gb-back"},
+  {key:"role",    t:"Кто ведёт",                 d:"роль на этом этапе", kind:"role"},
+  {key:"needs",   t:"Что нужно роли под рукой",  d:"доступ к данным и инфо", accent:true},
+  {key:"data",    t:"Данные · где живёт",        d:"что фиксируем → CRM"},
+  {key:"process", t:"Процесс создать",           d:"регламент, которого нет"},
+  {grp:"biz", band:"Бизнес", bandClass:"gb-biz"},
+  {key:"product", t:"Продукт · деньги",          d:"тариф и цена"},
+  {key:"metric",  t:"Метрика (KPI)",             d:"что меряем"},
+  {key:"decision",t:"Решения на сессию",         d:"что вынести", decide:true},
+  {grp:"live", band:"Живые заметки сессии — пиши по ходу", bandClass:"gb-live"},
+  {key:"notes",   t:"Заметки этапа",             d:"свободное поле", kind:"notes"},
+];
+
+/* ===================== СОСТОЯНИЕ ===================== */
+const LSK = "pjm_smile_v2";
+const PALETTE = ["#3F8C5C","#B5895C","#2F6E8F","#9F7314","#8A332A","#5a4f40","#7a5c8c","#3a6e63"];
+const DEFAULT_ROSTER = [
+  {id:"m1",name:"Миша",color:"#3F8C5C"},
+  {id:"m2",name:"Илья",color:"#B5895C"},
+  {id:"m3",name:"Рита",color:"#2F6E8F"},
+  {id:"m4",name:"Никита",color:"#9F7314"},
+  {id:"m5",name:"Варя",color:"#8A332A"},
+];
+let STATE = JSON.parse(localStorage.getItem(LSK) || "{}");
+STATE.status ??= {}; STATE.text ??= {}; STATE.notes ??= {}; STATE.parking ??= {}; STATE.backlog ??= {}; STATE.dir ??= "base";
+STATE.added ??= {}; STATE.hidden ??= {}; STATE.owner ??= {}; STATE.due ??= {}; STATE.crm ??= "";
+STATE.labels ??= {}; STATE.custom ??= {};
+STATE.roster ??= JSON.parse(JSON.stringify(DEFAULT_ROSTER)); STATE.seq ??= 1;
+function save(){ localStorage.setItem(LSK, JSON.stringify(STATE)); toast(); }
+let toastT;
+function toast(msg){ const t=document.getElementById("toast"); t.textContent=msg||"Сохранено"; t.style.pointerEvents="none"; t.classList.add("show"); clearTimeout(toastT); toastT=setTimeout(()=>t.classList.remove("show"),900); }
+function undoToast(msg,onUndo){
+  const t=document.getElementById("toast"); t.innerHTML="";
+  t.append(document.createTextNode(msg+"  "));
+  const b=document.createElement("span"); b.textContent="Вернуть"; b.style.cssText="color:#E8D7BD;font-weight:700;cursor:pointer;text-decoration:underline";
+  b.onclick=()=>{ onUndo(); t.classList.remove("show"); };
+  t.append(b); t.style.pointerEvents="auto"; t.classList.add("show");
+  clearTimeout(toastT); toastT=setTimeout(()=>{t.classList.remove("show");t.style.pointerEvents="none";},5000);
+}
+
+const CYCLE = ["know","discuss","decide","done"];
+const CHIP = {know:"✓",discuss:"?",decide:"◆",done:"●"};
+
+/* участники */
+function memberById(mid){ return STATE.roster.find(m=>m.id===mid); }
+function initials(name){ const p=name.trim().split(/\s+/); return (p.length>1?(p[0][0]+p[1][0]):name.slice(0,2)).toUpperCase(); }
+let CARD_INDEX = {};
+
+/* перерисовка с сохранением позиции прокрутки */
+function rerender(){
+  const bs=document.querySelector(".board-scroll"); const sl=bs?bs.scrollLeft:0; const sy=window.scrollY;
+  renderGrid(); renderOwners();
+  if(bs) bs.scrollLeft=sl; window.scrollTo(0,sy);
+}
+
+/* любой текст → редактируемый (с сохранением в STATE.labels) */
+function editable(el,key,opts){
+  if(!el)return; opts=opts||{};
+  const ov=STATE.labels[key]; if(ov!=null) el.innerHTML=ov;
+  if(el.dataset.eb) return; el.dataset.eb="1";
+  el.classList.add("editlbl"); if(!el.title)el.title="двойной клик — изменить текст";
+  el.addEventListener("dblclick",e=>{ e.stopPropagation(); el.contentEditable=true; el.focus(); document.execCommand&&document.execCommand("selectAll",false,null); });
+  el.addEventListener("blur",()=>{ if(el.contentEditable!=="true")return; el.contentEditable=false; STATE.labels[key]=el.innerHTML; save(); });
+  el.addEventListener("keydown",e=>{ if(e.key==="Enter"&&!opts.multiline){ e.preventDefault(); el.blur(); } if(e.key==="Escape"){ el.blur(); } });
+}
+/* кастомные карточки, добавляемые в доп-разделы */
+function cList(sec){ return STATE.custom[sec]||(STATE.custom[sec]=[]); }
+function addCustom(sec,render){ cList(sec).push({id:"cx-"+(STATE.seq++),t:"новый пункт — впиши текст"}); save(); render();
+  setTimeout(()=>{ const els=document.querySelectorAll('[data-sec="'+sec+'"] .cc-t'); const last=els[els.length-1]; if(last){last.contentEditable=true;last.focus();document.execCommand&&document.execCommand("selectAll",false,null);} },30); }
+function customCard(sec,rec,render){
+  const c=document.createElement("div"); c.className="custom-card";
+  const t=document.createElement("div"); t.className="cc-t"; t.textContent=rec.t; editable(t,rec.id);
+  const del=document.createElement("span"); del.className="cc-del"; del.textContent="×"; del.title="удалить карточку";
+  del.onclick=()=>{ STATE.custom[sec]=cList(sec).filter(x=>x.id!==rec.id); delete STATE.labels[rec.id]; save(); render(); };
+  c.appendChild(t); c.appendChild(del); return c;
+}
+function addSecBtn(label,onAdd){ const b=document.createElement("button"); b.className="add-sec"; b.innerHTML='<span class="plus">+</span> '+label; b.onclick=onAdd; return b; }
+function renderCustom(box,sec,render){ cList(sec).forEach(rec=>box.appendChild(customCard(sec,rec,render))); const w=document.createElement("div"); w.style.gridColumn="1/-1"; w.appendChild(addSecBtn("добавить карточку",()=>addCustom(sec,render))); box.appendChild(w); box.setAttribute("data-sec",sec); }
+
+/* статичные подписи блоков (заголовки секций) — редактируемы */
+function applyStaticEditables(){
+  document.querySelectorAll(".blk-h h2").forEach((h,i)=>editable(h,"blk-h-"+i,{multiline:true}));
+  const pk=document.querySelector(".parking h3"); if(pk)editable(pk,"parking-h",{multiline:true});
+  document.querySelectorAll("header.top .panel h3").forEach((h,i)=>editable(h,"panel-h-"+i,{multiline:true}));
+}
+
+/* ===================== РЕНДЕР СЕТКИ ===================== */
+function cardEl(id, baseText, baseStatus, opts){
+  opts=opts||{};
+  if(STATE.hidden[id]) return null;
+  const st = STATE.status[id] || baseStatus;
+  const tx = STATE.text[id] ?? baseText;
+  CARD_INDEX[id] = {text:tx, stage:opts.stageLabel||"", lane:opts.laneLabel||""};
+  const d = document.createElement("div");
+  d.className = "card c-"+st+(opts.branch?" branchcard":"");
+  d.dataset.id = id;
+  // строка: значок + текст
+  const top=document.createElement("div"); top.style.cssText="display:flex;align-items:flex-start";
+  const chip = document.createElement("span");
+  chip.className="chip"; chip.textContent=CHIP[st]; chip.title="клик — статус: знаем→обсудить→решить→решено";
+  chip.onclick=(e)=>{ e.stopPropagation(); const cur=STATE.status[id]||baseStatus; const nx=CYCLE[(CYCLE.indexOf(cur)+1)%CYCLE.length]; STATE.status[id]=nx; d.className="card c-"+nx+(opts.branch?" branchcard":""); chip.textContent=CHIP[nx]; save(); };
+  const span=document.createElement("span");
+  span.className="ct"; span.textContent=tx; span.title="двойной клик — редактировать";
+  span.ondblclick=()=>{ span.contentEditable=true; span.focus(); document.execCommand?.("selectAll",false,null); };
+  span.onblur=()=>{ span.contentEditable=false; STATE.text[id]=span.textContent; if(CARD_INDEX[id])CARD_INDEX[id].text=span.textContent; save(); if(STATE.owner[id])renderOwners(); };
+  span.onkeydown=(e)=>{ if(e.key==="Enter"){e.preventDefault(); span.blur();} };
+  top.appendChild(chip); top.appendChild(span);
+  d.appendChild(top);
+  // подвал: ответственный + срок + удалить
+  const foot=document.createElement("div"); foot.className="card-foot";
+  const mid=STATE.owner[id]; const mem=mid&&memberById(mid);
+  if(mem){
+    const oc=document.createElement("span"); oc.className="owner-chip"; oc.dataset.ownertrigger="1";
+    oc.style.background=mem.color+"1f"; oc.style.color=mem.color; oc.style.borderColor=mem.color+"55";
+    oc.innerHTML=`<span class="av" style="background:${mem.color}">${initials(mem.name)}</span>${mem.name}`;
+    oc.title="клик — сменить ответственного / срок";
+    oc.onclick=(e)=>{e.stopPropagation(); openPop(oc,id);};
+    foot.appendChild(oc);
+  } else {
+    const oa=document.createElement("span"); oa.className="owner-add"; oa.dataset.ownertrigger="1"; oa.textContent="+ отв";
+    oa.title="назначить ответственного";
+    oa.onclick=(e)=>{e.stopPropagation(); openPop(oa,id);};
+    foot.appendChild(oa);
+  }
+  if(STATE.due[id]){
+    const dc=document.createElement("span"); dc.className="due-chip"; dc.dataset.ownertrigger="1"; dc.textContent="⏱ "+STATE.due[id];
+    dc.onclick=(e)=>{e.stopPropagation(); openPop(dc,id);};
+    foot.appendChild(dc);
+  }
+  const ed=document.createElement("span"); ed.className="card-edit"; ed.textContent="✎"; ed.title="редактировать текст карточки"; ed.style.marginLeft="auto";
+  ed.onclick=(e)=>{ e.stopPropagation(); span.contentEditable=true; span.focus(); document.execCommand?.("selectAll",false,null); };
+  foot.appendChild(ed);
+  const del=document.createElement("span"); del.className="card-del"; del.textContent="×"; del.title="удалить карточку"; del.style.marginLeft="2px";
+  del.onclick=(e)=>{ e.stopPropagation(); deleteCard(id, opts); };
+  foot.appendChild(del);
+  d.appendChild(foot);
+  return d;
+}
+
+/* удаление карточки с возможностью вернуть */
+function deleteCard(id, opts){
+  if(opts && opts.isAdded){
+    const ck=opts.cellKey; const arr=STATE.added[ck]||[]; const i=arr.findIndex(x=>x.id===id);
+    if(i<0) return; const rec=arr[i]; arr.splice(i,1); save(); rerender();
+    undoToast("Карточка удалена.",()=>{ (STATE.added[ck]=STATE.added[ck]||[]).splice(i,0,rec); save(); rerender(); });
+  } else {
+    STATE.hidden[id]=true; save(); rerender();
+    undoToast("Карточка скрыта.",()=>{ delete STATE.hidden[id]; save(); rerender(); });
+  }
+}
+
+function renderCardCell(c, si, L){
+  const s=STAGES[si];
+  const stageLabel=`[${s.n}] ${s.nm}`, laneLabel=L.t, cellKey=si+"-"+L.key;
+  (s[L.key]||[]).forEach((it,ix)=>{ const el=cardEl(si+"-"+L.key+"-"+ix, it[0], it[1], {stageLabel,laneLabel}); if(el)c.appendChild(el); });
+  const dir=DIRS.find(d=>d.id===STATE.dir);
+  if(dir && dir.id!=="base"){
+    let bc=null;
+    if(L.key==="role" && s.n==="6" && dir.s6) bc=dir.s6.map(t=>"▸ "+dir.label+": "+t);
+    if(L.key==="actions" && s.n==="3" && dir.s3) bc=dir.s3.map(t=>"▸ "+t);
+    if(L.key==="product" && s.n==="4" && dir.s4) bc=dir.s4.map(t=>"▸ "+t);
+    if(bc) bc.forEach((t,ix)=>{ const el=cardEl(si+"-"+L.key+"-b"+ix, t, "discuss", {branch:true,stageLabel,laneLabel}); if(el)c.appendChild(el); });
+  }
+  (STATE.added[cellKey]||[]).forEach(rec=>{ const el=cardEl(rec.id, rec.text, rec.status, {isAdded:true,cellKey,stageLabel,laneLabel}); if(el)c.appendChild(el); });
+  const add=document.createElement("button"); add.className="add-card"; add.innerHTML='<span class="plus">+</span> карточка';
+  add.onclick=()=>addCard(cellKey);
+  c.appendChild(add);
+}
+function addCard(cellKey){
+  const id="add-"+(STATE.seq++);
+  (STATE.added[cellKey]=STATE.added[cellKey]||[]).push({id,text:"новый пункт",status:"discuss"});
+  save(); rerender();
+  setTimeout(()=>{ const el=document.querySelector(`.card[data-id="${id}"] .ct`); if(el){ el.contentEditable=true; el.focus(); document.execCommand?.("selectAll",false,null);} },30);
+}
+
+function renderGrid(){
+  const grid=document.getElementById("grid");
+  grid.innerHTML=""; CARD_INDEX={};
+  const nCols = STAGES.length;
+  grid.style.gridTemplateColumns = `var(--lane-w) repeat(${nCols}, var(--col-w))`;
+
+  // corner + stage headers
+  const corner=document.createElement("div");
+  corner.className="cell corner";
+  corner.innerHTML=`<div class="c1">ПУТЬ КЛИЕНТА →</div><div class="c2">этапы 0–8 · service blueprint</div>`;
+  grid.appendChild(corner);
+  STAGES.forEach((s,si)=>{
+    const h=document.createElement("div");
+    let cls="cell st-head stage-col"; if(s.flag==="warn")cls+=" warnstage"; if(s.flag==="star")cls+=" starstage";
+    h.className=cls;
+    let flag=""; if(s.flag==="warn")flag=`<span class="st-flag flag-warn">УЗКОЕ МЕСТО</span>`;
+    if(s.flag==="star")flag=`<span class="st-flag flag-star">МОМЕНТ ИСТИНЫ</span>`;
+    if(s.flag==="branch")flag=`<span class="st-flag flag-branch">ВЕТВЛЕНИЕ</span>`;
+    h.innerHTML=`${flag}<span class="num">${s.n}</span><div class="nm">${s.nm}</div><div class="gl">${s.goal}</div>`;
+    editable(h.querySelector(".nm"),"stg-name-"+si); editable(h.querySelector(".gl"),"stg-goal-"+si,{multiline:true});
+    grid.appendChild(h);
+  });
+
+  // lanes
+  LANES.forEach(L=>{
+    if(L.grp){
+      // band label (left, sticky) + fill across stages
+      const lb=document.createElement("div");
+      lb.className="cell group-band "+L.bandClass;
+      lb.textContent=L.band;
+      lb.style.gridColumn="1 / -1";
+      editable(lb,"band-"+L.bandClass,{multiline:true});
+      grid.appendChild(lb);
+      return;
+    }
+    // lane label
+    const ll=document.createElement("div");
+    ll.className="cell lane-head lane-label"+(L.accent?" accent":"")+(L.decide?" lane-decide":"");
+    ll.innerHTML=`<div class="ll-t">${L.t}</div><div class="ll-d">${L.d}</div>`;
+    editable(ll.querySelector(".ll-t"),"lane-t-"+L.key); editable(ll.querySelector(".ll-d"),"lane-d-"+L.key,{multiline:true});
+    grid.appendChild(ll);
+    // stage cells
+    STAGES.forEach((s,si)=>{
+      const c=document.createElement("div");
+      c.className="cell stage-col";
+      if(L.kind==="emo"){
+        c.classList.add("emo-cell");
+        const e=s.emo; const cls = e.lvl==="hi"?"emo-hi":e.lvl==="lo"?"emo-lo":"emo-mid";
+        const bars=[1,2,3,4].map(k=>`<i style="height:${4+ (k<=Math.round(e.v)?k*4:2)}px"></i>`).join("");
+        let trend=""; if(si>0){const pv=STAGES[si-1].emo.v; trend = e.v>pv? "▲" : e.v<pv? "▼":"▬";}
+        c.innerHTML=`<div class="emo-pill ${cls}"><span class="emo-bar">${bars}</span><span>${e.w}</span><span class="emo-trend">${trend}</span></div>`;
+      } else if(L.kind==="notes"){
+        const id="note-"+si;
+        const n=document.createElement("div");
+        n.className="note-area"; n.contentEditable=true;
+        n.textContent=STATE.notes[id]||"";
+        n.onblur=()=>{STATE.notes[id]=n.textContent; save();};
+        c.appendChild(n);
+      } else {
+        renderCardCell(c, si, L);
+      }
+      grid.appendChild(c);
+    });
+  });
+}
+
+/* ===================== НАПРАВЛЕНИЯ ===================== */
+function renderDirs(){
+  const box=document.getElementById("dirs"); box.innerHTML="";
+  DIRS.forEach(d=>{
+    const b=document.createElement("button");
+    b.className="dir-btn"+(STATE.dir===d.id?" active":"");
+    b.innerHTML=`<span class="dir-dot" style="background:${d.color}"></span>${d.label}`;
+    b.onclick=()=>{ STATE.dir=d.id; save(); renderDirs(); renderBanner(); rerender(); };
+    box.appendChild(b);
+  });
+}
+function renderBanner(){
+  const bn=document.getElementById("branchBanner");
+  const d=DIRS.find(x=>x.id===STATE.dir);
+  if(!d || d.id==="base"){ bn.classList.remove("show"); return; }
+  bn.classList.add("show");
+  bn.style.background=d.color+"14"; bn.style.borderColor=d.color;
+  bn.innerHTML=`<div class="bb-ic" style="background:${d.color}">▸</div><div><div class="bb-t" style="color:${d.color}">Направление: ${d.label}</div><div class="bb-d">${d.desc}<br><b>Меняется только начинка</b> на этапах 3 (чекап) · 4 (протокол) · 6 (баланс ролей). ${INVARIANT}</div></div>`;
+}
+
+/* ===================== АУДИТ ===================== */
+function renderAudit(){
+  const box=document.getElementById("audit"); box.innerHTML="";
+  AUDIT.forEach((a,i)=>{
+    const c=document.createElement("div"); c.className="audit-card"+(a[2]?" hot":"");
+    c.innerHTML=`<div class="ah"><div class="ai">${i+1}</div><div class="at">${a[1]}</div><div class="stg">${a[0]}</div></div><div class="ad">${a[3]}</div>`;
+    editable(c.querySelector(".at"),"audit-t-"+i); editable(c.querySelector(".stg"),"audit-s-"+i); editable(c.querySelector(".ad"),"audit-d-"+i,{multiline:true});
+    box.appendChild(c);
+  });
+  renderCustom(box,"audit",renderAudit);
+}
+
+/* ===================== МАТРИЦА ===================== */
+function renderMatrix(){
+  const t=document.getElementById("matrix");
+  const dnames=DIRS.filter(d=>d.id!=="base");
+  let html="<thead><tr><th>Что меняется</th>"+dnames.map(d=>`<th style="border-bottom:3px solid ${d.color}">${d.label}</th>`).join("")+"</tr></thead><tbody>";
+  MATRIX_ROWS.forEach(r=>{
+    html+="<tr><th>"+r[0]+"</th>"+r.slice(1).map(c=>`<td class="dir-cell">${c}</td>`).join("")+"</tr>";
+  });
+  html+=`<tr><th>Инвариант</th><td class="inv" colspan="${dnames.length}">${INVARIANT}</td></tr>`;
+  html+="</tbody>";
+  t.innerHTML=html;
+  t.querySelectorAll("tbody th").forEach((th,r)=>editable(th,"mx-rh-"+r));
+  t.querySelectorAll("td.dir-cell").forEach((td,r)=>editable(td,"mx-c-"+r,{multiline:true}));
+  const inv=t.querySelector("td.inv"); if(inv)editable(inv,"mx-inv",{multiline:true});
+}
+
+/* ===================== РОЛИ ===================== */
+function renderRoles(){
+  const box=document.getElementById("roles"); box.innerHTML="";
+  ROLES.forEach((r,ri)=>{
+    const c=document.createElement("div"); c.className="role-card";
+    c.innerHTML=`<h4>${r.name}</h4><div class="rwho">${r.who}</div>
+      <div class="rsec">Что нужно под рукой</div><ul>${r.have.map(x=>`<li>${x}</li>`).join("")}</ul>
+      <div class="rsec">Процесс создать</div><ul>${r.proc.map(x=>`<li class="proc">${x}</li>`).join("")}</ul>`;
+    editable(c.querySelector("h4"),"role-n-"+ri); editable(c.querySelector(".rwho"),"role-w-"+ri);
+    c.querySelectorAll("li").forEach((li,li2)=>editable(li,"role-li-"+ri+"-"+li2,{multiline:true}));
+    box.appendChild(c);
+  });
+  renderCustom(box,"roles",renderRoles);
+}
+
+/* ===================== БЭКЛОГ ===================== */
+function renderBacklog(){
+  const box=document.getElementById("backlog"); box.innerHTML="";
+  BACKLOG.forEach((b,i)=>{
+    const id="bl-"+i; const checked=STATE.backlog[id];
+    const el=document.createElement("div");
+    el.className="bl-item s-"+b[2]+(checked?" checked":"");
+    el.innerHTML=`<div class="bl-check${checked?" checked":""}">${checked?"✓":""}</div><div class="bl-body"><div class="blt">${b[0]}</div><div class="bld">${b[1]}</div></div>`;
+    el.querySelector(".bl-check").onclick=()=>{ STATE.backlog[id]=!STATE.backlog[id]; save(); renderBacklog(); };
+    editable(el.querySelector(".blt"),"bl-t-"+i); editable(el.querySelector(".bld"),"bl-d-"+i,{multiline:true});
+    box.appendChild(el);
+  });
+  renderCustom(box,"backlog",renderBacklog);
+}
+
+/* ===================== ПАРКОВКА ===================== */
+function renderParking(){
+  const box=document.getElementById("parking"); box.innerHTML="";
+  PARKING.forEach((p,i)=>{
+    const id="pk-"+i;
+    const c=document.createElement("div"); c.className="park-card";
+    const fill=document.createElement("div"); fill.className="pfill"; fill.contentEditable=true; fill.textContent=STATE.parking[id]||"";
+    fill.onblur=()=>{STATE.parking[id]=fill.textContent; save();};
+    c.innerHTML=`<div class="pn"><div class="pi">${i+1}</div><div class="pt">${p[0]}</div></div><div class="pd">${p[1]}</div>`;
+    editable(c.querySelector(".pt"),"pk-t-"+i); editable(c.querySelector(".pd"),"pk-d-"+i,{multiline:true});
+    c.appendChild(fill);
+    box.appendChild(c);
+  });
+}
+
+/* ===================== ОТВЕТСТВЕННЫЙ / СРОК (поповер) ===================== */
+function hidePop(){ const p=document.getElementById("pop"); p.style.display="none"; p.innerHTML=""; }
+function openPop(anchor, id){
+  const p=document.getElementById("pop"); p.innerHTML="";
+  const h=document.createElement("h5"); h.textContent="Ответственный"; p.appendChild(h);
+  STATE.roster.forEach(m=>{
+    const r=document.createElement("div"); r.className="pop-row";
+    r.innerHTML=`<span class="av" style="background:${m.color}">${initials(m.name)}</span>${m.name}`;
+    r.onclick=()=>{ STATE.owner[id]=m.id; save(); hidePop(); rerender(); };
+    p.appendChild(r);
+  });
+  if(STATE.owner[id]){
+    const cl=document.createElement("div"); cl.className="pop-row clear"; cl.textContent="✕ Снять ответственного";
+    cl.onclick=()=>{ delete STATE.owner[id]; save(); hidePop(); rerender(); };
+    p.appendChild(cl);
+  }
+  const mg=document.createElement("div"); mg.className="pop-row manage"; mg.textContent="⚙ Управлять командой";
+  mg.onclick=()=>{ hidePop(); openTeam(); };
+  p.appendChild(mg);
+  const due=document.createElement("div"); due.className="pop-due";
+  const inp=document.createElement("input"); inp.placeholder="срок (напр. к 1 июля)"; inp.value=STATE.due[id]||"";
+  const ok=document.createElement("button"); ok.textContent="ОК";
+  ok.onclick=()=>{ const v=inp.value.trim(); if(v)STATE.due[id]=v; else delete STATE.due[id]; save(); hidePop(); rerender(); };
+  inp.onkeydown=(e)=>{ if(e.key==="Enter")ok.click(); };
+  due.appendChild(inp); due.appendChild(ok); p.appendChild(due);
+  // позиционирование
+  p.style.display="block";
+  const r=anchor.getBoundingClientRect();
+  let left=r.left+window.scrollX, top=r.bottom+window.scrollY+6;
+  const pw=p.offsetWidth, vw=document.documentElement.clientWidth;
+  if(left+pw>window.scrollX+vw-12) left=window.scrollX+vw-pw-12;
+  p.style.left=left+"px"; p.style.top=top+"px";
+  setTimeout(()=>inp.focus(),20);
+}
+document.addEventListener("click",e=>{ if(!e.target.closest(".pop") && !e.target.closest("[data-ownertrigger]")) hidePop(); });
+
+/* ===================== КОМАНДА (модалка) ===================== */
+function openTeam(){ renderTeam(); document.getElementById("teamModal").classList.add("show"); }
+function closeTeam(){ document.getElementById("teamModal").classList.remove("show"); }
+function renderTeam(){
+  const box=document.getElementById("teamList"); box.innerHTML="";
+  STATE.roster.forEach(m=>{
+    const row=document.createElement("div"); row.className="team-row";
+    const av=document.createElement("span"); av.className="av"; av.style.background=m.color; av.textContent=initials(m.name);
+    const inp=document.createElement("input"); inp.value=m.name;
+    inp.onblur=()=>{ m.name=inp.value.trim()||m.name; av.textContent=initials(m.name); save(); rerender(); };
+    inp.onkeydown=(e)=>{ if(e.key==="Enter")inp.blur(); };
+    const del=document.createElement("span"); del.className="del"; del.textContent="×"; del.title="удалить участника";
+    del.onclick=()=>{ STATE.roster=STATE.roster.filter(x=>x.id!==m.id); Object.keys(STATE.owner).forEach(k=>{ if(STATE.owner[k]===m.id) delete STATE.owner[k]; }); save(); renderTeam(); rerender(); };
+    row.appendChild(av); row.appendChild(inp); row.appendChild(del);
+    box.appendChild(row);
+  });
+}
+function addMember(){
+  const inp=document.getElementById("teamNewName"); const nm=inp.value.trim(); if(!nm) return;
+  const id="m"+(STATE.seq++); const color=PALETTE[STATE.roster.length%PALETTE.length];
+  STATE.roster.push({id,name:nm,color}); inp.value=""; save(); renderTeam(); rerender();
+}
+
+/* ===================== КТО ЧТО ЗАБРАЛ ===================== */
+function renderOwners(){
+  const box=document.getElementById("owners"); box.innerHTML="";
+  const byMember={};
+  Object.keys(STATE.owner).forEach(id=>{
+    const mid=STATE.owner[id]; const mem=memberById(mid); const ci=CARD_INDEX[id];
+    if(!mem||!ci) return;
+    (byMember[mid]=byMember[mid]||[]).push({text:ci.text, stage:ci.stage, lane:ci.lane, due:STATE.due[id]});
+  });
+  const ids=Object.keys(byMember);
+  if(!ids.length){ box.innerHTML='<div class="owners-empty">Пока никто не назначен. На карточке нажми «+ отв» — задача появится здесь, сгруппированная по человеку. Это и есть итог «кто что забрал».</div>'; return; }
+  STATE.roster.forEach(m=>{
+    const tasks=byMember[m.id]; if(!tasks) return;
+    const c=document.createElement("div"); c.className="owner-card";
+    const items=tasks.map(t=>`<li>${t.text}<div class="meta">${t.stage} · ${t.lane}${t.due?` · <span class="due">⏱ ${t.due}</span>`:""}</div></li>`).join("");
+    c.innerHTML=`<div class="oh" style="background:${m.color}"><span class="av">${initials(m.name)}</span><span class="nm">${m.name}</span><span class="cnt">${tasks.length}</span></div><ul>${items}</ul>`;
+    box.appendChild(c);
+  });
+}
+
+/* ===================== СЦЕНАРИЙ СЕССИИ ===================== */
+function renderScenario(){
+  document.getElementById("scenarioBody").innerHTML=`
+  <div class="sc-cols">
+   <div>
+    <div class="sc-phase"><div class="sp-h"><span class="sp-t">0 · Подготовка</span><span class="sp-time">до сессии</span></div>
+     <ul><li>Открой инструмент на проекторе/ТВ. Проверь «Команду» (кнопка вверху) — впиши участников.</li>
+     <li>Впиши реальную <b>CRM</b> в блоке «Контекст» (поле подчёркнуто).</li>
+     <li>Реши, ведёте базовый путь или конкретное направление (переключатель вверху).</li></ul></div>
+    <div class="sc-phase"><div class="sp-h"><span class="sp-t">1 · Открытие</span><span class="sp-time">5 мин</span></div>
+     <ul><li>Объясни рамку: «это путь ОДНОГО клиента слева направо. Сверху — что он переживает, ниже линии видимости — что готовим мы».</li>
+     <li>Цель вслух: <b>не нарисовать красиво, а понять — какие процессы создать, чтобы путь шёл гладко</b>.</li></ul>
+     <div class="sc-say">«Зелёное — уже знаем. Жёлтое — обсудим. Красное — должны решить сегодня и назначить ответственного.»</div></div>
+    <div class="sc-phase"><div class="sp-h"><span class="sp-t">2 · Проход по этапам</span><span class="sp-time">основное, ~60 мин</span></div>
+     <ul><li>Идёшь этап за этапом (0→8). На каждом — читаешь 4 дорожки сверху, потом 4 дорожки бизнеса.</li>
+     <li>Ключевой вопрос на каждом этапе: <b>«что нам нужно подготовить, чтобы клиент прошёл этот шаг без трения?»</b></li>
+     <li>Всплывает новое — жми <b>«+ карточка»</b> в нужной ячейке и пиши. Не теряй мысли.</li>
+     <li>Красную карточку решили — <b>клик по значку до «решено»</b> + сразу <b>«+ отв»</b> назначь человека и срок.</li></ul></div>
+   </div>
+   <div>
+    <div class="sc-phase"><div class="sp-h"><span class="sp-t">3 · Узкие места</span><span class="sp-time">15 мин</span></div>
+     <ul><li>Пробеги блок <b>«Аудит: где премиум-путь рвётся»</b> — это 6 мест, где теряются деньги и клиенты.</li>
+     <li>По каждому: согласны? кто закрывает? Назначь ответственного на соответствующей карточке этапа.</li></ul></div>
+    <div class="sc-phase"><div class="sp-h"><span class="sp-t">4 · Парковка решений</span><span class="sp-time">15 мин</span></div>
+     <ul><li>Сведи 6 узловых развязок в <b>«Парковке решений»</b> — впиши итог в поле «решили».</li>
+     <li>Если решение требует работы — заведи ответственного (на карточке этапа или в бэклоге).</li>
+     <li>Пробеги <b>«Что создать до запуска»</b> — отметь, что уже готово (клик), остальное — на людей.</li></ul></div>
+    <div class="sc-phase"><div class="sp-h"><span class="sp-t">5 · Закрытие</span><span class="sp-time">10 мин</span></div>
+     <ul><li>Прокрути вниз к <b>«Кто что забрал»</b> — там автоматически собраны все задачи по людям.</li>
+     <li>Проговори вслух по каждому: «Никита берёт маркеры и себестоимость к…». Это контракт команды.</li>
+     <li>Жми <b>«Копировать итог»</b> — выгрузка решений, заметок и задач текстом. Разошли команде.</li></ul>
+     <div class="sc-say">Результат сессии = заполненная «Парковка» + список «Кто что забрал» + отмеченный бэклог. Не презентация — план действий.</div></div>
+   </div>
+  </div>`;
+}
+
+/* ===================== CRM-поле ===================== */
+function initCRM(){
+  const el=document.getElementById("crmName");
+  if(STATE.crm) el.textContent=STATE.crm;
+  el.onblur=()=>{ STATE.crm=el.textContent.trim(); save(); };
+  el.onkeydown=(e)=>{ if(e.key==="Enter"){e.preventDefault(); el.blur();} };
+}
+
+/* ===================== ИТОГ / ЭКСПОРТ ===================== */
+function copySummary(){
+  let out="PJM — ИТОГ СЕССИИ ("+new Date().toLocaleString("ru-RU")+")\n";
+  out+="CRM клиники: "+(STATE.crm||"— не указана —")+"\n";
+  out+="\n=== ПАРКОВКА РЕШЕНИЙ ===\n";
+  PARKING.forEach((p,i)=>{ out+=`${i+1}. ${p[0]}: ${STATE.parking["pk-"+i]||"— не зафиксировано —"}\n`; });
+  out+="\n=== КТО ЧТО ЗАБРАЛ ===\n";
+  const byM={};
+  Object.keys(STATE.owner).forEach(id=>{ const m=memberById(STATE.owner[id]); const ci=CARD_INDEX[id]; if(m&&ci)(byM[m.name]=byM[m.name]||[]).push(ci.text+(STATE.due[id]?` (срок: ${STATE.due[id]})`:"")+`  — ${ci.stage}`); });
+  if(Object.keys(byM).length) Object.keys(byM).forEach(nm=>{ out+=`\n${nm}:\n`+byM[nm].map(t=>"  • "+t).join("\n")+"\n"; });
+  else out+="(никто не назначен)\n";
+  out+="\n=== ЖИВЫЕ ЗАМЕТКИ ПО ЭТАПАМ ===\n";
+  STAGES.forEach((s,si)=>{ const n=STATE.notes["note-"+si]; if(n&&n.trim()) out+=`[${s.n}] ${s.nm}: ${n}\n`; });
+  out+="\n=== ГОТОВО ИЗ БЭКЛОГА ===\n";
+  BACKLOG.forEach((b,i)=>{ if(STATE.backlog["bl-"+i]) out+=`✓ ${b[0]}\n`; });
+  navigator.clipboard.writeText(out).then(()=>toast("Итог скопирован")).catch(()=>{ prompt("Скопируй вручную:",out); });
+}
+function resetAll(){
+  if(!confirm("Сбросить ВСЁ: статусы, правки, добавленные карточки, ответственных, заметки и решения? Команда и название CRM сохранятся.")) return;
+  const keepRoster=STATE.roster, keepSeq=STATE.seq, keepCrm=STATE.crm;
+  STATE={status:{},text:{},notes:{},parking:{},backlog:{},added:{},hidden:{},owner:{},due:{},dir:"base",roster:keepRoster,seq:keepSeq,crm:keepCrm};
+  save(); renderDirs(); renderBanner(); renderBacklog(); renderParking(); rerender();
+}
+
+/* ===================== НАВИГАЦИЯ ===================== */
+const SECTIONS=[["sec-top","Контекст"],["scenario","Сценарий"],["sec-board","Карта"],["sec-audit","Аудит"],["sec-branch","Направления"],["sec-roles","Роли"],["sec-backlog","Бэклог"],["sec-parking","Решения"],["sec-owners","Кто что забрал"]];
+function go(id){ const el=document.getElementById(id); if(!el)return; if(id==="scenario")el.open=true; el.scrollIntoView({behavior:"smooth",block:"start"}); }
+function buildNav(){
+  const rail=document.getElementById("rail"), sn=document.getElementById("secnav");
+  rail.innerHTML=""; sn.innerHTML='<span class="sj-l">разделы:</span>';
+  SECTIONS.forEach(([id,lbl])=>{
+    const a=document.createElement("a"); a.dataset.t=id; a.innerHTML=`<span class="lbl">${lbl}</span><span class="dot"></span>`; a.onclick=()=>go(id); rail.appendChild(a);
+    const a2=document.createElement("a"); a2.dataset.t=id; a2.textContent=lbl; a2.onclick=()=>go(id); sn.appendChild(a2);
+  });
+  const sj=document.getElementById("stagejump"); sj.innerHTML='<span class="sj-l">этап:</span>';
+  STAGES.forEach((s,i)=>{ const b=document.createElement("button"); b.textContent=s.n; b.title=s.nm; b.onclick=()=>scrollToStage(i); sj.appendChild(b); });
+  if(window.__io)window.__io.disconnect();
+  window.__io=new IntersectionObserver(es=>{ es.forEach(en=>{ if(en.isIntersecting) document.querySelectorAll(".rail a,.secnav a").forEach(a=>a.classList.toggle("active",a.dataset.t===en.target.id)); }); },{rootMargin:"-45% 0px -50% 0px"});
+  SECTIONS.forEach(([id])=>{ const el=document.getElementById(id); if(el)window.__io.observe(el); });
+}
+function scrollToStage(i){
+  const bs=document.querySelector(".board-scroll"); const h=document.querySelectorAll("#grid .st-head")[i]; if(!h||!bs)return;
+  go("sec-board");
+  const hr=h.getBoundingClientRect(), br=bs.getBoundingClientRect();
+  bs.scrollTo({left:Math.max(0,bs.scrollLeft+(hr.left-br.left)-214),behavior:"smooth"});
+}
+window.addEventListener("scroll",()=>{ const t=document.getElementById("totop"); if(t)t.classList.toggle("show",window.scrollY>500); });
+
+/* ===================== СИНХРОНИЗАЦИЯ С GITHUB ===================== */
+const GH={owner:"mihatal",repo:"sklyarovcenter",branch:"main",file:"pjm-longevity-state.json"};
+const GHTK="pjm_gh_token";
+function ghToken(){ return localStorage.getItem(GHTK)||""; }
+function b64enc(s){ return btoa(unescape(encodeURIComponent(s))); }
+function b64dec(s){ return decodeURIComponent(escape(atob((s||"").replace(/\s/g,"")))); }
+function ghStatus(txt,cls){ const e=document.getElementById("ghStatus"); if(!e)return; e.textContent=txt; e.className="gh-status"+(cls?" "+cls:""); }
+function refreshGhUI(){
+  const conn=document.getElementById("ghConn");
+  if(ghToken()) ghStatus(STATE._savedAt?("сохр.: "+STATE._savedAt):"подключено к GitHub","ok");
+  else ghStatus("локально (не на GitHub)");
+}
+function connectGitHub(){
+  const t=prompt("Вставь GitHub-токен для сохранения правок.\n\nНужен fine-grained token с доступом Contents: Read and write на репозиторий "+GH.owner+"/"+GH.repo+" (или classic со scope repo).\n\nТокен хранится ТОЛЬКО в этом браузере, в репозиторий не попадает.");
+  if(!t) return false;
+  localStorage.setItem(GHTK,t.trim()); refreshGhUI(); return true;
+}
+async function ghGetSha(){
+  const r=await fetch(`https://api.github.com/repos/${GH.owner}/${GH.repo}/contents/${GH.file}?ref=${GH.branch}&_=${Date.now()}`,{headers:{Authorization:"token "+ghToken(),Accept:"application/vnd.github+json"},cache:"no-store"});
+  if(r.status===200){ const j=await r.json(); return j.sha; } return null;
+}
+async function saveToGitHub(){
+  if(!ghToken()){ if(!connectGitHub()) return; }
+  ghStatus("сохраняю…","busy");
+  try{
+    const stamp=new Date().toLocaleString("ru-RU"); STATE._savedAt=stamp;
+    const body=JSON.stringify(STATE,null,1);
+    let sha=null; try{ sha=await ghGetSha(); }catch(e){}
+    const payload={message:"PJM longevity — состояние "+stamp, content:b64enc(body), branch:GH.branch}; if(sha)payload.sha=sha;
+    const r=await fetch(`https://api.github.com/repos/${GH.owner}/${GH.repo}/contents/${GH.file}`,{method:"PUT",headers:{Authorization:"token "+ghToken(),Accept:"application/vnd.github+json"},body:JSON.stringify(payload)});
+    if(r.ok){ localStorage.setItem(LSK,JSON.stringify(STATE)); ghStatus("сохр.: "+stamp,"ok"); toast("Сохранено на GitHub ✓"); }
+    else { const e=await r.json().catch(()=>({})); ghStatus("ошибка сохранения","warn"); alert("Не удалось сохранить на GitHub: "+(e.message||r.status)+"\nНужен токен с доступом Contents: write на "+GH.owner+"/"+GH.repo+"."); if(r.status===401||r.status===403) localStorage.removeItem(GHTK); refreshGhUI(); }
+  }catch(err){ ghStatus("ошибка сети","warn"); alert("Сбой сети/токена: "+err.message); }
+}
+async function loadFromGitHub(manual){
+  try{
+    if(manual) ghStatus("загружаю…","busy");
+    const headers={Accept:"application/vnd.github+json"}; if(ghToken())headers.Authorization="token "+ghToken();
+    const r=await fetch(`https://api.github.com/repos/${GH.owner}/${GH.repo}/contents/${GH.file}?ref=${GH.branch}&_=${Date.now()}`,{headers,cache:"no-store"});
+    if(r.status===200){
+      const j=await r.json(); const data=JSON.parse(b64dec(j.content));
+      if(manual && !confirm("Подтянуть сохранённую версию с GitHub? Несохранённые правки в этом браузере будут заменены.")){ refreshGhUI(); return; }
+      const roster=(data.roster&&data.roster.length)?data.roster:STATE.roster;
+      STATE=Object.assign({status:{},text:{},notes:{},parking:{},backlog:{},added:{},hidden:{},owner:{},due:{},dir:"base",crm:""},data,{roster,seq:Math.max(data.seq||1,STATE.seq||1)});
+      localStorage.setItem(LSK,JSON.stringify(STATE));
+      renderDirs(); renderBanner(); renderAudit(); renderMatrix(); renderRoles(); renderBacklog(); renderParking(); renderScenario(); initCRM(); renderTeam(); rerender(); applyStaticEditables(); refreshGhUI();
+      if(manual) toast("Загружено с GitHub");
+      return true;
+    } else { if(manual){ toast("На GitHub пока нет сохранения"); refreshGhUI(); } else refreshGhUI(); return false; }
+  }catch(err){ if(manual){ ghStatus("ошибка загрузки","warn"); alert("Не удалось загрузить с GitHub: "+err.message); } else refreshGhUI(); return false; }
+}
+
+document.getElementById("footer").innerHTML="(C) Сгенерировано Claude · тарифы — лендинг Лонживити v1.0 (13 мая) + транскрипты встреч. CRM — НЕ CoreApp (моя прежняя ошибка): впиши реальную в «Контексте». <b>Любая карточка редактируется</b> (двойной клик по тексту или ✎). «↑ Сохранить на GitHub» коммитит правки в репозиторий — их увидят все, кто откроет страницу. Без токена правки живут только в этом браузере (localStorage).";
+
+/* init */
+renderDirs(); renderBanner(); renderAudit(); renderMatrix(); renderRoles(); renderBacklog(); renderParking(); renderScenario(); initCRM(); renderTeam(); renderGrid(); renderOwners(); buildNav(); applyStaticEditables();
+if(localStorage.getItem(LSK)===null){ loadFromGitHub(false); } refreshGhUI();
+</script>
+</body>
+</html>
