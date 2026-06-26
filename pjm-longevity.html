@@ -346,8 +346,8 @@ html{scroll-behavior:smooth}
 .gh-status.warn{color:var(--warn-deep)} .gh-status.warn::before{content:"●";color:var(--warn)}
 .gh-status.busy{color:var(--done)} .gh-status.busy::before{content:"◐";color:var(--done)}
 /* редактирование карточки */
-.card-edit{width:20px;height:20px;border-radius:5px;color:var(--faint);font-size:12px;line-height:20px;text-align:center;cursor:pointer;opacity:0;transition:opacity .12s;flex:none}
-.card:hover .card-edit{opacity:.85}
+.card-edit{width:20px;height:20px;border-radius:5px;color:var(--bronze);font-size:12px;line-height:20px;text-align:center;cursor:pointer;opacity:.55;transition:opacity .12s;flex:none}
+.card:hover .card-edit{opacity:1}
 .card-edit:hover{background:var(--bronze-soft);color:var(--bronze-deep)}
 .ct[contenteditable="true"]{outline:2px solid var(--bronze);outline-offset:2px;border-radius:3px;background:#fffdf8;cursor:text}
 .ct{cursor:text}
@@ -741,7 +741,8 @@ STATE.status ??= {}; STATE.text ??= {}; STATE.notes ??= {}; STATE.parking ??= {}
 STATE.added ??= {}; STATE.hidden ??= {}; STATE.owner ??= {}; STATE.due ??= {}; STATE.crm ??= "";
 STATE.labels ??= {}; STATE.custom ??= {};
 STATE.roster ??= JSON.parse(JSON.stringify(DEFAULT_ROSTER)); STATE.seq ??= 1;
-function save(){ localStorage.setItem(LSK, JSON.stringify(STATE)); toast(); }
+let userTouched=false;
+function save(){ userTouched=true; localStorage.setItem(LSK, JSON.stringify(STATE)); toast(); }
 let toastT;
 function toast(msg){ const t=document.getElementById("toast"); t.textContent=msg||"Сохранено"; t.style.pointerEvents="none"; t.classList.add("show"); clearTimeout(toastT); toastT=setTimeout(()=>t.classList.remove("show"),900); }
 function undoToast(msg,onUndo){
@@ -1258,6 +1259,8 @@ async function loadFromGitHub(manual){
     const headers={Accept:"application/vnd.github+json"}; if(ghToken())headers.Authorization="token "+ghToken();
     const r=await fetch(`https://api.github.com/repos/${GH.owner}/${GH.repo}/contents/${GH.file}?ref=${GH.branch}&_=${Date.now()}`,{headers,cache:"no-store"});
     if(r.status===200){
+      // не затирать активные правки пользователя при авто-загрузке
+      if(!manual && userTouched){ refreshGhUI(); return false; }
       const j=await r.json(); const data=JSON.parse(b64dec(j.content));
       if(manual && !confirm("Подтянуть сохранённую версию с GitHub? Несохранённые правки в этом браузере будут заменены.")){ refreshGhUI(); return; }
       const roster=(data.roster&&data.roster.length)?data.roster:STATE.roster;
