@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+<meta name="googlebot" content="noindex, nofollow">
+<meta name="yandex" content="noindex, nofollow">
+<title>Восемь мастер-классов по цене одного · SklyarovCenter</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+/* ══════════════════════════════════════════════════════════════
+   Брендбук СЦ v2 · палитра раздела 12 · мобильный в основе
+   ══════════════════════════════════════════════════════════════ */
+:root{
+  --paper:#F4F0E6;
+  --halftone:#EBE5D8;
+  --line:#CFC7B4;
+  --pencil:#8C8677;
+  --service:#6A6558;
+  --ink:#14130F;
+  --night:#1A1815;
+  --clinical:#E2DAC7;
+  --carmine:#7E1C24;
+
+  --serif:"Spectral",Georgia,serif;
+  --sans:"Inter",-apple-system,BlinkMacSystemFont,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+
+  --gut:20px;
+  --col:1180px;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:var(--serif);font-size:17px;line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+  padding-bottom:86px;
+  hyphens:none;word-break:keep-all;
+}
+.w{max-width:var(--col);margin:0 auto;padding:0 var(--gut)}
+.narrow{max-width:760px}
+section{padding:52px 0;border-top:1px solid var(--line)}
+section:first-of-type{border-top:none}
+
+h1,h2,h3,h4{margin:0;font-weight:300;letter-spacing:-.024em;text-wrap:pretty}
+h1{font-size:clamp(33px,8.4vw,68px);line-height:1.01}
+h2{font-size:clamp(26px,6vw,44px);line-height:1.06;margin-bottom:8px}
+h3{font-size:clamp(20px,4.6vw,26px);line-height:1.15;font-weight:400}
+h4{font-size:18px;line-height:1.25;font-weight:500}
+p{margin:0 0 14px}
+p:last-child{margin-bottom:0}
+.lead{font-size:clamp(17px,4.2vw,21px);line-height:1.5;color:#26251F}
+.sub{color:var(--service);font-size:16px;line-height:1.5}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums;word-spacing:-.34em;white-space:nowrap}
+.cap{font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--service)}
+strong{font-weight:500}
+em{font-style:italic}
+
+/* ── шапка ── */
+header{padding:22px 0 0}
+.head{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.logo{height:28px;width:auto}
+.head .d{font-family:var(--mono);font-size:11px;color:var(--service);text-align:right;line-height:1.45}
+.head .d b{color:var(--ink);font-weight:500}
+
+/* ── первый экран ── */
+.hero{padding:34px 0 46px;border-top:none}
+.hero h1{margin:0 0 20px}
+.hero .lead{max-width:30ch}
+.heroGrid{display:grid;gap:26px}
+.heroRight{display:flex;flex-direction:column;gap:16px}
+.hero-portrait{margin:0;aspect-ratio:4/5}
+.heroList{display:none}
+@media(max-width:759px){
+  .file .fn{font-size:16.5px}
+  .heroGrid{grid-template-columns:1fr}
+  .heroLeft{display:contents}         /* порядок: заголовок, лид, цена */
+  .hero h1{order:1}
+  .hero .lead{order:2;margin-bottom:4px}
+  .heroRight{order:3}
+  .hero-portrait{display:none}        /* портрет живёт в секции «Кто ведёт» */
+}
+
+/* портрет */
+.portrait{position:relative;background:var(--halftone);aspect-ratio:4/5;overflow:hidden}
+.portrait img{width:100%;height:100%;object-fit:cover;object-position:50% 18%;display:block}
+.portrait figcaption{position:absolute;left:0;right:0;bottom:0;background:var(--ink);color:var(--paper);
+  font-family:var(--mono);font-size:11px;letter-spacing:.05em;padding:9px 12px;line-height:1.4}
+
+/* ── ценник · главный герой ── */
+.pricecard{border:1px solid var(--ink);padding:22px 20px 20px;background:var(--paper)}
+.pricecard .lab{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--service);margin-bottom:12px}
+.pnow{display:flex;align-items:baseline;gap:3px;font-family:var(--mono);font-weight:600;word-spacing:-.52em;
+  letter-spacing:-.035em;line-height:.92;font-variant-numeric:tabular-nums}
+.pnow .int{font-size:clamp(44px,12vw,72px);white-space:nowrap}
+.pnow .cur{font-size:clamp(22px,5vw,34px);margin-left:6px;font-weight:400}
+.pwas{font-family:var(--mono);font-size:15px;color:var(--service);margin-top:10px}
+.pwas s{text-decoration-thickness:1px}
+.psame{font-size:15.5px;line-height:1.45;color:#26251F;margin-top:12px;font-style:italic}
+.ptomorrow{display:flex;align-items:baseline;gap:8px;margin-top:14px;padding-top:12px;
+  border-top:1px solid var(--line);font-family:var(--mono);font-size:12.5px;color:var(--service)}
+.ptomorrow b{color:var(--carmine);font-weight:600;font-size:14px}
+.palt{margin-top:12px;font-family:var(--mono);font-size:12.5px;color:var(--service);line-height:1.6}
+.palt b{color:var(--ink);font-weight:600}
+.deadline{margin-top:14px;padding-top:12px;border-top:1px solid var(--line);
+  display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.deadline .t{font-family:var(--mono);word-spacing:normal;font-size:19px;font-variant-numeric:tabular-nums;letter-spacing:.01em}
+.deadline .u{font-family:var(--mono);font-size:11px;color:var(--service);max-width:14ch;text-align:right;line-height:1.35}
+
+/* ── кнопки ── */
+.btn{display:inline-flex;align-items:center;justify-content:center;width:100%;
+  min-height:56px;padding:15px 24px;border:1px solid var(--ink);background:transparent;color:var(--ink);
+  font-family:var(--sans);font-size:16px;font-weight:500;text-decoration:none;text-align:center;
+  transition:background .18s ease,color .18s ease}
+.btn:hover{background:var(--ink);color:var(--paper)}
+.btn:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+.btn.solid{background:var(--ink);color:var(--paper)}
+.btn.solid:hover{background:var(--night)}
+.btn.light{border-color:var(--paper);background:var(--paper);color:var(--ink)}
+.btn.light:hover{background:transparent;color:var(--paper)}
+.pricecard .btn{margin-top:18px}
+
+/* ── боль → решение ── */
+.pains{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);margin-top:26px}
+.pain{background:var(--paper);padding:20px 18px}
+.pain .who{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--service);margin-bottom:14px}
+.pain ul{list-style:none;margin:0;padding:0}
+.pain li{position:relative;padding-left:18px;margin-bottom:16px;font-size:16.5px;line-height:1.45}
+.pain li:last-child{margin-bottom:0}
+.pain li:before{content:"—";position:absolute;left:0;color:var(--pencil)}
+.pain li i{display:block;font-style:normal;font-family:var(--mono);font-size:11.5px;
+  color:var(--carmine);margin-top:6px;letter-spacing:.02em;line-height:1.4}
+
+/* ── файлы кабинета ── */
+.files{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);margin-top:6px}
+.file{background:var(--paper);padding:18px 18px 20px;display:flex;flex-direction:column;gap:6px}
+.file .ft{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--paper);background:var(--ink);align-self:flex-start;padding:3px 7px}
+.file .fn{font-size:17.5px;line-height:1.25;margin-top:4px}
+.file .fd{font-size:14.5px;line-height:1.4;color:var(--service)}
+
+/* ── бонусы ── */
+.bonuses{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);margin-top:6px}
+.bcol{background:var(--paper);padding:22px 20px}
+.bhead{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--service);margin-bottom:16px}
+.bonus-all{background:var(--halftone);padding:22px 20px;margin-top:20px}
+.bonus-all .dash li{margin-bottom:9px}
+
+/* ── программа внутри карточки набора ── */
+.mk details summary{list-style:none;cursor:pointer;position:relative;padding-right:28px}
+.mk details summary::-webkit-details-marker{display:none}
+.mk details summary:after{content:"+";position:absolute;right:0;top:0;
+  font-family:var(--mono);font-size:17px;color:var(--pencil);line-height:1.2}
+.mk details[open] summary:after{content:"–"}
+.mk details summary:focus-visible{outline:1px solid var(--ink);outline-offset:3px}
+.mk ul.in{list-style:none;margin:12px 0 4px;padding:0}
+.mk ul.in li{position:relative;padding:0 0 0 17px;margin-bottom:7px;border:none;
+  font-size:15px;line-height:1.45;color:#26251F}
+.mk ul.in li:before{content:"—";position:absolute;left:0;color:var(--pencil)}
+
+/* ── шкала протокола (приём 02) ── */
+.scale{display:flex;align-items:flex-end;gap:5px;height:34px;margin:0 0 18px}
+.scale i{flex:1;background:var(--line);height:12px;display:block}
+.scale i.on{background:var(--ink);height:26px}
+
+/* ── наборы ── */
+.sets{display:grid;gap:20px;margin-top:8px}
+.set{border:1px solid var(--ink);padding:24px 20px;display:flex;flex-direction:column;background:var(--paper)}
+.set .who{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--service);margin-bottom:14px}
+.set h3{margin-bottom:10px}
+.set .for{color:var(--service);font-size:15.5px;margin-bottom:20px;line-height:1.45}
+.mk{list-style:none;margin:0 0 22px;padding:0}
+.mk li{padding:11px 0;border-bottom:1px solid var(--line);font-size:16px;line-height:1.35}
+.mk li:last-child{border-bottom:none}
+.mk li span{display:block;font-family:var(--mono);font-size:11.5px;color:var(--service);margin-top:3px;line-height:1.5}
+.mk li span b{color:var(--ink);font-weight:500}
+.set .prow{margin-top:auto;padding-top:14px;border-top:1px solid var(--ink);
+  display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.set .prow .n{font-family:var(--mono);word-spacing:-.42em;font-size:30px;font-weight:600;letter-spacing:-.03em;
+  font-variant-numeric:tabular-nums;line-height:1}
+.set .prow .o{font-family:var(--mono);font-size:14px;color:var(--service)}
+.set .btn{margin-top:16px}
+
+/* ── карточка «оба набора» · единственный тёмный блок ── */
+.set.both{background:var(--night);border-color:var(--night);color:var(--paper)}
+.set.both .who{color:var(--clinical)}
+.set.both .for{color:#B9B2A0}
+.set.both .scale i{background:#3A362E}
+.set.both .scale i.on{background:var(--clinical)}
+.set.both .prow{border-top-color:#3A362E}
+.set.both .prow .o{color:#B9B2A0}
+.set.both .prow .o s{color:#8A8375}
+.flag{display:inline-block;font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;
+  text-transform:uppercase;background:var(--carmine);color:#fff;padding:4px 9px;margin-bottom:14px}
+
+/* ── клинические кадры ── */
+.shots{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);
+  border:1px solid var(--line);margin-top:26px}
+.shot{background:var(--ink);position:relative;aspect-ratio:4/3;overflow:hidden;margin:0}
+.shot img{width:100%;height:100%;object-fit:cover;display:block;filter:contrast(1.06)}
+.shot figcaption{position:absolute;left:0;right:0;bottom:0;
+  background:linear-gradient(to top,rgba(20,19,15,.92),rgba(20,19,15,0));
+  color:var(--paper);font-family:var(--mono);font-size:11px;letter-spacing:.04em;
+  padding:26px 11px 9px;line-height:1.3}
+
+/* ── разворот с тетрадью ── */
+.spread{display:grid;gap:26px;margin-top:26px;align-items:center}
+.spread .pic{background:var(--halftone);border:1px solid var(--line);padding:26px 26px 0;
+  display:flex;align-items:flex-start;justify-content:center;overflow:hidden;aspect-ratio:5/4}
+.spread .pic img{width:66%;max-width:260px;display:block;
+  box-shadow:0 18px 34px rgba(20,19,15,.16);border:1px solid var(--line);border-bottom:none}
+
+/* ── типографическая врезка ── */
+.pull{border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);
+  padding:34px 0;margin:0;background:var(--paper)}
+.pull p{font-size:clamp(21px,5.4vw,34px);line-height:1.22;font-weight:300;
+  letter-spacing:-.022em;max-width:20ch;margin:0}
+.pull .sig{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--service);margin-top:18px}
+.pull .sig b{color:var(--carmine);font-weight:500}
+
+/* ── график роста цены ── */
+.chart{border:1px solid var(--line);padding:22px 18px;background:var(--paper)}
+.bars{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;align-items:end;height:150px;margin-bottom:12px}
+.bar{display:flex;flex-direction:column;justify-content:flex-end;height:100%;gap:6px}
+.bar .b{background:var(--clinical);width:100%;border-top:1px solid var(--line)}
+.bar.now .b{background:var(--ink)}
+.bar .p{font-family:var(--mono);word-spacing:-.3em;font-size:10.5px;color:var(--service);text-align:center;
+  font-variant-numeric:tabular-nums;white-space:nowrap}
+.bar.now .p{color:var(--ink);font-weight:500}
+.days{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;border-top:1px solid var(--line);padding-top:8px}
+.days span{font-family:var(--mono);font-size:10.5px;color:var(--service);text-align:center}
+.days span.now{color:var(--carmine)}
+
+/* ── вопросы ── */
+.prog{border-top:1px solid var(--ink);margin-top:6px}
+.prog details{border-bottom:1px solid var(--line)}
+.prog summary{list-style:none;cursor:pointer;padding:17px 40px 17px 0;position:relative;
+  font-size:17.5px;line-height:1.3;font-weight:400}
+.prog summary::-webkit-details-marker{display:none}
+.prog summary:after{content:"+";position:absolute;right:4px;top:50%;transform:translateY(-50%);
+  font-family:var(--mono);font-size:20px;color:var(--service);line-height:1}
+.prog details[open] summary:after{content:"–"}
+.prog summary:focus-visible{outline:1px solid var(--ink);outline-offset:2px}
+.prog .body{padding:0 0 22px;font-size:16.5px;line-height:1.5;color:#26251F;max-width:70ch}
+
+/* ── списки тире ── */
+.dash{list-style:none;margin:0;padding:0}
+.dash li{position:relative;padding-left:20px;margin-bottom:11px;font-size:17px;line-height:1.45}
+.dash li:before{content:"—";position:absolute;left:0;color:var(--pencil)}
+
+/* ── автор ── */
+.regs{font-family:var(--mono);font-size:12px;color:var(--service);line-height:2;
+  margin-top:16px;padding-top:14px;border-top:1px solid var(--line)}
+
+/* ── липкая строка ── */
+.sticky{position:fixed;left:0;right:0;bottom:0;z-index:50;background:var(--paper);
+  border-top:1px solid var(--ink);padding:10px var(--gut) calc(10px + env(safe-area-inset-bottom));
+  transform:translateY(112%);transition:transform .22s ease}
+.sticky.on{transform:translateY(0)}
+.sticky .in{max-width:var(--col);margin:0 auto;display:flex;align-items:center;gap:14px}
+.sticky .p{flex:none;line-height:1.15}
+.sticky .p .n{font-family:var(--mono);word-spacing:-.42em;font-size:19px;font-weight:600;font-variant-numeric:tabular-nums;
+  letter-spacing:-.02em}
+.sticky .p .c{display:block;font-family:var(--mono);font-size:10px;color:var(--carmine);margin-top:3px}
+.sticky .btn{margin:0;min-height:46px;font-size:15px;padding:12px 20px;width:auto;flex:1}
+
+footer{padding:34px 0 40px;border-top:1px solid var(--line)}
+footer p{font-family:var(--mono);font-size:11.5px;color:var(--service);line-height:1.9}
+
+/* ══════════ ДЕСКТОП ══════════ */
+@media(min-width:760px){
+  :root{--gut:40px}
+  body{font-size:18px;padding-bottom:92px}
+  section{padding:76px 0}
+  .hero{padding:44px 0 68px}
+  .heroGrid{grid-template-columns:1.15fr .85fr;gap:48px;align-items:start}
+  .hero h1{margin-bottom:26px}
+  .heroList{display:grid;grid-template-columns:1fr 1fr;gap:0 28px;list-style:none;
+    margin:38px 0 0;padding:26px 0 0;border-top:1px solid var(--line)}
+  .heroList li{position:relative;padding:7px 0 7px 16px;font-family:var(--mono);
+    font-size:12.5px;line-height:1.45;color:var(--service)}
+  .heroList li:before{content:"·";position:absolute;left:2px;color:var(--pencil)}
+  .pains{grid-template-columns:1fr 1fr}
+  .bonuses{grid-template-columns:1fr 1fr}
+  .files{grid-template-columns:repeat(3,1fr)}
+  .sets{grid-template-columns:1fr 1fr;gap:24px}
+  .set.both{grid-column:1 / -1;flex-direction:row;align-items:center;gap:48px;padding:30px 28px}
+  .set.both .txt{flex:1}
+  .set.both .prow{margin-top:0;border-top:none;padding-top:0;flex-direction:column;
+    align-items:flex-start;gap:6px;min-width:270px}
+  .set.both .btn{margin-top:14px}
+  .shots{grid-template-columns:repeat(4,1fr)}
+  .spread{grid-template-columns:.85fr 1.15fr;gap:48px}
+  .pull{padding:52px 0}
+  .pull p{max-width:24ch}
+  .bars{height:190px}
+  .prog summary{font-size:19px;padding:20px 44px 20px 0}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+  .portrait{aspect-ratio:3/4}
+  .hero-portrait{aspect-ratio:1/1}
+  .sticky .p .n{font-size:21px}
+}
+@media(min-width:1040px){
+  .hero h1{max-width:13ch}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="w head">
+    <img class="logo" src="logo.png" alt="Скляров центр">
+    <div class="d">Открыто <b>12–18 октября</b><br>закроется в 23:59 по Москве</div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="w heroGrid">
+    <div class="heroLeft">
+      <h1>Восемь мастер-классов по цене одного</h1>
+      <p class="lead">Только раз в год я открываю продажи своих мастер-классов в записи. Семь дней, дальше наборы закрываются до следующей осени.</p>
+      <ul class="heroList">
+        <li>Центральное соотношение на практике</li>
+        <li>Увеличители прибыли стоматологии</li>
+        <li>Повышение прикуса на практике</li>
+        <li>Как мотивировать команду на результат</li>
+        <li>Эффективные планы</li>
+        <li>Дорогие планы лечения</li>
+        <li>Dental Boost</li>
+        <li>Сильный бренд стоматолога и клиники</li>
+      </ul>
+    </div>
+
+    <div class="heroRight">
+    <figure class="portrait hero-portrait">
+      <img src="ilya.jpg" alt="Илья Скляров">
+      <figcaption>Илья Скляров · к.м.н., ментор Kois Center</figcaption>
+    </figure>
+    <div class="pricecard" id="priceTop">
+      <div class="lab">Набор из четырёх · цена сегодня</div>
+      <div class="pnow" id="pn1"><span class="int">7 900</span><span class="cur">₽</span></div>
+      <div class="pwas">вместо <s id="pnWas1">37 600 ₽</s> по отдельности</div>
+      <div class="ptomorrow"><span>завтра</span><b id="pnNext1">8 600 ₽</b></div>
+      <div class="deadline">
+        <span class="t mono" id="clock1">—</span>
+        <span class="u" id="lab1">до новой цены</span>
+      </div>
+      <a class="btn solid" href="#sets">Выбрать набор</a>
+      <div class="palt">Все восемь мастер-классов — <b id="pnAlt1">11 900 ₽</b>. Столько стоит один мой мастер-класс «Дорогие планы лечения».</div>
+    </div>
+  </div>
+  </div>
+</section>
+
+<section>
+  <div class="w">
+    <h2>Про что эти мастер-классы</h2>
+    <p class="sub narrow">Я собрал их из случаев, которые чаще всего приносят мне на разборы. Под каждым подписал, какой мастер-класс его закрывает.</p>
+    <div class="pains">
+      <div class="pain">
+        <div class="who">В кресле</div>
+        <ul>
+          <li>Сложный случай со стираемостью приходит, и вы отдаёте его коллеге или тянете до потери пациента
+            <i>Эффективные планы</i></li>
+          <li>Высоту прикуса считаете на глаз: завысить страшно, занизить тоже
+            <i>Повышение прикуса на практике</i></li>
+          <li>Пациент вернулся с болью в суставе, и переделка идёт за ваш счёт
+            <i>Центральное соотношение на практике</i></li>
+          <li>Приём забит с утра до вечера, а выручки нет: переделки, окна, лишние визиты
+            <i>Dental Boost</i></li>
+        </ul>
+      </div>
+      <div class="pain">
+        <div class="who">В клинике</div>
+        <ul>
+          <li>За год выручка выросла, а к 25-му числу на счету столько же
+            <i>Увеличители прибыли стоматологии</i></li>
+          <li>Врач просит поднять зарплату, и ответить нечем
+            <i>Как мотивировать команду на результат</i></li>
+          <li>Пациент кивает на консультации, уходит подумать и не возвращается
+            <i>Дорогие планы лечения</i></li>
+          <li>Вас рекомендуют, а пациент до вас так и не доходит
+            <i>Сильный бренд стоматолога и клиники</i></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pullwrap">
+  <div class="w">
+    <div class="pull">
+      <p>Я не отдаю сложные случаи коллегам. И вас учу не отдавать.</p>
+      <div class="sig">Илья Скляров · <b>27 лет врачебной практики</b></div>
+    </div>
+  </div>
+</section>
+
+<section id="sets">
+  <div class="w">
+    <h2>Два набора</h2>
+    <p class="sub narrow">Клинический — про работу в кресле, бизнесовый — про клинику. Цена одинаковая. Поштучно эти восемь мастер-классов купили <strong>3 043 врача и собственника</strong>.</p>
+
+    <div class="sets">
+      <div class="set">
+        <div class="who">Клинический · 4 мастер-класса</div>
+        <div class="scale"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i></div>
+        <h3>Окклюзия, прикус, планирование</h3>
+        <p class="for">Чтобы брать сложные случаи по протоколу, а не по ощущению.</p>
+        <ul class="mk">
+          <li><details open><summary>Центральное соотношение на практике<span>3 часа · четыре инструмента на пациентах · <b>прошли 1 609 врачей</b></span></summary>
+            <ul class="in">
+              <li>Когда работаю в привычной окклюзии, а когда только в центральном соотношении</li>
+              <li>Как отличить мышечную проблему от суставной до начала лечения</li>
+              <li>Мой протокол регистрации по шагам, с материалами и проверкой check / double check</li>
+              <li>Четыре техники на пациентах: листовой калибратор, джиг Лючия, депрограммер Койса, каппы и разборный сплинт</li>
+              <li>Изготовление депрограммера Койса в полости рта за 15 минут</li>
+            </ul></details></li>
+          <li><details><summary>Повышение прикуса на практике<span>3 часа · формулы расчёта и красные флаги · <b>прошли 987 врачей</b></span></summary>
+            <ul class="in">
+              <li>Три подхода к повышению и когда работает каждый</li>
+              <li>Формулы расчёта высоты — вместо решения на глаз</li>
+              <li>Красные флаги: когда повышать нельзя</li>
+              <li>Повышение при разных скелетных классах</li>
+              <li>Когда можно обойтись без сплинтов, а когда они обязательны</li>
+              <li>Алгоритм адаптации пациента и разбор мифов</li>
+            </ul></details></li>
+          <li><details><summary>Эффективные планы<span>пограничные кейсы ортопедии и ортодонтии · <b>прошли 264 врача</b></span></summary>
+            <ul class="in">
+              <li>Случаи на границе ортопедии и ортодонтии: когда веду сам, а когда иду к ортодонту</li>
+              <li>Диастема, которая растёт, и щелчок в суставе — ограничение функционального пространства</li>
+              <li>Смещение нижней челюсти кзади: когда предлагают ортогнатическую хирургию, а можно иначе</li>
+              <li>Совместное ведение случая с ортодонтом: кто что решает и в каком порядке</li>
+              <li>Случай, который я защищал на менторстве Kois Center и публиковал в Compendium of Continuing Education in Dentistry</li>
+            </ul></details></li>
+          <li><details><summary>Dental Boost<span>ускорители комплексного лечения</span></summary>
+            <ul class="in">
+              <li>Шесть источников неэффективности приёма: переделки, лишние действия, время, оборудование</li>
+              <li>Расписание, на котором клиника теряет до половины выручки</li>
+              <li>Преблоки под высокомаржинальные процедуры и правило «сверху вниз»</li>
+              <li>Три критерия покупки оборудования: дешевле, лучше, быстрее</li>
+              <li>Гарантия пять лет вместо одного года и что для этого нужно в протоколе</li>
+            </ul></details></li>
+        </ul>
+        <div class="prow">
+          <span class="n mono" id="pn2">8 600 ₽</span>
+          <span class="o">вместо 37 600 ₽</span>
+        </div>
+        <a class="btn" data-offer="clinic" href="#">Забрать клинический набор</a>
+      </div>
+
+      <div class="set">
+        <div class="who">Бизнесовый · 4 мастер-класса</div>
+        <div class="scale"><i></i><i></i><i></i><i></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></div>
+        <h3>Прибыль, команда, дорогие планы</h3>
+        <p class="for">Чтобы видеть, где клиника теряет деньги, и перестать держать её собой.</p>
+        <ul class="mk">
+          <li><details open><summary>Увеличители прибыли стоматологии<span>шесть блоков маркетинга без бюджета · <b>прошли 528 собственников</b></span></summary>
+            <ul class="in">
+              <li>Быстрая прибыль с базы: как вернуть пациентов, которые не были полгода</li>
+              <li>Оптимизация расписания: где сотрудники теряют время впустую</li>
+              <li>Нейромаркетинг в клинике: из чего складывается впечатление пациента</li>
+              <li>Инструменты, которые поднимают чистый доход</li>
+              <li>Разгон сарафанки: как получать рекомендации не случайно</li>
+              <li>Чёрные дыры бюджета: куда уходят деньги, которых не хватает к 25-му числу</li>
+            </ul></details></li>
+          <li><details><summary>Как мотивировать команду на результат<span>нематериальная мотивация и удержание · <b>прошли 200 руководителей</b></span></summary>
+            <ul class="in">
+              <li>Почему зарплата не лечит ни выгорание, ни вовлечённость</li>
+              <li>Инструменты нематериальной мотивации: признание, карьерный рост, условия работы</li>
+              <li>Беседы тет-а-тет: как понять, чем удержать конкретного сотрудника</li>
+              <li>Атмосфера в клинике как удерживающий фактор — на примере SmileClinic</li>
+              <li>Зачем клинике HR, который отвечает не только за найм</li>
+            </ul></details></li>
+          <li><details><summary>Дорогие планы лечения<span>восемь модулей с Дмитрием Серовым</span></summary>
+            <ul class="in">
+              <li>Обоснование комплексного плана: почему лечение целиком дешевле лечения по частям</li>
+              <li>Протокол консультации по шагам</li>
+              <li>Презентация сложного плана: на чём строится согласие</li>
+              <li>Доверие как часть протокола, а не как талант врача</li>
+              <li>Как говорить о цене</li>
+              <li>Аватары пациентов: «правополушарный» и «левополушарный»</li>
+              <li>Как определить мотивацию пациента и говорить на его языке</li>
+            </ul></details></li>
+          <li><details><summary>Сильный бренд стоматолога и клиники<span>пациенты по рекомендации · <b>прошли 254 врача</b></span></summary>
+            <ul class="in">
+              <li>Куда идёт проверять пациент, которому вас порекомендовали, и где он вас теряет</li>
+              <li>Программа-минимум: что вести, даже если не собираетесь быть медийным врачом</li>
+              <li>Кейсы до и после: что снимать, если у вас нет тотальных работ</li>
+              <li>Программа-максимум: как приходят новые пациенты из соцсетей</li>
+            </ul></details></li>
+        </ul>
+        <div class="prow">
+          <span class="n mono" id="pn3">8 600 ₽</span>
+          <span class="o">вместо 31 470 ₽</span>
+        </div>
+        <a class="btn" data-offer="biz" href="#">Забрать бизнесовый набор</a>
+      </div>
+
+      <div class="set both">
+        <div class="txt">
+          <span class="flag">Берут чаще всего</span>
+          <div class="scale"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></div>
+          <h3>Оба набора · 8 мастер-классов</h3>
+        </div>
+        <div class="prow">
+          <span class="n mono" id="pn4">12 900 ₽</span>
+          <span class="o">вместо <s>69 070 ₽</s></span>
+          <span class="o">доступ 365 дней вместо 120</span>
+          <a class="btn light" data-offer="both" href="#">Забрать оба набора</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="w">
+    <h2>Всё показываю на пациентах</h2>
+    <p class="sub narrow">Это кадры из мастер-класса «Центральное соотношение»: четыре инструмента регистрации, каждый на живом пациенте, а не на схеме в презентации.</p>
+    <div class="shots">
+      <figure class="shot"><img src="cl1.jpg" alt="Мануальная методика Доусона"><figcaption>Мануальная методика Доусона</figcaption></figure>
+      <figure class="shot"><img src="cl2.jpg" alt="Листовой калибратор"><figcaption>Листовой калибратор</figcaption></figure>
+      <figure class="shot"><img src="cl3.jpg" alt="Джиг Лючия"><figcaption>Джиг Лючия</figcaption></figure>
+      <figure class="shot"><img src="cl4.jpg" alt="Депрограммер Койса"><figcaption>Депрограммер Койса</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="w two">
+    <figure class="portrait" style="margin:0">
+      <img src="ilya2.jpg" alt="Илья Скляров">
+      <figcaption>Илья Скляров · SmileClinic, Санкт-Петербург</figcaption>
+    </figure>
+    <div>
+      <h2>Илья Скляров</h2>
+      <p class="lead">Я стоматолог-ортопед, кандидат медицинских наук, первый и единственный в России сертифицированный ментор Kois Center.</p>
+      <p class="sub">27 лет в практике, принимаю пациентов каждую неделю. Построил клинику SmileClinic в Петербурге и учебный центр. Учился у Джона Койса, Мауро Фрадеани, Майкла Апы, Иштвана Урбана, Майкла Пикоса — и всё, что разбираю в этих мастер-классах, делаю у себя в кресле.</p>
+      <div class="regs">Kois Center, ментор &nbsp;·&nbsp; Startsmile TOP &nbsp;·&nbsp; <span style="color:var(--carmine)">Forbes</span> &nbsp;·&nbsp; Leading Dental Centers</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="w">
+    <h2>Что откроется после оплаты</h2>
+    <p class="sub narrow">Доступ в личный кабинет приходит на почту сразу после платежа. Внутри — по каждому мастер-классу:</p>
+
+    <div class="spread">
+      <div class="pic"><img src="tetrad.jpg" alt="Рабочая тетрадь мастер-класса"></div>
+      <div>
+        <h3>Рабочая тетрадь к каждому мастер-классу</h3>
+        <p class="sub" style="margin-top:12px">Та же, по которой работали участники живого эфира: вопросы по ходу, место под ваши записи и готовые формулы. Скачивается и печатается, можно заполнять на приёме.</p>
+      </div>
+    </div>
+
+    <div class="files" style="margin-top:26px">
+      <div class="file"><span class="ft">видео</span><span class="fn">Полная запись эфира</span><span class="fd">смотреть можно с телефона, планшета и компьютера</span></div>
+      <div class="file"><span class="ft">доступ</span><span class="fn">120 или 365 дней</span><span class="fd">365 — если берёте оба набора, отсчёт от дня оплаты</span></div>
+      <div class="file"><span class="ft">pdf</span><span class="fn">Чек-листы и протоколы</span><span class="fd">депрограммер, окклюзионная шина, противопоказания, формулы</span></div>
+      <div class="file"><span class="ft">видео</span><span class="fn">Сессия вопрос-ответ</span><span class="fd">45–60 минут разбора вопросов участников</span></div>
+      <div class="file"><span class="ft">pdf</span><span class="fn">Именной сертификат</span><span class="fd">с подписью, на каждый мастер-класс отдельно</span></div>
+      <div class="file"><span class="ft">чат</span><span class="fn">Служба заботы</span><span class="fd">Telegram, WhatsApp или MAX — если что-то не открылось</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="pullwrap">
+  <div class="w">
+    <div class="pull">
+      <p>Тотальная работа — самый высокий чек в практике. Проблема только в том, что её надо уметь спланировать.</p>
+      <div class="sig">Илья Скляров · <b>ментор Kois Center</b></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="w two">
+    <div>
+      <h2>Каждый день дороже</h2>
+      <p class="sub">Цена держится сутки и в полночь поднимается на ступень. Назад она не опускается. Кто заходит 12 октября, платит за все восемь <span class="mono">11 900 ₽</span>, кто 18-го — <span class="mono">17 900 ₽</span>.</p>
+      <p class="sub" style="margin-top:14px">Я делаю так, чтобы не собирать всех в последнюю ночь. Разница в <span class="mono">6 000 ₽</span> — это вся разница между участниками: материалы и доступ у всех одинаковые.</p>
+    </div>
+    <div class="chart">
+      <div class="bars" id="bars"></div>
+      <div class="days" id="days"></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="w">
+    <h2>Бонусы и подарки</h2>
+    <p class="sub narrow">Всё, что шло к этим мастер-классам на живых продажах, остаётся в наборах.</p>
+    <div class="bonuses">
+      <div class="bcol">
+        <div class="bhead">Клинический набор</div>
+        <ul class="dash">
+          <li>Рабочие тетради к каждому мастер-классу</li>
+          <li>Чек-лист «Изготовление депрограммера Койса»</li>
+          <li>Чек-лист «Изготовление окклюзионной шины»</li>
+          <li>Видеоурок: депрограммер Койса за 15 минут прямо в полости рта</li>
+          <li>Формулы расчёта высоты прикуса и чек-лист противопоказаний</li>
+          <li>Записи живых сессий вопрос-ответ со мной, по 45–60 минут</li>
+        </ul>
+      </div>
+      <div class="bcol">
+        <div class="bhead">Бизнесовый набор</div>
+        <ul class="dash">
+          <li>Образцы диалогов с пациентом на консультации</li>
+          <li>Аватары пациентов и разбор двух типов принятия решения</li>
+          <li>Инструменты возврата пациентов, которые не были полгода</li>
+          <li>Записи живых сессий вопрос-ответ со мной</li>
+        </ul>
+      </div>
+    </div>
+    <div class="bonus-all">
+      <div class="bhead">В любом наборе</div>
+      <ul class="dash">
+        <li>Именной сертификат с подписью на каждый мастер-класс</li>
+        <li>Чат заботы: Telegram, WhatsApp или MAX — задать вопрос по доступу и материалам</li>
+        <li>Доступ 120 дней, а если берёте оба набора — 365</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="w two">
+    <div>
+      <h2>Цена и сроки</h2>
+      <p class="sub">Наборы открыты с 12 по 18 октября. В 23:59 по Москве продажа закрывается, мастер-классы возвращаются к обычным ценам и продаются поштучно. Следующий раз — через год.</p>
+    </div>
+    <div class="pricecard">
+      <div class="lab">Набор из четырёх · цена сегодня</div>
+      <div class="pnow" id="pn5"><span class="int">7 900</span><span class="cur">₽</span></div>
+      <div class="pwas">вместо <s id="pnWas2">37 600 ₽</s> по отдельности</div>
+      <div class="ptomorrow"><span>завтра</span><b id="pnNext2">8 600 ₽</b></div>
+      <div class="deadline">
+        <span class="t mono" id="clock2">—</span>
+        <span class="u" id="lab2">до новой цены</span>
+      </div>
+      <a class="btn solid" href="#sets">Выбрать набор</a>
+      <div class="palt">Все восемь мастер-классов — <b id="pnAlt2">11 900 ₽</b></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="w narrow">
+    <h2>Вопросы</h2>
+    <div class="prog" style="margin-top:26px">
+      <details>
+        <summary>Как я получу доступ</summary>
+        <div class="body">Сразу после оплаты на вашу почту приходит письмо с доступом в личный кабинет. Все материалы лежат там: смотреть можно с телефона, планшета и компьютера, скачивать ничего не нужно.</div>
+      </details>
+      <details>
+        <summary>Сколько времени будут открыты материалы</summary>
+        <div class="body">Один набор — 120 дней с момента оплаты. Оба набора — 365 дней. Отсчёт идёт от дня оплаты, а не от 18 октября.</div>
+      </details>
+      <details>
+        <summary>Можно оплатить от юридического лица</summary>
+        <div class="body">Да. Напишите в службу заботы @sklyarov_zabota, вам выставят счёт на клинику или ИП и пришлют закрывающие документы.</div>
+      </details>
+      <details>
+        <summary>Можно оплатить картой зарубежного банка</summary>
+        <div class="body">Да. Напишите в @sklyarov_zabota, там пришлют инструкцию по оплате из-за рубежа.</div>
+      </details>
+      <details>
+        <summary>Я оплатил, а доступ не пришёл</summary>
+        <div class="body">Проверьте в почте папки «Спам» и «Промоакции». Если письма нет, напишите в @sklyarov_zabota и укажите почту, с которой оплачивали: доступ откроют вручную.</div>
+      </details>
+      <details>
+        <summary>Один мастер-класс у меня уже куплен</summary>
+        <div class="body">Оплачивайте набор и напишите в поддержку: продлим доступ к тому материалу, который у вас есть, либо компенсируем его долю в стоимости.</div>
+      </details>
+      <details>
+        <summary>Будет ли сертификат</summary>
+        <div class="body">Да, именной сертификат с моей подписью, на каждый мастер-класс отдельно.</div>
+      </details>
+      <details>
+        <summary>Подойдёт ли это моей команде</summary>
+        <div class="body">Бизнесовый набор я делал для собственников, главных врачей и управляющих: там про прибыль, мотивацию, консультацию и рекомендации. Клинический — для врачей, которые работают руками. Доступ именной, на одного человека.</div>
+      </details>
+      <details>
+        <summary>Я недавно выпустился, мне не рано</summary>
+        <div class="body">Не рано. В клиническом наборе я начинаю с диагностики и протокола, а не с готовых сложных случаев. Разбираю в том числе то, чего не дают в университете: как считать высоту прикуса и чем отличить мышечную проблему от суставной.</div>
+      </details>
+      <details>
+        <summary>Почему цена растёт каждый день</summary>
+        <div class="body">Чтобы не собирать всех в последнюю ночь и чтобы те, кто решил сразу, платили меньше. Материалы и доступ у всех одинаковые, растёт только цена.</div>
+      </details>
+      <details>
+        <summary>Будет ли такая распродажа ещё раз</summary>
+        <div class="body">Наборами я открываю мастер-классы один раз в год. Следующее окно — осенью 2027 года. После 18 октября они вернутся к своим обычным ценам и будут продаваться поштучно.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="w">
+    <p>SklyarovCenter · учебный центр Ильи Склярова<br>Вопросы по доступу и оплате — @sklyarov_zabota</p>
+  </div>
+</footer>
+
+<div class="sticky" id="sticky">
+  <div class="in">
+    <div class="p"><span class="n mono" id="pn6">7 900 ₽</span><span class="c" id="pnSt">завтра дороже</span></div>
+    <a class="btn solid" href="#sets">Выбрать набор</a>
+  </div>
+</div>
+
+<script>
+(function(){
+  /* ────────────────────────────────────────────────────────────
+     Цена держится сутки и поднимается в полночь по Москве.
+     Семь ступеней: под каждую в GetCourse заводится своё
+     предложение с фиксированной ценой.
+
+     ДЕМО-РЕЖИМ: показывает вторые сутки продажи.
+     Перед заливкой поставить DEMO = false.
+     ──────────────────────────────────────────────────────────── */
+  var DEMO = true;
+  var DAY = 86400000;
+
+  var REAL_START = new Date('2026-10-12T00:00:00+03:00').getTime();
+  var REAL_END   = new Date('2026-10-18T23:59:59+03:00').getTime();
+
+  /* в демо начало — вчерашняя полночь, чтобы шёл второй день */
+  var START = DEMO ? (Math.floor(Date.now() / DAY) * DAY - DAY) : REAL_START;
+  var END   = DEMO ? (START + 7 * DAY - 1000) : REAL_END;
+
+  var BASE_SET = 7900,   STEP_SET = 700;
+  var BASE_BOTH = 11900, STEP_BOTH = 1000;
+
+  /* ────────────────────────────────────────────────────────────
+     Ссылки на предложения GetCourse: по одному на каждый день
+     продажи. Порядок — 12, 13, 14, 15, 16, 17, 18 октября.
+     Цены в предложениях фиксированные, из таблицы ступеней.
+     ──────────────────────────────────────────────────────────── */
+  var OFFERS = {
+    clinic: ['ССЫЛКА_КЛИН_12','ССЫЛКА_КЛИН_13','ССЫЛКА_КЛИН_14','ССЫЛКА_КЛИН_15','ССЫЛКА_КЛИН_16','ССЫЛКА_КЛИН_17','ССЫЛКА_КЛИН_18'],
+    biz:    ['ССЫЛКА_БИЗ_12','ССЫЛКА_БИЗ_13','ССЫЛКА_БИЗ_14','ССЫЛКА_БИЗ_15','ССЫЛКА_БИЗ_16','ССЫЛКА_БИЗ_17','ССЫЛКА_БИЗ_18'],
+    both:   ['ССЫЛКА_ОБА_12','ССЫЛКА_ОБА_13','ССЫЛКА_ОБА_14','ССЫЛКА_ОБА_15','ССЫЛКА_ОБА_16','ССЫЛКА_ОБА_17','ССЫЛКА_ОБА_18']
+  };
+
+  function paintLinks(i){
+    document.querySelectorAll('[data-offer]').forEach(function(a){
+      var list = OFFERS[a.getAttribute('data-offer')];
+      if (list && list[i]) a.setAttribute('href', list[i]);
+    });
+  }
+
+  function dayIndex(t){
+    if (t <= START) return 0;
+    return Math.min(6, Math.floor((t - START) / DAY));
+  }
+  function money(v){
+    return Math.round(v).toLocaleString('ru-RU').replace(/ /g,' ') + ' ₽';
+  }
+  function pad(n){ return String(n).padStart(2,'0'); }
+
+  function paint(now){
+    var i = dayIndex(now);
+    var pSet  = BASE_SET  + i * STEP_SET;
+    var pBoth = BASE_BOTH + i * STEP_BOTH;
+    var last  = (i >= 6) || (now > END);
+
+    ['pn1','pn5'].forEach(function(id){
+      var el = document.getElementById(id); if (!el) return;
+      el.querySelector('.int').textContent = pSet.toLocaleString('ru-RU').replace(/ /g,' ');
+    });
+
+    ['pnNext1','pnNext2'].forEach(function(id){
+      var el = document.getElementById(id); if (!el) return;
+      el.textContent = last ? 'последний день' : money(pSet + STEP_SET);
+      var lbl = el.parentNode.querySelector('span');
+      if (lbl) lbl.textContent = last ? 'сегодня' : 'завтра';
+    });
+
+    var setTxt = money(pSet);
+    ['pn2','pn3','pn6'].forEach(function(id){
+      var el = document.getElementById(id); if (el) el.textContent = setTxt;
+    });
+
+    ['pn4','pnAlt1','pnAlt2'].forEach(function(id){
+      var el = document.getElementById(id); if (el) el.textContent = money(pBoth);
+    });
+
+    paintLinks(i);
+
+    var st = document.getElementById('pnSt');
+    if (st) st.textContent = last ? 'последний день' : 'завтра ' + money(pSet + STEP_SET);
+  }
+
+  function paintClock(now){
+    var target, label, i;
+    if (now < START){ target = START; label = 'до открытия'; }
+    else if (now > END){
+      ['clock1','clock2'].forEach(function(id){ var e=document.getElementById(id); if(e) e.textContent='—'; });
+      ['lab1','lab2'].forEach(function(id){ var e=document.getElementById(id); if(e) e.textContent='продажа закрыта'; });
+      return;
+    } else {
+      i = dayIndex(now);
+      if (i >= 6){ target = END; label = 'до закрытия'; }
+      else { target = START + (i + 1) * DAY; label = 'до новой цены'; }
+    }
+    var d = Math.max(0, target - now);
+    var days = Math.floor(d / DAY);
+    var hhmmss = pad(Math.floor(d % DAY / 3600000)) + ':' + pad(Math.floor(d % 3600000 / 60000)) + ':' + pad(Math.floor(d % 60000 / 1000));
+    var txt = days > 0 ? days + ' д ' + hhmmss : hhmmss;
+    ['clock1','clock2'].forEach(function(id){ var e=document.getElementById(id); if(e) e.textContent=txt; });
+    ['lab1','lab2'].forEach(function(id){ var e=document.getElementById(id); if(e) e.textContent=label; });
+  }
+
+  /* график роста по дням · цена всех восьми */
+  (function buildChart(){
+    var bars = document.getElementById('bars'), days = document.getElementById('days');
+    if (!bars || !days) return;
+    var labels = ['12','13','14','15','16','17','18'];
+    var now = Date.now();
+    var cur = (now >= START && now <= END) ? dayIndex(now) : -1;
+    var maxP = BASE_BOTH + 6 * STEP_BOTH;
+    for (var i = 0; i < 7; i++){
+      var p = BASE_BOTH + i * STEP_BOTH;
+      var h = 34 + (p / maxP) * 66;
+      var cls = (i === cur) ? ' now' : '';
+      bars.insertAdjacentHTML('beforeend',
+        '<div class="bar' + cls + '"><span class="p">' + p.toLocaleString('ru-RU').replace(/ /g,' ') +
+        '</span><span class="b" style="height:' + h + '%"></span></div>');
+      days.insertAdjacentHTML('beforeend',
+        '<span class="' + (cls ? 'now' : '') + '">' + labels[i] + '</span>');
+    }
+  })();
+
+  function tick(){
+    var now = Date.now();
+    paint(now);
+    paintClock(now);
+  }
+  tick();
+  setInterval(tick, 1000);
+
+  /* липкая строка */
+  var sticky = document.getElementById('sticky'), sets = document.getElementById('sets');
+  function onScroll(){
+    var y = window.scrollY || window.pageYOffset;
+    var show = y > 700;
+    if (sets){
+      var top = sets.getBoundingClientRect().top + y;
+      show = show && !(y + window.innerHeight > top + 160 && y < top + sets.offsetHeight);
+    }
+    sticky.classList.toggle('on', show);
+  }
+  onScroll();
+  window.addEventListener('scroll', onScroll, {passive:true});
+  window.addEventListener('resize', onScroll);
+})();
+</script>
+
+</body>
+</html>
