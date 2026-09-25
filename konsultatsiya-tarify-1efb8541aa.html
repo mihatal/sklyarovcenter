@@ -118,8 +118,8 @@ a:focus-visible,summary:focus-visible{outline:2px solid var(--focus);outline-off
     <h2>Два тарифа</h2>
   </div>
   <div class="price-row">
-    <div class="pc"><span class="eyebrow">Для врача</span><h3>Врач</h3><span class="amt">60 000 ₽</span><p>Всё, что нужно врачу в кабинете: уроки, 2 живые сессии с Ильёй, шаблоны, скрипты, справочник и 6 игр-тренажёров.</p></div>
-    <div class="pc clinic"><span class="eyebrow">Для владельца клиники</span><h3>Клиника</h3><span class="amt">90 000 ₽</span><p>Всё из тарифа «Врач» плюс команда: треки администратора, координатора и ассистента, внедрение, 2 закрытые сессии, ИИ-помощник для администраторов. Врач и до 3 сотрудников.</p></div>
+    <div class="pc"><span class="eyebrow">Для врача</span><h3>Врач</h3><span class="amt">58 000 ₽</span><p>Всё, что нужно врачу в кабинете: уроки, 2 живые сессии с Ильёй, шаблоны, скрипты, справочник и 6 игр-тренажёров.</p></div>
+    <div class="pc clinic"><span class="eyebrow">Для владельца клиники</span><h3>Клиника</h3><span class="amt">86 000 ₽</span><p>Всё из тарифа «Врач» плюс команда: треки администратора, координатора и ассистента, внедрение, 2 закрытые сессии, ИИ-помощник для администраторов. Врач и до 3 сотрудников.</p></div>
   </div>
   <div class="tbl"><table id="cmp"></table></div>
   <p class="eyebrow" style="margin:0">Нажмите на название, чтобы перейти к описанию материала</p>
@@ -291,7 +291,7 @@ const CAT=[
 ];
 
 const esc=s=>String(s);
-let rows=`<thead><tr><th>Что входит</th><th class="c">Врач<small>60 000 ₽</small></th><th class="c clinic">Клиника<small>90 000 ₽</small></th></tr></thead><tbody>`;
+let rows=`<thead><tr><th>Что входит</th><th class="c">Врач<small>58 000 ₽</small></th><th class="c clinic">Клиника<small>86 000 ₽</small></th></tr></thead><tbody>`;
 let cat="";
 for(const x of CAT){
   if(x.g){ rows+=`<tr class="grp"><td colspan="3">${x.g}</td></tr>`; cat+=`<h3 style="margin:22px 0 4px;font-size:22px">${x.g}</h3>`; continue; }
