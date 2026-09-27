@@ -79,6 +79,8 @@ header{padding:22px 0 0}
 .heroList{display:none}
 @media(max-width:759px){
   .file .fn{font-size:16.5px}
+  .wb-note{display:none}
+  .wb-title{font-size:10px;letter-spacing:.1em}
   .heroGrid{grid-template-columns:1fr}
   .heroLeft{display:contents}         /* порядок: заголовок, лид, цена */
   .hero h1{order:1}
@@ -229,6 +231,68 @@ header{padding:22px 0 0}
   color:var(--service);margin-top:18px}
 .pull .sig b{color:var(--carmine);font-weight:500}
 
+
+/* ══════ ШКАЛЫ · главный графический приём ══════ */
+
+/* полоса недели в шапке */
+.weekbar{margin-top:16px;padding-top:14px;border-top:1px solid var(--line)}
+.wb-top{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:9px}
+.wb-title{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--service)}
+.wb-title b{color:var(--ink);font-weight:500}
+.wb-note{font-family:var(--mono);font-size:10.5px;color:var(--service)}
+.wb-days{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.wb-day{display:block}
+.wb-day i{display:block;height:5px;background:var(--line);transition:background .5s ease,height .5s ease}
+.wb-day.past i{background:var(--pencil)}
+.wb-day.now i{background:var(--carmine);height:9px}
+.wb-day span{display:block;font-family:var(--mono);font-size:10px;color:var(--service);
+  margin-top:6px;text-align:center;font-variant-numeric:tabular-nums}
+.wb-day.now span{color:var(--carmine);font-weight:600}
+
+/* шкала доли цены */
+.save{margin-top:16px}
+.save-track{height:9px;background:var(--halftone);border:1px solid var(--line);position:relative;overflow:hidden}
+.save-track i{display:block;height:100%;background:var(--ink);width:0;
+  transition:width 1.1s cubic-bezier(.22,.9,.3,1)}
+.save-row{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-top:8px;
+  font-family:var(--mono);font-size:11.5px;color:var(--service);letter-spacing:.02em}
+.save-row b{font-size:13px;color:var(--carmine);font-weight:600;letter-spacing:.04em}
+.set .save{margin:2px 0 16px}
+.set.both .save-track{background:#2A2620;border-color:#4A463D;height:11px}
+.set.both .save-track i{background:var(--clinical)}
+.set.both .save-row{color:#B9B2A0}
+.set.both .save-row b{color:#E8A0A6}
+
+/* мини-шкала в липкой строке */
+.sticky .wb-days{gap:3px;margin-top:7px}
+.sticky .wb-day i{height:4px}
+.sticky .wb-day.now i{height:7px}
+.sticky .wb-day span{display:none}
+
+/* ══════ ДВИЖЕНИЕ ══════ */
+.anim .rv{opacity:0;transform:translateY(16px);transition:opacity .7s ease,transform .7s cubic-bezier(.22,.9,.3,1)}
+.anim .rv.on{opacity:1;transform:none}
+.rv-d1{transition-delay:.08s}.rv-d2{transition-delay:.16s}.rv-d3{transition-delay:.24s}
+
+.scale i{transition:height .5s cubic-bezier(.22,.9,.3,1),background .5s ease}
+.set{transition:transform .3s ease,box-shadow .3s ease}
+.set:hover{transform:translateY(-3px);box-shadow:0 16px 34px rgba(20,19,15,.09)}
+.set:hover .scale i.on{height:32px}
+.set:hover .scale i{height:15px}
+.set.both:hover{box-shadow:0 18px 40px rgba(20,19,15,.28)}
+.shot img{transition:transform .8s cubic-bezier(.22,.9,.3,1)}
+.shot:hover img{transform:scale(1.045)}
+.file{transition:background .25s ease}
+.file:hover{background:var(--halftone)}
+.bar .b{transition:height .9s cubic-bezier(.22,.9,.3,1)}
+.pnow .int{transition:opacity .2s ease}
+
+@media (prefers-reduced-motion:reduce){
+  .rv{opacity:1;transform:none}
+  .set:hover{transform:none}
+  .shot:hover img{transform:none}
+}
+
 /* ── график роста цены ── */
 .chart{border:1px solid var(--line);padding:22px 18px;background:var(--paper)}
 .bars{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;align-items:end;height:150px;margin-bottom:12px}
@@ -269,7 +333,7 @@ header{padding:22px 0 0}
   transform:translateY(112%);transition:transform .22s ease}
 .sticky.on{transform:translateY(0)}
 .sticky .in{max-width:var(--col);margin:0 auto;display:flex;align-items:center;gap:14px}
-.sticky .p{flex:none;line-height:1.15}
+.sticky .p{flex:none;line-height:1.15;min-width:108px}
 .sticky .p .n{font-family:var(--mono);word-spacing:-.42em;font-size:19px;font-weight:600;font-variant-numeric:tabular-nums;
   letter-spacing:-.02em}
 .sticky .p .c{display:block;font-family:var(--mono);font-size:10px;color:var(--carmine);margin-top:3px}
@@ -301,6 +365,10 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--service);line-heig
     align-items:flex-start;gap:6px;min-width:270px}
   .set.both .btn{margin-top:14px}
   .shots{grid-template-columns:repeat(4,1fr)}
+  .weekbar{margin-top:18px}
+  .wb-days{gap:6px}
+  .wb-day i{height:6px}
+  .wb-day.now i{height:11px}
   .spread{grid-template-columns:.85fr 1.15fr;gap:48px}
   .pull{padding:52px 0}
   .pull p{max-width:24ch}
@@ -319,9 +387,18 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--service);line-heig
 <body>
 
 <header>
-  <div class="w head">
-    <img class="logo" src="logo.png" alt="Скляров центр">
-    <div class="d">Открыто <b>12–18 октября</b><br>закроется в 23:59 по Москве</div>
+  <div class="w">
+    <div class="head">
+      <img class="logo" src="logo.png" alt="Скляров центр">
+      <div class="d">Распродажа записей<br>закроется <b>18 октября</b> в 23:59 МСК</div>
+    </div>
+    <div class="weekbar">
+      <div class="wb-top">
+        <div class="wb-title">Идёт <b id="wbDay">второй день</b> из семи</div>
+        <div class="wb-note" id="wbNote">цена поднимается в полночь</div>
+      </div>
+      <div class="wb-days" id="wbDays"></div>
+    </div>
   </div>
 </header>
 
@@ -351,6 +428,10 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--service);line-heig
       <div class="lab">Набор из четырёх · цена сегодня</div>
       <div class="pnow" id="pn1"><span class="int">7 900</span><span class="cur">₽</span></div>
       <div class="pwas">вместо <s id="pnWas1">37 600 ₽</s> по отдельности</div>
+      <div class="save">
+        <div class="save-track"><i data-save="set"></i></div>
+        <div class="save-row"><span>цена сегодня</span><b data-pct="set">−79%</b></div>
+      </div>
       <div class="ptomorrow"><span>завтра</span><b id="pnNext1">8 600 ₽</b></div>
       <div class="deadline">
         <span class="t mono" id="clock1">—</span>
@@ -410,7 +491,7 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--service);line-heig
 <section id="sets">
   <div class="w">
     <h2>Два набора</h2>
-    <p class="sub narrow">Клинический — про работу в кресле, бизнесовый — про клинику. Цена одинаковая. Поштучно эти восемь мастер-классов купили <strong>3 043 врача и собственника</strong>.</p>
+    <p class="sub narrow">Клинический — про работу в кресле, бизнесовый — про клинику. Цена одинаковая. Поштучно эти восемь мастер-классов купили <strong><span data-count="3043">3 043</span> врача и собственника</strong>.</p>
 
     <div class="sets">
       <div class="set">
@@ -453,9 +534,13 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--service);line-heig
               <li>Гарантия пять лет вместо одного года и что для этого нужно в протоколе</li>
             </ul></details></li>
         </ul>
+        <div class="save">
+          <div class="save-track"><i data-save="set"></i></div>
+          <div class="save-row"><span>вместо 37 600 ₽</span><b data-pct="set">−79%</b></div>
+        </div>
         <div class="prow">
           <span class="n mono" id="pn2">8 600 ₽</span>
-          <span class="o">вместо 37 600 ₽</span>
+          <span class="o">за четыре мастер-класса</span>
         </div>
         <a class="btn" data-offer="clinic" href="#">Забрать клинический набор</a>
       </div>
@@ -501,9 +586,13 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--service);line-heig
               <li>Программа-максимум: как приходят новые пациенты из соцсетей</li>
             </ul></details></li>
         </ul>
+        <div class="save">
+          <div class="save-track"><i data-save="biz"></i></div>
+          <div class="save-row"><span>вместо 31 470 ₽</span><b data-pct="biz">−75%</b></div>
+        </div>
         <div class="prow">
           <span class="n mono" id="pn3">8 600 ₽</span>
-          <span class="o">вместо 31 470 ₽</span>
+          <span class="o">за четыре мастер-класса</span>
         </div>
         <a class="btn" data-offer="biz" href="#">Забрать бизнесовый набор</a>
       </div>
@@ -514,9 +603,12 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--service);line-heig
           <div class="scale"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></div>
           <h3>Оба набора · 8 мастер-классов</h3>
         </div>
+        <div class="save">
+          <div class="save-track"><i data-save="both"></i></div>
+          <div class="save-row"><span>вместо 69 070 ₽</span><b data-pct="both">−83%</b></div>
+        </div>
         <div class="prow">
           <span class="n mono" id="pn4">12 900 ₽</span>
-          <span class="o">вместо <s>69 070 ₽</s></span>
           <span class="o">доступ 365 дней вместо 120</span>
           <a class="btn light" data-offer="both" href="#">Забрать оба набора</a>
         </div>
@@ -647,6 +739,10 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--service);line-heig
       <div class="lab">Набор из четырёх · цена сегодня</div>
       <div class="pnow" id="pn5"><span class="int">7 900</span><span class="cur">₽</span></div>
       <div class="pwas">вместо <s id="pnWas2">37 600 ₽</s> по отдельности</div>
+      <div class="save">
+        <div class="save-track"><i data-save="set"></i></div>
+        <div class="save-row"><span>цена сегодня</span><b data-pct="set">−79%</b></div>
+      </div>
       <div class="ptomorrow"><span>завтра</span><b id="pnNext2">8 600 ₽</b></div>
       <div class="deadline">
         <span class="t mono" id="clock2">—</span>
@@ -718,7 +814,8 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--service);line-heig
 
 <div class="sticky" id="sticky">
   <div class="in">
-    <div class="p"><span class="n mono" id="pn6">7 900 ₽</span><span class="c" id="pnSt">завтра дороже</span></div>
+    <div class="p"><span class="n mono" id="pn6">7 900 ₽</span><span class="c" id="pnSt">завтра дороже</span>
+      <div class="wb-days" id="wbDaysMini"></div></div>
     <a class="btn solid" href="#sets">Выбрать набор</a>
   </div>
 </div>
@@ -745,6 +842,10 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--service);line-heig
 
   var BASE_SET = 7900,   STEP_SET = 700;
   var BASE_BOTH = 11900, STEP_BOTH = 1000;
+
+  /* сколько эти же мастер-классы стоят поштучно */
+  var FULL = { set: 37600, biz: 31470, both: 69070 };
+  var DAY_NAMES = ['первый','второй','третий','четвёртый','пятый','шестой','седьмой'];
 
   /* ────────────────────────────────────────────────────────────
      Ссылки на предложения GetCourse: по одному на каждый день
@@ -802,6 +903,23 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--service);line-heig
 
     paintLinks(i);
 
+    /* шкалы доли: какую часть полной цены платят сегодня */
+    document.querySelectorAll('[data-save]').forEach(function(el){
+      var k = el.getAttribute('data-save');
+      var price = (k === 'both') ? pBoth : pSet;
+      el.style.width = Math.max(4, Math.round(price / FULL[k] * 100)) + '%';
+    });
+    document.querySelectorAll('[data-pct]').forEach(function(el){
+      var k = el.getAttribute('data-pct');
+      var price = (k === 'both') ? pBoth : pSet;
+      el.textContent = '−' + Math.round((1 - price / FULL[k]) * 100) + '%';
+    });
+
+    var wd = document.getElementById('wbDay');
+    if (wd) wd.textContent = DAY_NAMES[i] + ' день';
+    var wn = document.getElementById('wbNote');
+    if (wn) wn.textContent = last ? 'дальше обычные цены' : 'цена поднимается в полночь';
+
     var st = document.getElementById('pnSt');
     if (st) st.textContent = last ? 'последний день' : 'завтра ' + money(pSet + STEP_SET);
   }
@@ -834,16 +952,27 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--service);line-heig
     var now = Date.now();
     var cur = (now >= START && now <= END) ? dayIndex(now) : -1;
     var maxP = BASE_BOTH + 6 * STEP_BOTH;
+    var grow = function(){
+      bars.querySelectorAll('.b').forEach(function(b, k){
+        setTimeout(function(){ b.style.height = b.getAttribute('data-h') + '%'; }, 60 * k);
+      });
+    };
     for (var i = 0; i < 7; i++){
       var p = BASE_BOTH + i * STEP_BOTH;
       var h = 34 + (p / maxP) * 66;
       var cls = (i === cur) ? ' now' : '';
       bars.insertAdjacentHTML('beforeend',
         '<div class="bar' + cls + '"><span class="p">' + p.toLocaleString('ru-RU').replace(/ /g,' ') +
-        '</span><span class="b" style="height:' + h + '%"></span></div>');
+        '</span><span class="b" data-h="' + h + '" style="height:0%"></span></div>');
       days.insertAdjacentHTML('beforeend',
         '<span class="' + (cls ? 'now' : '') + '">' + labels[i] + '</span>');
     }
+    if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion:reduce)').matches){
+      var io = new IntersectionObserver(function(rows){
+        rows.forEach(function(r){ if (r.isIntersecting){ grow(); io.disconnect(); } });
+      }, {threshold: 0.3});
+      io.observe(bars);
+    } else { grow(); }
   })();
 
   function tick(){
@@ -853,6 +982,71 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--service);line-heig
   }
   tick();
   setInterval(tick, 1000);
+
+  /* полосы дней недели: в шапке и в липкой строке */
+  (function buildWeek(){
+    var now = Date.now();
+    var cur = (now >= START && now <= END) ? dayIndex(now) : -1;
+    ['wbDays','wbDaysMini'].forEach(function(id){
+      var box = document.getElementById(id); if (!box) return;
+      var html = '';
+      for (var i = 0; i < 7; i++){
+        var cls = i < cur ? 'past' : (i === cur ? 'now' : '');
+        html += '<span class="wb-day ' + cls + '"><i></i><span>' + (12 + i) + '</span></span>';
+      }
+      box.innerHTML = html;
+    });
+  })();
+
+  /* появление блоков при скролле */
+  (function reveal(){
+    var soft = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+    document.documentElement.classList.add('anim');
+    var targets = document.querySelectorAll('section > .w > h2, .pains, .sets > .set, .shots, .spread, .files, .bonuses, .bonus-all, .chart, .pull, .prog, .portrait');
+    if (soft || !('IntersectionObserver' in window)){
+      targets.forEach(function(el){ el.classList.add('rv','on'); });
+      return;
+    }
+    targets.forEach(function(el, n){
+      el.classList.add('rv');
+      if (n % 3 === 1) el.classList.add('rv-d1');
+      if (n % 3 === 2) el.classList.add('rv-d2');
+    });
+    var io = new IntersectionObserver(function(rows){
+      rows.forEach(function(r){
+        if (r.isIntersecting){ r.target.classList.add('on'); io.unobserve(r.target); }
+      });
+    }, {rootMargin: '0px 0px -8% 0px', threshold: 0.08});
+    targets.forEach(function(el){ io.observe(el); });
+    setTimeout(function(){
+      targets.forEach(function(el){
+        if (el.getBoundingClientRect().top < window.innerHeight) el.classList.add('on');
+      });
+    }, 1200);
+  })();
+
+  /* счёт цифр вверх при первом появлении */
+  (function countUp(){
+    var soft = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+    if (soft || !('IntersectionObserver' in window)) return;
+    var nodes = document.querySelectorAll('[data-count]');
+    var io = new IntersectionObserver(function(rows){
+      rows.forEach(function(r){
+        if (!r.isIntersecting) return;
+        io.unobserve(r.target);
+        var el = r.target;
+        var to = parseInt(el.getAttribute('data-count'), 10);
+        var t0 = performance.now(), dur = 1000;
+        (function step(t){
+          var k = Math.min(1, (t - t0) / dur);
+          var e = 1 - Math.pow(1 - k, 3);
+          el.textContent = Math.round(to * e).toLocaleString('ru-RU').replace(/ /g,' ');
+          if (k < 1) requestAnimationFrame(step);
+        })(t0);
+      });
+    }, {threshold: 0.4});
+    nodes.forEach(function(el){ io.observe(el); });
+  })();
 
   /* липкая строка */
   var sticky = document.getElementById('sticky'), sets = document.getElementById('sets');
