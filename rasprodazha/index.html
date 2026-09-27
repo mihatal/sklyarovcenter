@@ -305,6 +305,35 @@ header{padding:22px 0 0}
 .deadnote p{margin:0;font-size:16px;line-height:1.45;color:#26251F}
 .deadnote b{font-weight:500}
 
+/* ── отзывы коллег ── */
+.revs{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);margin-top:26px}
+.rev{background:var(--paper);padding:22px 20px;display:flex;flex-direction:column;gap:14px}
+.rev q{quotes:none;font-size:16.5px;line-height:1.45;color:#26251F;display:block}
+.rev q:before{content:"«"}.rev q:after{content:"»"}
+.rev .who{margin-top:auto;padding-top:14px;border-top:1px solid var(--line)}
+.rev .nm{font-family:var(--sans);font-size:14.5px;font-weight:500;letter-spacing:-.01em;display:block}
+.rev .pos{font-family:var(--mono);font-size:11px;color:var(--service);line-height:1.5;
+  margin-top:5px;display:block}
+.rev .src{font-family:var(--mono);font-size:10px;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--pencil);margin-top:7px;display:block}
+
+/* ── витрина цен по отдельности ── */
+.plist{border:1px solid var(--line);margin-top:26px}
+.prow2{display:grid;grid-template-columns:1fr auto;gap:10px 14px;align-items:baseline;
+  padding:13px 16px;border-bottom:1px solid var(--line)}
+.prow2 .nm{font-size:16px;line-height:1.3}
+.prow2 .pr{font-family:var(--mono);font-size:14.5px;font-variant-numeric:tabular-nums;
+  white-space:nowrap;color:var(--service)}
+.prow2 .ln{grid-column:1 / -1;height:4px;background:var(--halftone);margin-top:-2px}
+.prow2 .ln i{display:block;height:100%;background:var(--line);width:0;
+  transition:width .9s cubic-bezier(.22,.9,.3,1)}
+.prow2.sum{background:var(--ink);color:var(--paper);border-bottom:none}
+.prow2.sum .nm{font-size:17px}
+.prow2.sum .pr{color:var(--paper);font-size:19px;font-weight:600}
+.pgroup{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--service);padding:16px 16px 8px;background:var(--halftone);
+  border-bottom:1px solid var(--line)}
+
 /* ── график роста цены ── */
 .chart{border:1px solid var(--line);padding:22px 18px;background:var(--paper)}
 .bars{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;align-items:end;height:150px;margin-bottom:12px}
@@ -368,6 +397,9 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--service);line-heig
     font-size:12.5px;line-height:1.45;color:var(--service)}
   .heroList li:before{content:"·";position:absolute;left:2px;color:var(--pencil)}
   .boxes{grid-template-columns:repeat(4,1fr)}
+  .revs{grid-template-columns:repeat(4,1fr)}
+  .prow2{grid-template-columns:1fr 200px auto;padding:15px 22px}
+  .prow2 .ln{grid-column:2;height:6px;margin:0;align-self:center}
   .deadnote{grid-template-columns:150px 1fr;align-items:baseline;padding:20px 24px;gap:20px}
   .box .case{padding:18px 20px 26px;font-size:17px}
   .bonuses{grid-template-columns:1fr 1fr}
@@ -482,6 +514,47 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--service);line-heig
   </div>
 </section>
 <section>
+  <div class="w">
+    <h2>Что говорят коллеги</h2>
+    <p class="sub narrow">Отзывы врачей, которые учились у меня. Все имена настоящие, отзывы собраны на страницах моих программ.</p>
+    <div class="revs">
+      <div class="rev">
+        <q>В курсах Ильи Склярова очень много мелочей, важной информации, с которой он с радостью делится. И эта информация легко усваивается, её легко начать применять в практике.</q>
+        <div class="who"><span class="nm">Павел Михеев</span><span class="pos">стоматолог-ортопед, Новосибирск<br>15 лет практики</span><span class="src">о курсе «Планирование»</span></div>
+      </div>
+      <div class="rev">
+        <q>Курс позволяет полностью перезагрузиться в парадигме современной ортопедической стоматологии, изменить свои подходы, закрыть какие-то пробелы в знаниях, а также почерпнуть очень много лайфхаков.</q>
+        <div class="who"><span class="nm">Алексей Белозерцев</span><span class="pos">стоматолог-ортопед<br>стаж почти 30 лет</span><span class="src">о курсе «Планирование»</span></div>
+      </div>
+      <div class="rev">
+        <q>Здесь такая совокупность фундаментальных знаний и различных фишек и лайфхаков, которые Илья Александрович накопил за свою долгую практику и щедро с нами поделился.</q>
+        <div class="who"><span class="nm">Эмиль Колесников</span><span class="pos">стоматолог-ортопед, Иваново</span><span class="src">о курсе «Планирование»</span></div>
+      </div>
+      <div class="rev">
+        <q>Данный курс именно формирует целостный подход к любой стоматологической задаче, особенно если это комплексная, тотальная работа.</q>
+        <div class="who"><span class="nm">Максим Терюхов</span><span class="pos">стоматолог</span><span class="src">о курсе «Планирование»</span></div>
+      </div>
+      <div class="rev">
+        <q>Методики, которые нам давали, были применимы здесь и сейчас. Самые острые вопросы, с которыми сталкиваемся каждый день, были освещены и проработаны.</q>
+        <div class="who"><span class="nm">Юлия</span><span class="pos">стоматолог-ортопед, терапевт</span><span class="src">о курсе «Планирование»</span></div>
+      </div>
+      <div class="rev">
+        <q>Получил массу интересной, а самое главное важной информации, которую применяю ежедневно в своей практике.</q>
+        <div class="who"><span class="nm">Евгений Рошковский</span><span class="pos">стоматолог</span><span class="src">о курсе «Планирование»</span></div>
+      </div>
+      <div class="rev">
+        <q>Удалось окупить стоимость обучения в первый же месяц.</q>
+        <div class="who"><span class="nm">Рустам</span><span class="pos">хирург и ортопед</span><span class="src">о курсе «Консультация»</span></div>
+      </div>
+      <div class="rev">
+        <q>Повысилось количество согласий на план лечения, и также выросла возвращаемость пациентов.</q>
+        <div class="who"><span class="nm">Владимир</span><span class="pos">стоматолог-ортопед</span><span class="src">о курсе «Консультация»</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
   <div class="w two">
     <figure class="portrait" style="margin:0">
       <img src="ilya2.jpg" alt="Илья Скляров">
@@ -518,6 +591,26 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--service);line-heig
     </div>
   </div>
 </section>
+<section>
+  <div class="w">
+    <h2>Сколько это стоит по отдельности</h2>
+    <p class="sub narrow">Обычные цены с моих страниц. По ним эти мастер-классы продаются весь год, кроме этой недели.</p>
+    <div class="plist">
+      <div class="pgroup">Клинический</div>
+      <div class="prow2"><span class="nm">Центральное соотношение на практике</span><span class="ln"><i data-w="100"></i></span><span class="pr">11 900 ₽</span></div>
+      <div class="prow2"><span class="nm">Повышение прикуса на практике</span><span class="ln"><i data-w="83"></i></span><span class="pr">9 900 ₽</span></div>
+      <div class="prow2"><span class="nm">Эффективные планы</span><span class="ln"><i data-w="66"></i></span><span class="pr">7 900 ₽</span></div>
+      <div class="prow2"><span class="nm">Dental Boost</span><span class="ln"><i data-w="66"></i></span><span class="pr">7 900 ₽</span></div>
+      <div class="pgroup">Бизнес</div>
+      <div class="prow2"><span class="nm">Увеличители прибыли стоматологии</span><span class="ln"><i data-w="24"></i></span><span class="pr">2 900 ₽</span></div>
+      <div class="prow2"><span class="nm">Как мотивировать команду на результат</span><span class="ln"><i data-w="100"></i></span><span class="pr">11 900 ₽</span></div>
+      <div class="prow2"><span class="nm">Дорогие планы лечения</span><span class="ln"><i data-w="100"></i></span><span class="pr">11 900 ₽</span></div>
+      <div class="prow2"><span class="nm">Сильный бренд стоматолога и клиники</span><span class="ln"><i data-w="40"></i></span><span class="pr">4 770 ₽</span></div>
+      <div class="prow2 sum"><span class="nm">Все восемь по отдельности</span><span class="ln"></span><span class="pr">69 070 ₽</span></div>
+    </div>
+  </div>
+</section>
+
 <section class="pullwrap">
   <div class="w">
     <div class="pull">
@@ -978,7 +1071,7 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--service);line-heig
   (function reveal(){
     var soft = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
     document.documentElement.classList.add('anim');
-    var targets = document.querySelectorAll('section > .w > h2, .boxes, .sets > .set, .shots, .spread, .files, .bonuses, .bonus-all, .chart, .pull, .prog, .portrait');
+    var targets = document.querySelectorAll('section > .w > h2, .boxes, .revs, .plist, .sets > .set, .shots, .spread, .files, .bonuses, .bonus-all, .chart, .pull, .prog, .portrait');
     if (soft || !('IntersectionObserver' in window)){
       targets.forEach(function(el){ el.classList.add('rv','on'); });
       return;
@@ -999,6 +1092,22 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--service);line-heig
         if (el.getBoundingClientRect().top < window.innerHeight) el.classList.add('on');
       });
     }, 1200);
+  })();
+
+  /* полоски витрины цен */
+  (function priceBars(){
+    var box = document.querySelector('.plist'); if (!box) return;
+    var fill = function(){
+      box.querySelectorAll('[data-w]').forEach(function(el, k){
+        setTimeout(function(){ el.style.width = el.getAttribute('data-w') + '%'; }, 55 * k);
+      });
+    };
+    if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion:reduce)').matches){
+      var io = new IntersectionObserver(function(rows){
+        rows.forEach(function(r){ if (r.isIntersecting){ fill(); io.disconnect(); } });
+      }, {threshold: 0.2});
+      io.observe(box);
+    } else { fill(); }
   })();
 
   /* счёт цифр вверх при первом появлении */
