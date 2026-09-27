@@ -227,15 +227,6 @@ header{padding:22px 0 0}
 .spread .pic img{width:66%;max-width:260px;display:block;
   box-shadow:0 18px 34px rgba(20,19,15,.16);border:1px solid var(--line);border-bottom:none}
 
-/* ── типографическая врезка ── */
-.pull{border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);
-  padding:34px 0;margin:0;background:var(--paper)}
-.pull p{font-size:clamp(21px,5.4vw,34px);line-height:1.22;font-weight:300;
-  letter-spacing:-.022em;max-width:20ch;margin:0}
-.pull .sig{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;
-  color:var(--service);margin-top:18px}
-.pull .sig b{color:var(--carmine);font-weight:500}
-
 
 /* ══════ ШКАЛЫ · главный графический приём ══════ */
 
@@ -368,18 +359,27 @@ header{padding:22px 0 0}
 .popprice .b{font-family:var(--mono);font-size:13px;color:var(--carmine)}
 @media (prefers-reduced-motion:reduce){.popbox{animation:none}}
 
-/* ── график роста цены ── */
-.chart{border:1px solid var(--line);padding:22px 18px;background:var(--paper)}
-.bars{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;align-items:end;height:150px;margin-bottom:12px}
-.bar{display:flex;flex-direction:column;justify-content:flex-end;height:100%;gap:6px}
-.bar .b{background:var(--clinical);width:100%;border-top:1px solid var(--line)}
-.bar.now .b{background:var(--ink)}
-.bar .p{font-family:var(--mono);word-spacing:-.3em;font-size:10.5px;color:var(--service);text-align:center;
-  font-variant-numeric:tabular-nums;white-space:nowrap}
-.bar.now .p{color:var(--ink);font-weight:500}
-.days{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;border-top:1px solid var(--line);padding-top:8px}
-.days span{font-family:var(--mono);font-size:10px;color:var(--service);text-align:center;white-space:nowrap}
-.days span.now{color:var(--carmine)}
+/* ── график роста цены: горизонтальная лестница ── */
+.chart{border:1px solid var(--line);padding:20px 16px;background:var(--paper)}
+.lad{display:grid;gap:1px;background:var(--line);border:1px solid var(--line)}
+.lrow{display:grid;grid-template-columns:58px 1fr auto;gap:10px;align-items:center;
+  background:var(--paper);padding:9px 12px}
+.lrow .d{font-family:var(--mono);font-size:11px;color:var(--service);white-space:nowrap}
+.lrow .t{height:16px;background:var(--halftone);position:relative;overflow:hidden;display:flex}
+.lrow .t b{display:block;height:100%;background:var(--clinical);width:40%;flex:none}
+.lrow .t i{display:block;height:100%;background:var(--carmine);width:0;flex:none;
+  transition:width .8s cubic-bezier(.22,.9,.3,1)}
+.lrow .v{font-family:var(--mono);font-size:13px;font-variant-numeric:tabular-nums;
+  white-space:nowrap;color:var(--service);display:flex;align-items:baseline;gap:7px}
+.lrow .v em{font-style:normal;font-size:10.5px;color:var(--pencil)}
+.lrow.now{background:var(--ink)}
+.lrow.now .d{color:var(--clinical)}
+.lrow.now .t{background:#2A2620}
+.lrow.now .t b{background:#4A463D}
+.lrow.now .t i{background:#C8636C}
+.lrow.now .v{color:var(--paper);font-weight:600;font-size:14px}
+.lrow.now .v em{color:#B9B2A0}
+.lrow.past{opacity:.55}
 
 /* ── вопросы ── */
 .prog{border-top:1px solid var(--ink);margin-top:6px}
@@ -550,7 +550,6 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--service);line-heig
 <section>
   <div class="w">
     <h2>Отзывы</h2>
-    <p class="sub narrow">Врачи, которые учились у меня. Отзывы собраны на страницах моих программ, имена настоящие.</p>
     <div class="revwrap">
       <div class="revs" id="revs">
       <div class="rev">
@@ -627,7 +626,7 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--service);line-heig
       </div>
       </div>
       <div class="revnav">
-        <span class="revhint">18 отзывов · листайте вбок</span>
+        <span class="revhint"></span>
         <div class="revbtns">
           <button type="button" id="revPrev" aria-label="Назад">←</button>
           <button type="button" id="revNext" aria-label="Вперёд">→</button>
@@ -654,8 +653,6 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--service);line-heig
 <section>
   <div class="w">
     <h2>Что откроется после оплаты</h2>
-    <p class="sub narrow">Доступ приходит на почту сразу после оплаты. По каждому мастер-классу:</p>
-
     <div class="spread">
       <div class="pic"><img src="tetrad.jpg" alt="Рабочая тетрадь мастер-класса"></div>
       <div>
@@ -694,15 +691,7 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--service);line-heig
   </div>
 </section>
 
-<section class="pullwrap">
-  <div class="w">
-    <div class="pull">
-      <p>Я не отдаю сложные случаи коллегам. И вас учу не отдавать.</p>
-      <div class="sig">Илья Скляров · <b>27 лет врачебной практики</b></div>
-    </div>
-  </div>
-</section>
-<section id="sets">
+section id="sets">
   <div class="w">
     <h2>Тарифы</h2>
 
@@ -841,8 +830,7 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--service);line-heig
     </div>
     <div class="chart">
       <div class="cap" style="margin-bottom:14px">Тариф «Всё сразу» по дням</div>
-      <div class="bars" id="bars"></div>
-      <div class="days" id="days"></div>
+      <div class="lad" id="lad"></div>
     </div>
   </div>
 </section>
@@ -1110,34 +1098,35 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--service);line-heig
     ['lab1','lab2'].forEach(function(id){ var e=document.getElementById(id); if(e) e.textContent=label; });
   }
 
-  /* график роста по дням · цена всех восьми */
-  (function buildChart(){
-    var bars = document.getElementById('bars'), days = document.getElementById('days');
-    if (!bars || !days) return;
-    var labels = ['12 окт','13 окт','14 окт','15 окт','16 окт','17 окт','18 окт'];
+  /* лестница цен по дням */
+  (function buildLadder(){
+    var box = document.getElementById('lad'); if (!box) return;
     var now = Date.now();
     var cur = (now >= START && now <= END) ? dayIndex(now) : -1;
-    var grow = function(){
-      bars.querySelectorAll('.b').forEach(function(b, k){
-        setTimeout(function(){ b.style.height = b.getAttribute('data-h') + '%'; }, 60 * k);
-      });
-    };
+    var maxP = BASE_BOTH + 6 * STEP_BOTH;
+    var html = '';
     for (var i = 0; i < 7; i++){
       var p = BASE_BOTH + i * STEP_BOTH;
-      var h = 16 + i * 14;          /* лестница: 16 … 100 % */
-      var cls = (i === cur) ? ' now' : '';
-      bars.insertAdjacentHTML('beforeend',
-        '<div class="bar' + cls + '"><span class="p">' + p.toLocaleString('ru-RU').replace(/ /g,' ') +
-        '</span><span class="b" data-h="' + h + '" style="height:0%"></span></div>');
-      days.insertAdjacentHTML('beforeend',
-        '<span class="' + (cls ? 'now' : '') + '">' + labels[i] + '</span>');
+      var up = i * STEP_BOTH;                       /* надбавка к базовой цене */
+      var w = Math.round(up / (6 * STEP_BOTH) * 60); /* надбавка занимает до 60 % полосы */
+      var cls = i === cur ? ' now' : (i < cur ? ' past' : '');
+      var add = up ? '<em>+' + up.toLocaleString('ru-RU').replace(/ /g,'\u2009') + ' ₽</em>' : '<em>базовая цена</em>';
+      html += '<div class="lrow' + cls + '"><span class="d">' + (12 + i) + ' окт</span>' +
+              '<span class="t"><b></b><i data-lw="' + w + '"></i></span>' +
+              '<span class="v">' + money(p) + add + '</span></div>';
     }
+    box.innerHTML = html;
+    var fill = function(){
+      box.querySelectorAll('[data-lw]').forEach(function(el, k){
+        setTimeout(function(){ el.style.width = el.getAttribute('data-lw') + '%'; }, 70 * k);
+      });
+    };
     if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion:reduce)').matches){
       var io = new IntersectionObserver(function(rows){
-        rows.forEach(function(r){ if (r.isIntersecting){ grow(); io.disconnect(); } });
-      }, {threshold: 0.3});
-      io.observe(bars);
-    } else { grow(); }
+        rows.forEach(function(r){ if (r.isIntersecting){ fill(); io.disconnect(); } });
+      }, {threshold: 0.25});
+      io.observe(box);
+    } else { fill(); }
   })();
 
   function tick(){
@@ -1167,7 +1156,7 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--service);line-heig
   (function reveal(){
     var soft = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
     document.documentElement.classList.add('anim');
-    var targets = document.querySelectorAll('section > .w > h2, .boxes, .revwrap, .plist, .sets > .set, .shots, .spread, .files, .bonuses, .bonus-all, .chart, .pull, .prog, .portrait');
+    var targets = document.querySelectorAll('section > .w > h2, .boxes, .revwrap, .plist, .sets > .set, .shots, .spread, .files, .bonuses, .bonus-all, .chart, .lad, .pull, .prog, .portrait');
     if (soft || !('IntersectionObserver' in window)){
       targets.forEach(function(el){ el.classList.add('rv','on'); });
       return;
