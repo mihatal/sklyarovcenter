@@ -90,7 +90,8 @@ header{padding:22px 0 0}
 
 /* портрет */
 .portrait{position:relative;background:var(--halftone);aspect-ratio:4/5;overflow:hidden}
-.portrait img{width:100%;height:100%;object-fit:cover;object-position:50% 18%;display:block}
+.portrait img{width:100%;height:100%;object-fit:cover;object-position:50% 30%;display:block}
+.hero-portrait img{object-position:50% 22%}
 .portrait figcaption{position:absolute;left:0;right:0;bottom:0;background:var(--ink);color:var(--paper);
   font-family:var(--mono);font-size:11px;letter-spacing:.05em;padding:9px 12px;line-height:1.4}
 
@@ -305,10 +306,14 @@ header{padding:22px 0 0}
 .deadnote p{margin:0;font-size:16px;line-height:1.45;color:#26251F}
 .deadnote b{font-weight:500}
 
-/* ── отзывы коллег ── */
-.revs{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);margin-top:26px}
-.rev{background:var(--paper);padding:22px 20px;display:flex;flex-direction:column;gap:14px}
-.rev q{quotes:none;font-size:16.5px;line-height:1.45;color:#26251F;display:block}
+/* ── отзывы: горизонтальная лента ── */
+.revwrap{position:relative;margin-top:26px}
+.revs{display:flex;gap:1px;background:var(--line);border:1px solid var(--line);
+  overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.revs::-webkit-scrollbar{display:none}
+.rev{background:var(--paper);padding:22px 20px;display:flex;flex-direction:column;gap:14px;
+  flex:0 0 268px;scroll-snap-align:start}
+.rev q{quotes:none;font-size:16px;line-height:1.45;color:#26251F;display:block}
 .rev q:before{content:"«"}.rev q:after{content:"»"}
 .rev .who{margin-top:auto;padding-top:14px;border-top:1px solid var(--line)}
 .rev .nm{font-family:var(--sans);font-size:14.5px;font-weight:500;letter-spacing:-.01em;display:block}
@@ -316,6 +321,15 @@ header{padding:22px 0 0}
   margin-top:5px;display:block}
 .rev .src{font-family:var(--mono);font-size:10px;letter-spacing:.09em;text-transform:uppercase;
   color:var(--pencil);margin-top:7px;display:block}
+.revnav{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-top:14px}
+.revhint{font-family:var(--mono);font-size:11px;color:var(--service)}
+.revbtns{display:flex;gap:8px}
+.revbtns button{width:42px;height:42px;border:1px solid var(--ink);background:transparent;
+  color:var(--ink);font-family:var(--mono);font-size:16px;line-height:1;cursor:pointer;
+  transition:background .2s ease,color .2s ease}
+.revbtns button:hover{background:var(--ink);color:var(--paper)}
+.revbtns button:disabled{opacity:.3;cursor:default}
+.revbtns button:disabled:hover{background:transparent;color:var(--ink)}
 
 /* ── витрина цен по отдельности ── */
 .plist{border:1px solid var(--line);margin-top:26px}
@@ -334,6 +348,26 @@ header{padding:22px 0 0}
   color:var(--service);padding:16px 16px 8px;background:var(--halftone);
   border-bottom:1px solid var(--line)}
 
+/* ── окно при уходе со страницы ── */
+.pop{position:fixed;inset:0;z-index:90;display:none;align-items:center;justify-content:center;
+  padding:20px;background:rgba(20,19,15,.62)}
+.pop.on{display:flex}
+.popbox{background:var(--paper);border:1px solid var(--ink);max-width:460px;width:100%;
+  padding:30px 26px 26px;position:relative;
+  animation:popIn .3s cubic-bezier(.22,.9,.3,1)}
+@keyframes popIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.popbox .x{position:absolute;top:10px;right:12px;border:none;background:none;cursor:pointer;
+  font-family:var(--mono);font-size:20px;color:var(--service);line-height:1;padding:6px}
+.popbox .x:hover{color:var(--ink)}
+.popbox h3{margin-bottom:12px}
+.popbox p{font-size:16px;line-height:1.5;color:#26251F}
+.popprice{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin:18px 0 6px;
+  padding-top:16px;border-top:1px solid var(--line)}
+.popprice .a{font-family:var(--mono);font-size:30px;font-weight:600;word-spacing:-.42em;
+  font-variant-numeric:tabular-nums;letter-spacing:-.03em;line-height:1}
+.popprice .b{font-family:var(--mono);font-size:13px;color:var(--carmine)}
+@media (prefers-reduced-motion:reduce){.popbox{animation:none}}
+
 /* ── график роста цены ── */
 .chart{border:1px solid var(--line);padding:22px 18px;background:var(--paper)}
 .bars{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;align-items:end;height:150px;margin-bottom:12px}
@@ -344,7 +378,7 @@ header{padding:22px 0 0}
   font-variant-numeric:tabular-nums;white-space:nowrap}
 .bar.now .p{color:var(--ink);font-weight:500}
 .days{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;border-top:1px solid var(--line);padding-top:8px}
-.days span{font-family:var(--mono);font-size:10.5px;color:var(--service);text-align:center}
+.days span{font-family:var(--mono);font-size:10px;color:var(--service);text-align:center;white-space:nowrap}
 .days span.now{color:var(--carmine)}
 
 /* ── вопросы ── */
@@ -397,7 +431,7 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--service);line-heig
     font-size:12.5px;line-height:1.45;color:var(--service)}
   .heroList li:before{content:"·";position:absolute;left:2px;color:var(--pencil)}
   .boxes{grid-template-columns:repeat(4,1fr)}
-  .revs{grid-template-columns:repeat(4,1fr)}
+  .rev{flex:0 0 320px;padding:26px 24px}
   .prow2{grid-template-columns:1fr 200px auto;padding:15px 22px}
   .prow2 .ln{grid-column:2;height:6px;margin:0;align-self:center}
   .deadnote{grid-template-columns:150px 1fr;align-items:baseline;padding:20px 24px;gap:20px}
@@ -456,7 +490,7 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--service);line-heig
 
     <div class="heroRight">
     <figure class="portrait hero-portrait">
-      <img src="ilya.jpg" alt="Илья Скляров">
+      <img src="ilya-halat.jpg" alt="Илья Скляров">
       <figcaption>Илья Скляров · к.м.н., ментор Kois Center</figcaption>
     </figure>
     <div class="pricecard" id="priceTop">
@@ -515,32 +549,53 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--service);line-heig
 </section>
 <section>
   <div class="w">
-    <h2>Что говорят коллеги</h2>
-    <p class="sub narrow">Отзывы врачей, которые учились у меня. Все имена настоящие, отзывы собраны на страницах моих программ.</p>
-    <div class="revs">
+    <h2>Отзывы</h2>
+    <p class="sub narrow">Врачи, которые учились у меня. Отзывы собраны на страницах моих программ, имена настоящие.</p>
+    <div class="revwrap">
+      <div class="revs" id="revs">
+      <div class="rev">
+        <q>Курс полностью оправдал все мои ожидания. Использую все в ежедневной практике.</q>
+        <div class="who"><span class="nm">Ирина</span><span class="pos">стоматолог-терапевт-ортопед</span><span class="src">о курсе «Планирование»</span></div>
+      </div>
       <div class="rev">
         <q>В курсах Ильи Склярова очень много мелочей, важной информации, с которой он с радостью делится. И эта информация легко усваивается, её легко начать применять в практике.</q>
         <div class="who"><span class="nm">Павел Михеев</span><span class="pos">стоматолог-ортопед, Новосибирск<br>15 лет практики</span><span class="src">о курсе «Планирование»</span></div>
-      </div>
-      <div class="rev">
-        <q>Курс позволяет полностью перезагрузиться в парадигме современной ортопедической стоматологии, изменить свои подходы, закрыть какие-то пробелы в знаниях, а также почерпнуть очень много лайфхаков.</q>
-        <div class="who"><span class="nm">Алексей Белозерцев</span><span class="pos">стоматолог-ортопед<br>стаж почти 30 лет</span><span class="src">о курсе «Планирование»</span></div>
-      </div>
-      <div class="rev">
-        <q>Здесь такая совокупность фундаментальных знаний и различных фишек и лайфхаков, которые Илья Александрович накопил за свою долгую практику и щедро с нами поделился.</q>
-        <div class="who"><span class="nm">Эмиль Колесников</span><span class="pos">стоматолог-ортопед, Иваново</span><span class="src">о курсе «Планирование»</span></div>
       </div>
       <div class="rev">
         <q>Данный курс именно формирует целостный подход к любой стоматологической задаче, особенно если это комплексная, тотальная работа.</q>
         <div class="who"><span class="nm">Максим Терюхов</span><span class="pos">стоматолог</span><span class="src">о курсе «Планирование»</span></div>
       </div>
       <div class="rev">
-        <q>Методики, которые нам давали, были применимы здесь и сейчас. Самые острые вопросы, с которыми сталкиваемся каждый день, были освещены и проработаны.</q>
+        <q>Курс позволяет полностью перезагрузиться в парадигме современной ортопедической стоматологии, изменить свои подходы, закрыть какие-то пробелы в знаниях, а также почерпнуть очень много лайфхаков.</q>
+        <div class="who"><span class="nm">Алексей Белозерцев</span><span class="pos">стоматолог-ортопед<br>стаж почти 30 лет</span><span class="src">о курсе «Планирование»</span></div>
+      </div>
+      <div class="rev">
+        <q>Илья Александрович на знания не скупился. Методики, которые нам давали, были применимы здесь и сейчас. Самые острые вопросы, с которыми сталкиваемся каждый день, были освещены и проработаны.</q>
         <div class="who"><span class="nm">Юлия</span><span class="pos">стоматолог-ортопед, терапевт</span><span class="src">о курсе «Планирование»</span></div>
+      </div>
+      <div class="rev">
+        <q>Большое количество информации, кейсов, лекций, обсуждения вопросов на Zoom-встречах, домашних заданий. Буду пересматривать этот курс и советовать его другим.</q>
+        <div class="who"><span class="nm">Екатерина Лынова</span><span class="pos">стоматолог-ортопед</span><span class="src">о курсе «Планирование»</span></div>
+      </div>
+      <div class="rev">
+        <q>Та методология, которую удалось освоить в процессе, настолько целостная, что буквально меняет и модернизирует твои подходы к лечению.</q>
+        <div class="who"><span class="nm">Михаил Чапелев</span><span class="pos">стоматолог</span><span class="src">о курсе «Планирование»</span></div>
+      </div>
+      <div class="rev">
+        <q>Здесь такая совокупность фундаментальных знаний и различных фишек и лайфхаков, которые Илья Александрович накопил за свою долгую практику и щедро с нами поделился.</q>
+        <div class="who"><span class="nm">Эмиль Колесников</span><span class="pos">стоматолог-ортопед, Иваново</span><span class="src">о курсе «Планирование»</span></div>
       </div>
       <div class="rev">
         <q>Получил массу интересной, а самое главное важной информации, которую применяю ежедневно в своей практике.</q>
         <div class="who"><span class="nm">Евгений Рошковский</span><span class="pos">стоматолог</span><span class="src">о курсе «Планирование»</span></div>
+      </div>
+      <div class="rev">
+        <q>Спасибо ему за знания, за опыт и за уверенность в сложных кейсах, сложных работах — как безопасно поработать и получить идеальные результаты и для себя, и для пациента.</q>
+        <div class="who"><span class="nm">Шаик Аскеров</span><span class="pos">стоматолог</span><span class="src">о курсе «Планирование»</span></div>
+      </div>
+      <div class="rev">
+        <q>Курс помог получить много новых знаний, систематизировать старые знания. Можно было пообщаться с коллегами из других городов.</q>
+        <div class="who"><span class="nm">Евгения</span><span class="pos">стоматолог-хирург и ортопед</span><span class="src">о курсе «Планирование»</span></div>
       </div>
       <div class="rev">
         <q>Удалось окупить стоимость обучения в первый же месяц.</q>
@@ -549,6 +604,34 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--service);line-heig
       <div class="rev">
         <q>Повысилось количество согласий на план лечения, и также выросла возвращаемость пациентов.</q>
         <div class="who"><span class="nm">Владимир</span><span class="pos">стоматолог-ортопед</span><span class="src">о курсе «Консультация»</span></div>
+      </div>
+      <div class="rev">
+        <q>Значительный рост количества пациентов, согласившихся на объёмные планы лечения.</q>
+        <div class="who"><span class="nm">Никита</span><span class="pos">стоматолог-терапевт</span><span class="src">о курсе «Консультация»</span></div>
+      </div>
+      <div class="rev">
+        <q>Смотрю второй раз, и информация воспринимается уже совсем иначе.</q>
+        <div class="who"><span class="nm">Участник мастер-класса</span><span class="pos">отзыв без подписи</span><span class="src">мастер-класс «Повышение прикуса»</span></div>
+      </div>
+      <div class="rev">
+        <q>Всё чётко, без воды, по делу.</q>
+        <div class="who"><span class="nm">Участник мастер-класса</span><span class="pos">отзыв без подписи</span><span class="src">мастер-класс «Повышение прикуса»</span></div>
+      </div>
+      <div class="rev">
+        <q>Очень полезно, доступно. Очень ценно, что есть дополнительные материалы.</q>
+        <div class="who"><span class="nm">Участник мастер-класса</span><span class="pos">отзыв без подписи</span><span class="src">мастер-класс «Центральное соотношение»</span></div>
+      </div>
+      <div class="rev">
+        <q>Извлекла определённые фишки. Буду применять.</q>
+        <div class="who"><span class="nm">Участник мастер-класса</span><span class="pos">отзыв без подписи</span><span class="src">мастер-класс «Центральное соотношение»</span></div>
+      </div>
+      </div>
+      <div class="revnav">
+        <span class="revhint">18 отзывов · листайте вбок</span>
+        <div class="revbtns">
+          <button type="button" id="revPrev" aria-label="Назад">←</button>
+          <button type="button" id="revNext" aria-label="Вперёд">→</button>
+        </div>
       </div>
     </div>
   </div>
@@ -880,6 +963,19 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--service);line-heig
   </div>
 </footer>
 
+<div class="pop" id="pop" role="dialog" aria-modal="true" aria-labelledby="popTitle">
+  <div class="popbox">
+    <button class="x" type="button" id="popX" aria-label="Закрыть">×</button>
+    <h3 id="popTitle">Цена поднимется в полночь</h3>
+    <p>Сегодня набор из четырёх мастер-классов стоит дешевле, чем будет завтра. Дальше она только растёт и до 18 октября назад не опускается.</p>
+    <div class="popprice">
+      <span class="a mono" id="popNow">8 600 ₽</span>
+      <span class="b">завтра <b id="popNext">9 300 ₽</b></span>
+    </div>
+    <a class="btn solid" href="#sets" id="popGo" style="margin-top:16px">Посмотреть тарифы</a>
+  </div>
+</div>
+
 <div class="sticky" id="sticky">
   <div class="in">
     <div class="p"><span class="n mono" id="pn6">7 900 ₽</span><span class="c" id="pnSt">завтра дороже</span>
@@ -1018,7 +1114,7 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--service);line-heig
   (function buildChart(){
     var bars = document.getElementById('bars'), days = document.getElementById('days');
     if (!bars || !days) return;
-    var labels = ['12','13','14','15','16','17','18'];
+    var labels = ['12 окт','13 окт','14 окт','15 окт','16 окт','17 окт','18 окт'];
     var now = Date.now();
     var cur = (now >= START && now <= END) ? dayIndex(now) : -1;
     var grow = function(){
@@ -1028,7 +1124,7 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--service);line-heig
     };
     for (var i = 0; i < 7; i++){
       var p = BASE_BOTH + i * STEP_BOTH;
-      var h = 22 + i * 13;          /* ступенчатая лестница: 22 … 100 % */
+      var h = 16 + i * 14;          /* лестница: 16 … 100 % */
       var cls = (i === cur) ? ' now' : '';
       bars.insertAdjacentHTML('beforeend',
         '<div class="bar' + cls + '"><span class="p">' + p.toLocaleString('ru-RU').replace(/ /g,' ') +
@@ -1071,7 +1167,7 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--service);line-heig
   (function reveal(){
     var soft = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
     document.documentElement.classList.add('anim');
-    var targets = document.querySelectorAll('section > .w > h2, .boxes, .revs, .plist, .sets > .set, .shots, .spread, .files, .bonuses, .bonus-all, .chart, .pull, .prog, .portrait');
+    var targets = document.querySelectorAll('section > .w > h2, .boxes, .revwrap, .plist, .sets > .set, .shots, .spread, .files, .bonuses, .bonus-all, .chart, .pull, .prog, .portrait');
     if (soft || !('IntersectionObserver' in window)){
       targets.forEach(function(el){ el.classList.add('rv','on'); });
       return;
@@ -1092,6 +1188,22 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--service);line-heig
         if (el.getBoundingClientRect().top < window.innerHeight) el.classList.add('on');
       });
     }, 1200);
+  })();
+
+  /* лента отзывов */
+  (function revSlider(){
+    var box = document.getElementById('revs');
+    var prev = document.getElementById('revPrev'), next = document.getElementById('revNext');
+    if (!box || !prev || !next) return;
+    function step(){ var c = box.querySelector('.rev'); return c ? c.offsetWidth + 1 : 280; }
+    function sync(){
+      prev.disabled = box.scrollLeft < 8;
+      next.disabled = box.scrollLeft > box.scrollWidth - box.clientWidth - 8;
+    }
+    prev.addEventListener('click', function(){ box.scrollBy({left: -step() * 2, behavior: 'smooth'}); });
+    next.addEventListener('click', function(){ box.scrollBy({left:  step() * 2, behavior: 'smooth'}); });
+    box.addEventListener('scroll', sync, {passive: true});
+    sync();
   })();
 
   /* полоски витрины цен */
@@ -1131,6 +1243,43 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--service);line-heig
       });
     }, {threshold: 0.4});
     nodes.forEach(function(el){ io.observe(el); });
+  })();
+
+  /* окно при уходе: один раз за сессию, по уходу курсора вверх или по долгому бездействию */
+  (function exitPop(){
+    var pop = document.getElementById('pop'); if (!pop) return;
+    var shown = false;
+    try { if (sessionStorage.getItem('popShown')) shown = true; } catch(e){}
+
+    function show(){
+      if (shown) return;
+      shown = true;
+      try { sessionStorage.setItem('popShown', '1'); } catch(e){}
+      var i = dayIndex(Date.now());
+      var now = document.getElementById('popNow'), nxt = document.getElementById('popNext');
+      if (now) now.textContent = money(BASE_SET + i * STEP_SET);
+      if (nxt) nxt.textContent = (i >= 6) ? 'это последний день' : money(BASE_SET + (i + 1) * STEP_SET);
+      pop.classList.add('on');
+    }
+    function hide(){ pop.classList.remove('on'); }
+
+    document.addEventListener('mouseout', function(e){
+      if (!e.relatedTarget && e.clientY < 12) show();
+    });
+    var idle;
+    function resetIdle(){
+      clearTimeout(idle);
+      idle = setTimeout(show, 45000);
+    }
+    ['scroll','mousemove','keydown','touchstart','click'].forEach(function(ev){
+      window.addEventListener(ev, resetIdle, {passive:true});
+    });
+    resetIdle();
+
+    document.getElementById('popX').addEventListener('click', hide);
+    document.getElementById('popGo').addEventListener('click', hide);
+    pop.addEventListener('click', function(e){ if (e.target === pop) hide(); });
+    document.addEventListener('keydown', function(e){ if (e.key === 'Escape') hide(); });
   })();
 
   /* липкая строка */
