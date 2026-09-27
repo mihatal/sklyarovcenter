@@ -134,8 +134,8 @@ header{padding:22px 0 0}
 .box{background:var(--paper);display:flex;flex-direction:column;
   transition:background .25s ease,transform .25s ease}
 .box:hover{background:var(--halftone)}
-.box .case{padding:20px 16px 22px;flex:1;font-size:16.5px;line-height:1.3;
-  letter-spacing:-.008em}
+.box .case{padding:16px 16px 22px;flex:1;font-size:16px;line-height:1.35;
+  letter-spacing:-.008em;color:#26251F}
 .box .tag{background:var(--ink);color:var(--paper);font-family:var(--mono);
   font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;
   padding:11px 14px;line-height:1.35;display:flex;align-items:center;gap:9px;min-height:52px}
@@ -360,7 +360,7 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--service);line-heig
     font-size:12.5px;line-height:1.45;color:var(--service)}
   .heroList li:before{content:"·";position:absolute;left:2px;color:var(--pencil)}
   .boxes{grid-template-columns:repeat(4,1fr)}
-  .box .case{padding:24px 20px 26px;font-size:17.5px}
+  .box .case{padding:18px 20px 26px;font-size:17px}
   .bonuses{grid-template-columns:1fr 1fr}
   .files{grid-template-columns:repeat(3,1fr)}
   .sets{grid-template-columns:1fr 1fr;gap:24px}
@@ -430,7 +430,7 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--service);line-heig
         <span class="t mono" id="clock1">—</span>
         <span class="u" id="lab1">до новой цены</span>
       </div>
-      <a class="btn solid" href="#sets">Выбрать набор</a>
+      <a class="btn solid" href="#sets">Выбрать тариф</a>
       <div class="palt">Все восемь мастер-классов — <b id="pnAlt1">11 900 ₽</b></div>
     </div>
   </div>
@@ -440,24 +440,24 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--service);line-heig
 <section>
   <div class="w">
     <h2>Про что эти мастер-классы</h2>
-    <p class="sub narrow">Восемь ситуаций, которые чаще всего приносят мне на разборы. Под каждой — мастер-класс, который её закрывает.</p>
+    <p class="sub narrow">Восемь тем, которые чаще всего приносят мне на разборы.</p>
     <div class="boxes">
-      <div class="box"><div class="case">Сложный случай со стираемостью вы отдаёте коллеге</div>
-        <div class="tag"><em>МК</em>Эффективные планы</div></div>
-      <div class="box"><div class="case">Высоту прикуса считаете на глаз</div>
-        <div class="tag"><em>МК</em>Повышение прикуса на практике</div></div>
-      <div class="box"><div class="case">Пациент вернулся с болью в суставе, переделка за ваш счёт</div>
-        <div class="tag"><em>МК</em>Центральное соотношение</div></div>
-      <div class="box"><div class="case">Приём забит с утра до вечера, а выручки нет</div>
-        <div class="tag"><em>МК</em>Dental Boost</div></div>
-      <div class="box"><div class="case">Выручка за год выросла, а к 25-му числу денег столько же</div>
-        <div class="tag"><em>МК</em>Увеличители прибыли</div></div>
-      <div class="box"><div class="case">Врач просит поднять зарплату, и ответить нечем</div>
-        <div class="tag"><em>МК</em>Мотивация команды</div></div>
-      <div class="box"><div class="case">Пациент кивает на консультации и уходит подумать</div>
-        <div class="tag"><em>МК</em>Дорогие планы лечения</div></div>
-      <div class="box"><div class="case">Вас рекомендуют, а пациент до вас не доходит</div>
-        <div class="tag"><em>МК</em>Сильный бренд</div></div>
+      <div class="box"><div class="tag"><em>МК</em>Центральное соотношение</div>
+        <div class="case">Как зарегистрировать центральное соотношение четырьмя инструментами и не промахнуться</div></div>
+      <div class="box"><div class="tag"><em>МК</em>Повышение прикуса на практике</div>
+        <div class="case">Как считать высоту прикуса по формулам и когда повышать нельзя</div></div>
+      <div class="box"><div class="tag"><em>МК</em>Эффективные планы</div>
+        <div class="case">Что делать со случаями на границе ортопедии и ортодонтии: вести самому или звать ортодонта</div></div>
+      <div class="box"><div class="tag"><em>МК</em>Dental Boost</div>
+        <div class="case">Где приём теряет время и деньги: расписание, переделки, оборудование</div></div>
+      <div class="box"><div class="tag"><em>МК</em>Увеличители прибыли</div>
+        <div class="case">Шесть способов поднять доход клиники без бюджета на рекламу</div></div>
+      <div class="box"><div class="tag"><em>МК</em>Мотивация команды</div>
+        <div class="case">Чем удерживать врачей, когда поднимать зарплату больше некуда</div></div>
+      <div class="box"><div class="tag"><em>МК</em>Дорогие планы лечения</div>
+        <div class="case">Как провести консультацию, чтобы пациент согласился на комплексный план</div></div>
+      <div class="box"><div class="tag"><em>МК</em>Сильный бренд</div>
+        <div class="case">Что вести в соцсетях, чтобы пациенты по рекомендации доходили до кресла</div></div>
     </div>
   </div>
 </section>
@@ -473,15 +473,14 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--service);line-heig
 
 <section id="sets">
   <div class="w">
-    <h2>Два набора</h2>
-    <p class="sub narrow">Поштучно эти мастер-классы купили <strong><span data-count="3043">3 043</span> врача и собственника</strong>.</p>
+    <h2>Тарифы</h2>
 
     <div class="sets">
       <div class="set">
-        <div class="who">Клинический · 4 мастер-класса</div>
+        <div class="who">4 мастер-класса</div>
         <div class="scale"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i></div>
-        <h3>Окклюзия, прикус, планирование</h3>
-        <p class="for">Чтобы брать сложные случаи по протоколу, а не по ощущению.</p>
+        <h3>Клинический</h3>
+        <p class="for">Окклюзия, прикус, планирование. Чтобы брать сложные случаи по протоколу, а не по ощущению.</p>
         <ul class="mk">
           <li><details open><summary>Центральное соотношение на практике<span>3 часа · четыре инструмента на пациентах · <b>прошли 1 609 врачей</b></span></summary>
             <ul class="in">
@@ -524,14 +523,14 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--service);line-heig
         <div class="prow">
           <span class="n mono" id="pn2">8 600 ₽</span>
         </div>
-        <a class="btn" data-offer="clinic" href="#">Забрать клинический набор</a>
+        <a class="btn" data-offer="clinic" href="#">Забрать клинический</a>
       </div>
 
       <div class="set">
-        <div class="who">Бизнесовый · 4 мастер-класса</div>
+        <div class="who">4 мастер-класса</div>
         <div class="scale"><i></i><i></i><i></i><i></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></div>
-        <h3>Прибыль, команда, дорогие планы</h3>
-        <p class="for">Чтобы видеть, где клиника теряет деньги, и перестать держать её собой.</p>
+        <h3>Бизнес</h3>
+        <p class="for">Прибыль, команда, дорогие планы. Чтобы видеть, где клиника теряет деньги.</p>
         <ul class="mk">
           <li><details open><summary>Увеличители прибыли стоматологии<span>шесть блоков маркетинга без бюджета · <b>прошли 528 собственников</b></span></summary>
             <ul class="in">
@@ -575,23 +574,24 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--service);line-heig
         <div class="prow">
           <span class="n mono" id="pn3">8 600 ₽</span>
         </div>
-        <a class="btn" data-offer="biz" href="#">Забрать бизнесовый набор</a>
+        <a class="btn" data-offer="biz" href="#">Забрать бизнес</a>
       </div>
 
       <div class="set both">
         <div class="txt">
           <span class="flag">Берут чаще всего</span>
           <div class="scale"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></div>
-          <h3>Оба набора · 8 мастер-классов</h3>
-        </div>
-        <div class="save">
-          <div class="save-track"><i data-save="both"></i></div>
-          <div class="save-row"><span>вместо 69 070 ₽</span><b data-pct="both">−83%</b></div>
+          <div class="who">8 мастер-классов</div>
+          <h3>Всё сразу</h3>
         </div>
         <div class="prow">
+          <div class="save" style="width:100%;margin:0 0 4px">
+            <div class="save-track"><i data-save="both"></i></div>
+            <div class="save-row"><span>вместо 69 070 ₽</span><b data-pct="both">−83%</b></div>
+          </div>
           <span class="n mono" id="pn4">12 900 ₽</span>
           <span class="o">доступ 365 дней вместо 120</span>
-          <a class="btn light" data-offer="both" href="#">Забрать оба набора</a>
+          <a class="btn light" data-offer="both" href="#">Забрать всё сразу</a>
         </div>
       </div>
     </div>
@@ -646,15 +646,6 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--service);line-heig
       <div class="file"><span class="ft">видео</span><span class="fn">Сессия вопрос-ответ</span><span class="fd">45–60 минут разбора вопросов участников</span></div>
       <div class="file"><span class="ft">pdf</span><span class="fn">Именной сертификат</span><span class="fd">с подписью, на каждый мастер-класс отдельно</span></div>
       <div class="file"><span class="ft">чат</span><span class="fn">Служба заботы</span><span class="fd">Telegram, WhatsApp или MAX — если что-то не открылось</span></div>
-    </div>
-  </div>
-</section>
-
-<section class="pullwrap">
-  <div class="w">
-    <div class="pull">
-      <p>Тотальная работа — самый высокий чек в практике. Проблема только в том, что её надо уметь спланировать.</p>
-      <div class="sig">Илья Скляров · <b>ментор Kois Center</b></div>
     </div>
   </div>
 </section>
@@ -727,7 +718,7 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--service);line-heig
         <span class="t mono" id="clock2">—</span>
         <span class="u" id="lab2">до новой цены</span>
       </div>
-      <a class="btn solid" href="#sets">Выбрать набор</a>
+      <a class="btn solid" href="#sets">Выбрать тариф</a>
       <div class="palt">Все восемь — <b id="pnAlt2">11 900 ₽</b></div>
     </div>
   </div>
@@ -795,7 +786,7 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--service);line-heig
   <div class="in">
     <div class="p"><span class="n mono" id="pn6">7 900 ₽</span><span class="c" id="pnSt">завтра дороже</span>
       <div class="wb-days" id="wbDaysMini"></div></div>
-    <a class="btn solid" href="#sets">Выбрать набор</a>
+    <a class="btn solid" href="#sets">Выбрать тариф</a>
   </div>
 </div>
 
