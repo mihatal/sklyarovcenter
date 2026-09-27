@@ -297,6 +297,14 @@ header{padding:22px 0 0}
   .shot:hover img{transform:none}
 }
 
+/* ── строка сроков внутри тарифов ── */
+.deadnote{margin-top:22px;border:1px solid var(--line);background:var(--halftone);
+  padding:18px 20px;display:grid;gap:10px}
+.deadnote .dn-k{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--service)}
+.deadnote p{margin:0;font-size:16px;line-height:1.45;color:#26251F}
+.deadnote b{font-weight:500}
+
 /* ── график роста цены ── */
 .chart{border:1px solid var(--line);padding:22px 18px;background:var(--paper)}
 .bars{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;align-items:end;height:150px;margin-bottom:12px}
@@ -360,6 +368,7 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--service);line-heig
     font-size:12.5px;line-height:1.45;color:var(--service)}
   .heroList li:before{content:"·";position:absolute;left:2px;color:var(--pencil)}
   .boxes{grid-template-columns:repeat(4,1fr)}
+  .deadnote{grid-template-columns:150px 1fr;align-items:baseline;padding:20px 24px;gap:20px}
   .box .case{padding:18px 20px 26px;font-size:17px}
   .bonuses{grid-template-columns:1fr 1fr}
   .files{grid-template-columns:repeat(3,1fr)}
@@ -436,7 +445,6 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--service);line-heig
   </div>
   </div>
 </section>
-
 <section>
   <div class="w">
     <h2>Про что эти мастер-классы</h2>
@@ -461,7 +469,55 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--service);line-heig
     </div>
   </div>
 </section>
+<section>
+  <div class="w">
+    <h2>Всё показываю на пациентах</h2>
+    <p class="sub narrow">Кадры из мастер-класса «Центральное соотношение»: четыре инструмента регистрации на живых пациентах.</p>
+    <div class="shots">
+      <figure class="shot"><img src="cl1.jpg" alt="Мануальная методика Доусона"><figcaption>Мануальная методика Доусона</figcaption></figure>
+      <figure class="shot"><img src="cl2.jpg" alt="Листовой калибратор"><figcaption>Листовой калибратор</figcaption></figure>
+      <figure class="shot"><img src="cl3.jpg" alt="Джиг Лючия"><figcaption>Джиг Лючия</figcaption></figure>
+      <figure class="shot"><img src="cl4.jpg" alt="Депрограммер Койса"><figcaption>Депрограммер Койса</figcaption></figure>
+    </div>
+  </div>
+</section>
+<section>
+  <div class="w two">
+    <figure class="portrait" style="margin:0">
+      <img src="ilya2.jpg" alt="Илья Скляров">
+      <figcaption>Илья Скляров · SmileClinic, Санкт-Петербург</figcaption>
+    </figure>
+    <div>
+      <h2>Илья Скляров</h2>
+      <p class="lead">Я стоматолог-ортопед, кандидат медицинских наук, первый и единственный в России сертифицированный ментор Kois Center.</p>
+      <p class="sub">27 лет в практике, принимаю пациентов каждую неделю. Учился у Джона Койса, Мауро Фрадеани, Майкла Апы, Иштвана Урбана, Майкла Пикоса. Всё, что разбираю в мастер-классах, делаю у себя в кресле.</p>
+      <div class="regs">Kois Center, ментор &nbsp;·&nbsp; Startsmile TOP &nbsp;·&nbsp; <span style="color:var(--carmine)">Forbes</span> &nbsp;·&nbsp; Leading Dental Centers</div>
+    </div>
+  </div>
+</section>
+<section>
+  <div class="w">
+    <h2>Что откроется после оплаты</h2>
+    <p class="sub narrow">Доступ приходит на почту сразу после оплаты. По каждому мастер-классу:</p>
 
+    <div class="spread">
+      <div class="pic"><img src="tetrad.jpg" alt="Рабочая тетрадь мастер-класса"></div>
+      <div>
+        <h3>Рабочая тетрадь к каждому мастер-классу</h3>
+        <p class="sub" style="margin-top:12px">Та же, по которой работали участники живого эфира. Скачивается и печатается.</p>
+      </div>
+    </div>
+
+    <div class="files" style="margin-top:26px">
+      <div class="file"><span class="ft">видео</span><span class="fn">Полная запись эфира</span><span class="fd">смотреть можно с телефона, планшета и компьютера</span></div>
+      <div class="file"><span class="ft">доступ</span><span class="fn">120 или 365 дней</span><span class="fd">365 — если берёте оба набора, отсчёт от дня оплаты</span></div>
+      <div class="file"><span class="ft">pdf</span><span class="fn">Чек-листы и протоколы</span><span class="fd">депрограммер, окклюзионная шина, противопоказания, формулы</span></div>
+      <div class="file"><span class="ft">видео</span><span class="fn">Сессия вопрос-ответ</span><span class="fd">45–60 минут разбора вопросов участников</span></div>
+      <div class="file"><span class="ft">pdf</span><span class="fn">Именной сертификат</span><span class="fd">с подписью, на каждый мастер-класс отдельно</span></div>
+      <div class="file"><span class="ft">чат</span><span class="fn">Служба заботы</span><span class="fd">Telegram, WhatsApp или MAX — если что-то не открылось</span></div>
+    </div>
+  </div>
+</section>
 <section class="pullwrap">
   <div class="w">
     <div class="pull">
@@ -470,7 +526,6 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--service);line-heig
     </div>
   </div>
 </section>
-
 <section id="sets">
   <div class="w">
     <h2>Тарифы</h2>
@@ -595,61 +650,13 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--service);line-heig
         </div>
       </div>
     </div>
-  </div>
-</section>
 
-<section>
-  <div class="w">
-    <h2>Всё показываю на пациентах</h2>
-    <p class="sub narrow">Кадры из мастер-класса «Центральное соотношение»: четыре инструмента регистрации на живых пациентах.</p>
-    <div class="shots">
-      <figure class="shot"><img src="cl1.jpg" alt="Мануальная методика Доусона"><figcaption>Мануальная методика Доусона</figcaption></figure>
-      <figure class="shot"><img src="cl2.jpg" alt="Листовой калибратор"><figcaption>Листовой калибратор</figcaption></figure>
-      <figure class="shot"><img src="cl3.jpg" alt="Джиг Лючия"><figcaption>Джиг Лючия</figcaption></figure>
-      <figure class="shot"><img src="cl4.jpg" alt="Депрограммер Койса"><figcaption>Депрограммер Койса</figcaption></figure>
+    <div class="deadnote">
+      <span class="dn-k">Сроки</span>
+      <p>Тарифы открыты до <b>18 октября, 23:59 по Москве</b>. Дальше мастер-классы возвращаются к обычным ценам и продаются поштучно. Следующий раз — через год.</p>
     </div>
   </div>
 </section>
-
-<section>
-  <div class="w two">
-    <figure class="portrait" style="margin:0">
-      <img src="ilya2.jpg" alt="Илья Скляров">
-      <figcaption>Илья Скляров · SmileClinic, Санкт-Петербург</figcaption>
-    </figure>
-    <div>
-      <h2>Илья Скляров</h2>
-      <p class="lead">Я стоматолог-ортопед, кандидат медицинских наук, первый и единственный в России сертифицированный ментор Kois Center.</p>
-      <p class="sub">27 лет в практике, принимаю пациентов каждую неделю. Учился у Джона Койса, Мауро Фрадеани, Майкла Апы, Иштвана Урбана, Майкла Пикоса. Всё, что разбираю в мастер-классах, делаю у себя в кресле.</p>
-      <div class="regs">Kois Center, ментор &nbsp;·&nbsp; Startsmile TOP &nbsp;·&nbsp; <span style="color:var(--carmine)">Forbes</span> &nbsp;·&nbsp; Leading Dental Centers</div>
-    </div>
-  </div>
-</section>
-
-<section>
-  <div class="w">
-    <h2>Что откроется после оплаты</h2>
-    <p class="sub narrow">Доступ приходит на почту сразу после оплаты. По каждому мастер-классу:</p>
-
-    <div class="spread">
-      <div class="pic"><img src="tetrad.jpg" alt="Рабочая тетрадь мастер-класса"></div>
-      <div>
-        <h3>Рабочая тетрадь к каждому мастер-классу</h3>
-        <p class="sub" style="margin-top:12px">Та же, по которой работали участники живого эфира. Скачивается и печатается.</p>
-      </div>
-    </div>
-
-    <div class="files" style="margin-top:26px">
-      <div class="file"><span class="ft">видео</span><span class="fn">Полная запись эфира</span><span class="fd">смотреть можно с телефона, планшета и компьютера</span></div>
-      <div class="file"><span class="ft">доступ</span><span class="fn">120 или 365 дней</span><span class="fd">365 — если берёте оба набора, отсчёт от дня оплаты</span></div>
-      <div class="file"><span class="ft">pdf</span><span class="fn">Чек-листы и протоколы</span><span class="fd">депрограммер, окклюзионная шина, противопоказания, формулы</span></div>
-      <div class="file"><span class="ft">видео</span><span class="fn">Сессия вопрос-ответ</span><span class="fd">45–60 минут разбора вопросов участников</span></div>
-      <div class="file"><span class="ft">pdf</span><span class="fn">Именной сертификат</span><span class="fd">с подписью, на каждый мастер-класс отдельно</span></div>
-      <div class="file"><span class="ft">чат</span><span class="fn">Служба заботы</span><span class="fd">Telegram, WhatsApp или MAX — если что-то не открылось</span></div>
-    </div>
-  </div>
-</section>
-
 <section>
   <div class="w two">
     <div>
@@ -657,12 +664,12 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--service);line-heig
       <p class="sub">Цена держится сутки и в полночь поднимается на ступень. Я делаю так, чтобы не собирать всех в последнюю ночь: материалы и доступ у всех одинаковые, отличается только цена.</p>
     </div>
     <div class="chart">
+      <div class="cap" style="margin-bottom:14px">Тариф «Всё сразу» по дням</div>
       <div class="bars" id="bars"></div>
       <div class="days" id="days"></div>
     </div>
   </div>
 </section>
-
 <section>
   <div class="w">
     <h2>Бонусы и подарки</h2>
@@ -699,12 +706,11 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--service);line-heig
     </div>
   </div>
 </section>
-
 <section>
   <div class="w two">
     <div>
-      <h2>Цена и сроки</h2>
-      <p class="sub">18 октября в 23:59 продажа закрывается, мастер-классы возвращаются к обычным ценам. Следующий раз — через год.</p>
+      <h2>Открыто до 18 октября</h2>
+      <p class="sub">Семь дней в году, когда эти мастер-классы продаются наборами. Дальше только поштучно и по обычной цене.</p>
     </div>
     <div class="pricecard">
       <div class="lab">Цена сегодня</div>
@@ -723,7 +729,6 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--service);line-heig
     </div>
   </div>
 </section>
-
 <section>
   <div class="w narrow">
     <h2>Вопросы</h2>
