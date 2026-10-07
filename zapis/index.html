@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Записи Ильи Склярова</title>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+<meta name="googlebot" content="noindex, nofollow">
+<meta name="yandex" content="noindex, nofollow">
+<meta property="og:title" content="Записи Ильи Склярова">
+<meta property="og:description" content="Выбирайте, где удобнее забрать ссылку на запись: Telegram или MAX">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Spectral:wght@400;500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#17171A;--ink2:#4a4a52;--bg:#fff;--soft:#F2F4F8;--brand:#5B73C6;--tg:#229ED9;--max:#5B3FE0}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font:16px/1.5 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:560px;margin:0 auto;padding:28px 16px 48px}
+.logo{display:block;height:34px;margin-bottom:28px}
+h1{font:400 34px/1.1 Spectral,Georgia,serif;letter-spacing:-.02em;text-wrap:balance}
+.lead{margin-top:12px;color:var(--ink2);font-size:17px}
+.card{margin-top:24px;border-radius:18px;background:var(--soft);overflow:hidden}
+.card img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;background:#dde2ee}
+.card .in{padding:18px 18px 20px}
+.card h2{font:500 22px/1.2 Spectral,Georgia,serif;letter-spacing:-.01em}
+.card p{margin-top:6px;color:var(--ink2);font-size:15px}
+.btns{display:grid;gap:10px;margin-top:16px}
+.btn{display:flex;align-items:center;justify-content:center;gap:10px;height:54px;border-radius:14px;color:#fff;text-decoration:none;font-weight:600;font-size:17px}
+.btn svg{width:22px;height:22px;flex:none}
+.btn.tg{background:var(--tg)}
+.btn.max{background:var(--max)}
+.btn:active{transform:translateY(1px)}
+.more{margin-top:36px;font:500 20px/1.2 Spectral,Georgia,serif}
+.foot{margin-top:40px;color:var(--ink2);font-size:13px;border-top:1px solid #e3e6ee;padding-top:16px}
+.hidden{display:none}
+@media (min-width:600px){.btns{grid-template-columns:1fr 1fr}h1{font-size:40px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <img class="logo" src="logo.png" alt="SklyarovCenter">
+  <h1 id="title">Где удобнее забрать запись?</h1>
+  <div class="lead">Выбирайте Telegram или MAX. Бот пришлёт ссылку сразу.</div>
+  <div id="one"></div>
+  <div class="more hidden" id="moreTitle">Другие записи</div>
+  <div id="list"></div>
+  <div class="foot">Илья Скляров · SmileClinic и SklyarovCenter</div>
+</div>
+<script>
+var TG = "plansklyarova_bot", MAX = "id781442007477_2_bot";
+var P = [
+  {s:"zharov",    t:"Разговор с Александром Жаровым", d:"Основатель TopSmile. Кэшфлоу, первый найм собственника, игроки A, B и C. 1 час 46 минут"},
+  {s:"dontsova",  t:"Разговор с Альбиной Донцовой",   d:"Основательница InWhite Medical, от 4 кресел до 26. Звёздные врачи и доля ФОТ. 1 час 22 минуты"},
+  {s:"art",       t:"Экскурсия по SmileClinic",       d:"С Максимом Лавриненко по всей клинике, от входа до кабинетов. 1 час 10 минут"},
+  {s:"dar",       t:"Клиника за 220 миллионов",       d:"Подкаст с Дмитрием Рябовым: запуск, окупаемость, выручка на кресло. 1 час 38 минут"},
+  {s:"20let",     t:"Двадцать лет SmileClinic",       d:"С Ритой на подкасте Startsmile Business. 1 час 41 минута"},
+  {s:"sinergium", t:"Интервью для Синергиума",        d:"Сервис, которого пациент не ждёт, и рост выручки по 20% в год. Почти 2,5 часа"}
+];
+var ICON_TG = '<svg viewBox="0 0 24 24" fill="#fff"><path d="M21.9 4.3 18.6 20c-.2 1.1-.9 1.4-1.8.9l-5-3.7-2.4 2.3c-.3.3-.5.5-1 .5l.4-5.1 9.3-8.4c.4-.4-.1-.6-.6-.2L6 13.6l-4.9-1.5c-1.1-.3-1.1-1.1.2-1.6L20.5 3c.9-.3 1.7.2 1.4 1.3z"/></svg>';
+var ICON_MAX = '<svg viewBox="0 0 24 24" fill="#fff"><path d="M12 2a10 10 0 0 0-8.7 15l-1.2 4.4 4.6-1.2A10 10 0 1 0 12 2zm4.3 13.6h-2v-4.5l-2.3 3.2-2.3-3.2v4.5h-2V8.4h1.9l2.4 3.4 2.4-3.4h1.9z"/></svg>';
+function card(p){
+  var k = "sale26_" + p.s;
+  return '<div class="card"><img src="thumbs/' + p.s + '.jpg" alt="" loading="lazy"><div class="in">' +
+    '<h2>' + p.t + '</h2><p>' + p.d + '</p><div class="btns">' +
+    '<a class="btn tg" href="https://t.me/' + TG + '?start=' + k + '">' + ICON_TG + 'Забрать в Telegram</a>' +
+    '<a class="btn max" href="https://max.ru/' + MAX + '?start=' + k + '">' + ICON_MAX + 'Забрать в MAX</a>' +
+    '</div></div></div>';
+}
+var v = (new URLSearchParams(location.search).get("v") || "").toLowerCase();
+var hit = P.filter(function(p){return p.s === v})[0];
+if (hit) {
+  document.title = hit.t + " · запись";
+  document.getElementById("one").innerHTML = card(hit);
+  document.getElementById("moreTitle").classList.remove("hidden");
+}
+document.getElementById("list").innerHTML = P.filter(function(p){return p !== hit}).map(card).join("");
+</script>
+</body>
+</html>
