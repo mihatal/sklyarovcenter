@@ -1,0 +1,26 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//SklyarovCenter//Efir 09.11//RU
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:konsweb2026-0911@sklyarovcenter.ru
+DTSTAMP:20261026T180000Z
+DTSTART:20261109T150000Z
+DTEND:20261109T170000Z
+SUMMARY:Эфир Ильи Склярова «Как презентова
+ ть комплексные планы»
+DESCRIPTION:Бесплатный эфир для стоматологов
+ . Ссылку на трансляцию пришлю в канал эф
+ ира и в бот за 5 минут до начала. Шаблон п
+ резентации плана лечения 2026 года получ
+ ат те\, кто будет онлайн.
+URL:https://sklyarovcenter.ru/konsweb2026
+LOCATION:Онлайн
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Через час эфир Ильи Склярова
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+END:VCALENDAR
